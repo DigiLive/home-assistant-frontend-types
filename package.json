@@ -1,0 +1,16 @@
+{
+  "name": "home-assistant-types",
+  "version": "20250509.0",
+  "description": "TypeScript type definitions for the Home Assistant frontend",
+  "keywords": ["home-assistant", "typescript", "type-definitions"],
+  "homepage": "https://github.com/DigiLive/home-assistant-types",
+  "author": "Ferry Cools",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/DigiLive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DigiLive/home-assistant-types"
+  }
+}
