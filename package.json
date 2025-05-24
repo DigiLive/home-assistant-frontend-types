@@ -1,8 +1,13 @@
 {
   "name": "home-assistant-types",
-  "version": "20250509.0",
-  "description": "TypeScript type definitions for the Home Assistant frontend",
-  "keywords": ["home-assistant", "typescript", "type-definitions"],
+  "version": "20250516.0",
+  "description": "TypeScript type declarations derived from the Home Assistant Frontend project",
+  "keywords": [
+    "home-assistant",
+    "frontend",
+    "typescript",
+    "type-definitions"
+  ],
   "homepage": "https://github.com/DigiLive/home-assistant-types",
   "author": "Ferry Cools",
   "funding": {
@@ -12,5 +17,19 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/DigiLive/home-assistant-types"
+  },
+  "license": "Apache-2.0",
+  "main": "",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*.d.ts"
+  ],
+  "scripts": {
+    "generate:index-dts": "node generate-index-dts.js",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run generate:index-dts && npm run typecheck && echo 'Remember to update types from hass-frontend before publishing!'"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }

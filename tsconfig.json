@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    // Specifies the base directory for resolving module names.
+    // Useful when using "paths".
+    "baseUrl": ".",
+    // A series of entries which re-map imports to lookup locations relative to the 'baseUrl'.
+    // This allows your IDE (like VS Code) and TypeScript itself to understand
+    // how paths like "home-assistant-frontend-types/data/hass" resolve to files
+    // within this package's 'dist' folder.
+    "paths": {
+      "home-assistant-frontend-types/*": ["./dist/*"]
+    },
+    // Standard TypeScript compiler options for strictness and module interop.
+    // These are good defaults even if this specific tsconfig isn't "building" files.
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true, // Recommended for types packages to avoid checking lib files
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node", // Common for modern Node.js projects
+    "target": "ESNext", // Can be adjusted, but won't emit JS anyway
+    "module": "ESNext"   // Can be adjusted, but won't emit JS anyway
+  },
+  // Specifies an array of filenames or patterns to include in the program.
+  // This ensures that all your generated .d.ts files in the 'dist' folder
+  // are considered part of this package's type definitions.
+  "include": ["./dist/**/*.d.ts"]
+}
