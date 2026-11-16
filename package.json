@@ -30,6 +30,6 @@
     "prepublishOnly": "npm run generate:index-dts && npm run typecheck && echo 'Remember to update types from hass-frontend before publishing!'"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.3"
   }
 }

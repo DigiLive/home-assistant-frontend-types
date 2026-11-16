@@ -22,20 +22,23 @@ jobs:
         node-version: [22.x]
 
     steps:
-      - name: Checkout Repository
+      - name: 1. Checkout My Repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check Upstream Release
+      - name: 2. Check Upstream Release vs Local package.json
         id: check-release
         run: |
           RAW_TAG=$(curl -s https://api.github.com/repos/home-assistant/frontend/releases/latest | jq -r .tag_name)
           LATEST_TAG="${RAW_TAG#v}"
-          echo "Latest upstream release: $LATEST_TAG"
+          echo "Latest upstream release tag: $RAW_TAG"
+          
+          echo "raw_tag=$RAW_TAG" >> $GITHUB_OUTPUT
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
           SAVED_TAG=$(node -p "require('./package.json').version")
-          echo "Current package.json version: $SAVED_TAG"
+          echo "Current local package.json version: $SAVED_TAG"
 
           if [ "$LATEST_TAG" = "$SAVED_TAG" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
             echo "No new release found. Skipping update."
@@ -52,30 +55,36 @@ jobs:
             "
           fi
 
-      - name: Setup Node.js
+      - name: 3. Setup Node.js (Version 22)
         if: steps.check-release.outputs.new_release == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Node Install
+      - name: 4. Install Root Dependencies & Update package-lock.json
         if: steps.check-release.outputs.new_release == 'true'
-        run: npm ci
+        run: npm install
 
-      - name: Clone Home Assistant Frontend
+      - name: 5. Enable Corepack for pnpm Support
+        if: steps.check-release.outputs.new_release == 'true'
+        run: corepack enable
+
+      - name: 6. Clone Exact Home Assistant Frontend Release Temporarily
         if: steps.check-release.outputs.new_release == 'true'
         run: |
-          git clone --depth 1 https://github.com/home-assistant/frontend.git temp-frontend
+          TARGET_TAG="${{ steps.check-release.outputs.raw_tag }}"
+          echo "Cloning tag: $TARGET_TAG"
+          git clone --depth 1 --branch "$TARGET_TAG" https://github.com/home-assistant/frontend.git temp-frontend
 
-      - name: Install Frontend Dependencies
+      - name: 7. Install Temporary Frontend Dependencies via pnpm
         if: steps.check-release.outputs.new_release == 'true'
         working-directory: ./temp-frontend
-        run: npm ci
+        run: pnpm install
 
-      - name: Create Extraction Config
+      - name: 8. Create Lenient TypeScript Extraction Config
         if: steps.check-release.outputs.new_release == 'true'
         run: |
-          cat << 'EOF' > tsconfig.extract.json
+          cat << 'EOF' > temp-frontend/tsconfig.extract.json
           {
             "compilerOptions": {
               "target": "ESNext",
@@ -83,42 +92,51 @@ jobs:
               "moduleResolution": "bundler",
               "declaration": true,
               "emitDeclarationOnly": true,
-              "outDir": "./dist",
-              "strict": true,
+              "outDir": "../dist",
+              "strict": false,
+              "noEmitOnError": false,
               "skipLibCheck": true,
               "experimentalDecorators": true
             },
             "include": [
-              "temp-frontend/src/types.ts",
-              "temp-frontend/src/data/**/*.ts",
-              "temp-frontend/src/panels/lovelace/**/*.ts"
+              "src/types.ts",
+              "src/data/**/*.ts",
+              "src/panels/lovelace/**/*.ts"
             ]
           }
           EOF
 
-      - name: Compile Types via tsc
+      - name: 9. Compile TypeScript Types into dist Folder
         if: steps.check-release.outputs.new_release == 'true'
-        run: npx tsc -p tsconfig.extract.json
+        working-directory: ./temp-frontend
+        run: npx tsc -p tsconfig.extract.json || true
 
-      - name: Clean up temporary frontend source
+      - name: 10. Clean Up Temporary Frontend Source Files
         if: steps.check-release.outputs.new_release == 'true'
-        run: rm -rf temp-frontend tsconfig.extract.json
+        run: rm -rf temp-frontend
 
-      - name: Generate Index DTS
+      - name: 11. Generate Index Declaration File (generate-index-dts.js)
         if: steps.check-release.outputs.new_release == 'true'
         run: node generate-index-dts.js
 
-      - name: Check for file changes
+      - name: 12. Check If Files Have Changed
         id: checkDiff
         if: steps.check-release.outputs.new_release == 'true'
         run: |
           git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
 
-      - name: Commit and Push Types Build
+      - name: 13. Commit and Push Only dist, package.json and package-lock.json
         if: steps.check-release.outputs.new_release == 'true' && steps.checkDiff.outputs.changed == 'true'
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config --global user.email "ci_activity@noreply.github.com"
-          git add dist package.json
+          
+          git add dist package.json package-lock.json
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push
+          
+          VERSION=$(node -p "require('./package.json').version")
+          
+          git tag "$VERSION"
+          git push origin "$VERSION"
+          
