@@ -1,7 +1,5 @@
 import { LitElement } from "lit";
-import "../../../../../components/ha-duration-input";
-import "../../../../../components/ha-formfield";
-import "../../../../../components/ha-textfield";
+import "../../../../../components/ha-form/ha-form";
 import type { WaitForTriggerAction } from "../../../../../data/script";
 import type { HomeAssistant } from "../../../../../types";
 import "../../trigger/ha-automation-trigger";
@@ -10,10 +8,14 @@ export declare class HaWaitForTriggerAction extends LitElement implements Action
     hass: HomeAssistant;
     action: WaitForTriggerAction;
     disabled: boolean;
+    narrow: boolean;
+    inSidebar: boolean;
+    indent: boolean;
     static get defaultConfig(): WaitForTriggerAction;
+    private _schema;
     protected render(): import("lit-html").TemplateResult<1>;
-    private _timeoutChanged;
-    private _continueChanged;
+    private _computeLabelCallback;
+    private _formValueChanged;
     private _valueChanged;
     static styles: import("lit").CSSResult;
 }

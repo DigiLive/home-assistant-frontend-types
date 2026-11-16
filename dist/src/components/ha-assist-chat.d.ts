@@ -1,26 +1,39 @@
-import type { PropertyValues, TemplateResult } from "lit";
+import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import { type AssistPipeline } from "../data/assist_pipeline";
 import "./ha-alert";
-import "./ha-textfield";
+import "./ha-markdown";
+import "./input/ha-input";
+export declare const initialPromptToSubmit: (prompt: string | undefined, submit: boolean) => string | undefined;
+export declare const assistPipelineChanged: (previous: AssistPipeline | undefined, current: AssistPipeline | undefined) => boolean;
+export declare const greetingTranslationLanguage: (pipelineLanguage: string | undefined, interfaceLanguage: string | undefined) => string | undefined;
 export declare class HaAssistChat extends LitElement {
-    hass: HomeAssistant;
     pipeline?: AssistPipeline;
     disableSpeech: boolean;
     startListening?: boolean;
+    initialPrompt?: string;
+    submitInitialPrompt: boolean;
     private _messageInput;
-    private _scrollContainer;
+    private _lastChatMessage?;
+    private _lastChatMessageImage;
     private _conversation;
     private _showSendButton;
     private _processing;
+    private _localize;
+    private _language;
+    private _states;
+    private _config;
+    private _connection;
     private _conversationId;
+    private _greetingLoadToken;
+    private _initialPromptSubmitted;
     private _audioRecorder?;
     private _audioBuffer?;
     private _audio?;
     private _stt_binary_handler_id?;
-    protected willUpdate(changedProperties: PropertyValues): void;
-    protected firstUpdated(changedProperties: PropertyValues): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
+    private _loadGreeting;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
     protected updated(changedProps: PropertyValues): void;
     disconnectedCallback(): void;
     protected render(): TemplateResult;
@@ -30,6 +43,7 @@ export declare class HaAssistChat extends LitElement {
     private _handleSendMessage;
     private _handleListeningButton;
     private _toggleListening;
+    private _handleToggleThinking;
     private _addMessage;
     private _showNotSupportedMessage;
     private _startListening;
@@ -38,7 +52,7 @@ export declare class HaAssistChat extends LitElement {
     private _unloadAudio;
     private _processText;
     private _createAddHassMessageProcessor;
-    static styles: import("lit").CSSResult;
+    static get styles(): CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

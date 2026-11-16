@@ -1,7 +1,5 @@
 import { LitElement } from "lit";
 import "../../../../../../components/ha-icon-next";
-import "../../../../../../components/ha-md-list-item";
-import "../../../../../../components/ha-md-list";
 import type { HomeAssistant } from "../../../../../../types";
 declare class MatterAddDeviceGoogleHome extends LitElement {
     hass: HomeAssistant;

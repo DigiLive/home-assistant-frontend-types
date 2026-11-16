@@ -2,6 +2,7 @@ import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../components/chart/state-history-charts";
 import "../../components/chart/statistics-chart";
+import "../../components/ha-alert";
 import type { HomeAssistant } from "../../types";
 declare global {
     interface HASSDomEvents {
@@ -20,13 +21,14 @@ export declare class MoreInfoHistory extends LitElement {
     private _error?;
     private _metadata?;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected willUpdate(changedProps: PropertyValues): void;
+    protected willUpdate(changedProps: PropertyValues<this>): void;
     connectedCallback(): void;
     disconnectedCallback(): void;
     private _unsubscribeHistory;
     private _redrawGraph;
-    private _setRedrawTimer;
+    private _setUpdateTimer;
     private _getStatisticsMetaData;
+    private _fetchStatistics;
     private _getStateHistory;
     static styles: import("lit").CSSResult[];
 }

@@ -1,4 +1,4 @@
-import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import type { HassEntities, HassEntity, HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
 import type { HomeAssistant } from "../types";
 export interface BasePerson {
     name: string;
@@ -34,4 +34,13 @@ export declare const fetchPersons: (hass: HomeAssistant) => Promise<{
 export declare const createPerson: (hass: HomeAssistant, values: PersonMutableParams) => Promise<Person>;
 export declare const updatePerson: (hass: HomeAssistant, personId: string, updates: Partial<PersonMutableParams>) => Promise<Person>;
 export declare const deletePerson: (hass: HomeAssistant, personId: string) => Promise<unknown>;
+export interface OwnProfileMutableParams {
+    name: string;
+    picture: string | null;
+}
+export declare const updateOwnProfile: (callWS: HomeAssistant["callWS"], updates: Partial<OwnProfileMutableParams>) => Promise<{
+    user_name: string;
+    person: Person | null;
+}>;
+export declare const getUserPerson: (userId: string | undefined, states: HassEntities) => undefined | HassEntity;
 export {};

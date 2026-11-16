@@ -1,17 +1,15 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
-import "../../../components/ha-attributes";
 import "../../../components/ha-control-button";
 import "../../../components/ha-control-button-group";
-import "../../../components/ha-outlined-icon-button";
 import "../../../components/ha-state-icon";
 import type { LockEntity } from "../../../data/lock";
 import "../../../state-control/lock/ha-state-control-lock-toggle";
-import type { HomeAssistant } from "../../../types";
 import "../components/ha-more-info-state-header";
 type ButtonState = "normal" | "confirm" | "done";
 declare class MoreInfoLock extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _localize;
     stateObj?: LockEntity;
     _buttonState: ButtonState;
     private _buttonTimeout?;

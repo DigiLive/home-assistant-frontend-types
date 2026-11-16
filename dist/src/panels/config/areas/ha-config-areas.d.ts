@@ -7,7 +7,6 @@ declare class HaConfigAreas extends HassRouterPage {
     hass: HomeAssistant;
     narrow: boolean;
     isWide: boolean;
-    showAdvanced: boolean;
     protected routerOptions: RouterOptions;
     protected updatePageEl(pageEl: any): void;
 }

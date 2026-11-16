@@ -7,4 +7,4 @@ export interface EnterCodeDialogParams {
     submit?: (code?: string) => void;
     cancel?: () => void;
 }
-export declare const showEnterCodeDialog: (element: HTMLElement, dialogParams: EnterCodeDialogParams) => Promise<string | null>;
+export declare const showEnterCodeDialog: (element: HTMLElement, dialogParams: EnterCodeDialogParams) => Promise<string>;

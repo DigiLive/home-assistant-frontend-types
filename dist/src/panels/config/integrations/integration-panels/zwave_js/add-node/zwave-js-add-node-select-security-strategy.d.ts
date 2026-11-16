@@ -4,7 +4,7 @@ import { InclusionStrategy } from "../../../../../../data/zwave_js";
 import "../../../../../../components/ha-form/ha-form";
 export declare class ZWaveJsAddNodeSelectMethod extends LitElement {
     hass: HomeAssistant;
-    _inclusionStrategy?: InclusionStrategy;
+    inclusionStrategy?: InclusionStrategy;
     private _getSchema;
     render(): import("lit-html").TemplateResult<1>;
     private _computeLabel;

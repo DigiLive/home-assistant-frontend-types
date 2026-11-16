@@ -1,35 +1,55 @@
-import type { HomeAssistant, PanelInfo } from "../../types";
+import type { HomeAssistant, HomeAssistantApi, PanelInfo } from "../../types";
 import type { SupervisorArch } from "../supervisor/supervisor";
-import type { HassioResponse } from "./common";
+import type { AddonState } from "./addon";
+import { type HassioResponse } from "./common";
 export interface HassioHomeAssistantInfo {
-    arch: SupervisorArch;
+    arch: SupervisorArch | null;
     audio_input: string | null;
     audio_output: string | null;
+    backups_exclude_database: boolean;
     boot: boolean;
+    duplicate_log_file: boolean;
     image: string;
     ip_address: string;
-    machine: string;
+    machine: string | null;
     port: number;
     ssl: boolean;
     update_available: boolean;
-    version_latest: string;
-    version: string;
-    wait_boot: number;
+    version_latest: string | null;
+    version: string | null;
     watchdog: boolean;
 }
+export interface HassioSupervisorInfoAddon {
+    icon: boolean;
+    name: string;
+    repository: string;
+    slug: string;
+    state: AddonState;
+    update_available: boolean;
+    version: string;
+    version_latest: string;
+}
+export interface HassioSupervisorInfoRepository {
+    name: string;
+    slug: string;
+}
 export interface HassioSupervisorInfo {
-    addons: string[];
-    addons_repositories: string[];
+    addons: HassioSupervisorInfoAddon[];
+    addons_repositories: HassioSupervisorInfoRepository[];
     arch: SupervisorArch;
+    auto_update: boolean;
     channel: string;
+    country: string | null;
     debug: boolean;
     debug_block: boolean;
+    detect_blocking_io: boolean;
     diagnostics: boolean | null;
+    feature_flags: Record<string, boolean>;
     healthy: boolean;
     ip_address: string;
     logging: string;
     supported: boolean;
-    timezone: string;
+    timezone: string | null;
     update_available: boolean;
     version: string;
     version_latest: string;
@@ -40,13 +60,14 @@ export interface HassioInfo {
     channel: string;
     docker: string;
     features: string[];
-    hassos: null;
-    homeassistant: string;
-    hostname: string;
+    hassos: string | null;
+    homeassistant: string | null;
+    hostname: string | null;
     logging: string;
-    machine: string;
+    machine: string | null;
+    machine_id: string | null;
     state: "initialize" | "setup" | "startup" | "running" | "freeze" | "shutdown" | "stopping" | "close";
-    operating_system: string;
+    operating_system: string | null;
     supervisor: string;
     supported: boolean;
     supported_arch: SupervisorArch[];
@@ -58,9 +79,6 @@ export interface HassioBoots {
 export type HassioPanelInfo = PanelInfo<undefined | {
     ingress?: string;
 }>;
-export interface CreateSessionResponse {
-    session: string;
-}
 export interface SupervisorOptions {
     channel?: "beta" | "dev" | "stable";
     diagnostics?: boolean;
@@ -72,11 +90,12 @@ export declare const updateSupervisor: (hass: HomeAssistant) => Promise<void>;
 export declare const fetchHassioHomeAssistantInfo: (hass: HomeAssistant) => Promise<HassioHomeAssistantInfo>;
 export declare const fetchHassioSupervisorInfo: (hass: HomeAssistant) => Promise<HassioSupervisorInfo>;
 export declare const fetchHassioInfo: (hass: HomeAssistant) => Promise<HassioInfo>;
-export declare const fetchHassioBoots: (hass: HomeAssistant) => Promise<HassioResponse<HassioBoots>>;
-export declare const fetchHassioLogsLegacy: (hass: HomeAssistant, provider: string) => Promise<string>;
-export declare const fetchHassioLogs: (hass: HomeAssistant, provider: string, range?: string, boot?: number) => Promise<Response>;
-export declare const fetchHassioLogsFollow: (hass: HomeAssistant, provider: string, signal: AbortSignal, lines?: number, boot?: number) => Promise<Response>;
-export declare const fetchHassioLogsFollowSkip: (hass: HomeAssistant, provider: string, signal: AbortSignal, cursor: string, skipLines: number, lines?: number, boot?: number) => Promise<Response>;
+export declare const fetchHassioBoots: (api: HomeAssistantApi) => Promise<HassioResponse<HassioBoots>>;
+export declare const fetchHassioLogsLegacy: (api: HomeAssistantApi, provider: string) => Promise<string>;
+export declare const fetchHassioLogs: (api: HomeAssistantApi, provider: string, range?: string, boot?: number) => Promise<Response>;
+export declare const fetchHassioLogsFollow: (api: HomeAssistantApi, provider: string, signal: AbortSignal, lines?: number, boot?: number) => Promise<Response>;
+export declare const fetchHassioLogsFollowSkip: (api: HomeAssistantApi, provider: string, signal: AbortSignal, cursor: string, skipLines: number, lines?: number, boot?: number) => Promise<Response>;
 export declare const getHassioLogDownloadUrl: (provider: string) => string;
 export declare const getHassioLogDownloadLinesUrl: (provider: string, lines: number, boot?: number) => string;
 export declare const setSupervisorOption: (hass: HomeAssistant, data: SupervisorOptions) => Promise<void>;
+export declare const coreLatestLogsUrl: string;

@@ -1,28 +1,27 @@
-import type { HassEntity } from "home-assistant-js-websocket";
-import type { PropertyValues } from "lit";
-import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../../types";
-import "../ha-combo-box";
-export type HaEntityPickerEntityFilterFunc = (entityId: HassEntity) => boolean;
-declare class HaEntityStatePicker extends LitElement {
-    hass: HomeAssistant;
-    entityId?: string;
+import { LitElement } from "lit";
+import "../ha-generic-picker";
+import type { PickerComboBoxItem } from "../ha-picker-combo-box";
+export declare class HaEntityStatePicker extends LitElement {
+    entityId?: string | string[];
     attribute?: string;
-    extraOptions?: any[];
+    extraOptions?: PickerComboBoxItem[];
     autofocus: boolean;
     disabled: boolean;
     required: boolean;
     allowCustomValue: any;
+    hideStates?: string[];
     label?: string;
     value?: string;
     helper?: string;
-    private _opened;
-    private _comboBox;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
-    protected updated(changedProps: PropertyValues): void;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    private get _value();
-    private _openedChanged;
+    private _stateObjs?;
+    private _states?;
+    private _formatters;
+    private _i18n;
+    private _getItems;
+    private _getFilteredItems;
+    private _valueRenderer;
+    private _computeDefaultLabel;
+    protected render(): import("lit-html").TemplateResult<1>;
     private _valueChanged;
     private _setValue;
 }
@@ -31,4 +30,3 @@ declare global {
         "ha-entity-state-picker": HaEntityStatePicker;
     }
 }
-export {};

@@ -3,9 +3,9 @@ import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../components/ha-control-button";
 import "../components/ha-control-switch";
-import type { HomeAssistant } from "../types";
 export declare class HaStateControlToggle extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
+    private _api;
     stateObj: HassEntity;
     iconPathOn?: string;
     iconPathOff?: string;
@@ -14,7 +14,7 @@ export declare class HaStateControlToggle extends LitElement {
     private _turnOff;
     private _callService;
     protected render(): TemplateResult;
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {

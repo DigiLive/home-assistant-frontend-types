@@ -25,6 +25,8 @@ declare class ActionHandler extends HTMLElement implements ActionHandlerType {
     protected held: boolean;
     private cancelled;
     private dblClickTimeout?;
+    private dblClickTarget?;
+    private resolved?;
     connectedCallback(): void;
     bind(element: ActionHandlerElement, options?: ActionHandlerOptions): void;
     private _startAnimation;

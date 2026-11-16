@@ -1,6 +1,11 @@
+import type { LocalizeFunc } from "../../../../../common/translations/localize";
 import type { Cluster, ZHADevice, ZHAGroup } from "../../../../../data/zha";
 export declare const formatAsPaddedHex: (value: string | number) => string;
 export declare const getIeeeTail: (ieee: string) => string;
+export declare const formatGreenPowerSrcId: (device: ZHADevice) => string | undefined;
+export declare const computeZHADeviceType: (device: ZHADevice, localize: LocalizeFunc) => string;
 export declare const sortZHADevices: (a: ZHADevice, b: ZHADevice) => number;
 export declare const sortZHAGroups: (a: ZHAGroup, b: ZHAGroup) => number;
 export declare const computeClusterKey: (cluster: Cluster) => string;
+export declare const computeClusterSecondary: (cluster: Cluster, localize: LocalizeFunc) => string;
+export declare const computeClusterValue: (cluster: Cluster) => string;

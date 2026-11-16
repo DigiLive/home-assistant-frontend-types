@@ -1,18 +1,16 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-button";
-import "../../../components/ha-dialog-header";
-import "../../../components/ha-icon-button";
-import "../../../components/ha-md-dialog";
-import "../../../components/ha-md-select";
-import "../../../components/ha-md-select-option";
+import "../../../components/ha-dialog-footer";
+import "../../../components/ha-select";
+import "../../../components/ha-dialog";
 import type { HomeAssistant } from "../../../types";
 import type { DownloadLogsDialogParams } from "./show-dialog-download-logs";
 declare class DownloadLogsDialog extends LitElement {
     hass: HomeAssistant;
     private _dialogParams?;
+    private _open;
     private _lineCount;
-    private _dialogElement;
     showDialog(dialogParams: DownloadLogsDialogParams): void;
     closeDialog(): void;
     private _dialogClosed;

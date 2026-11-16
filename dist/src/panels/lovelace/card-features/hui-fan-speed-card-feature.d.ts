@@ -1,15 +1,18 @@
-import type { HassEntity } from "home-assistant-js-websocket";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-control-select";
 import "../../../components/ha-control-slider";
-import type { FanEntity } from "../../../data/fan";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardFeature } from "../types";
-import type { FanSpeedCardFeatureConfig } from "./types";
-export declare const supportsFanSpeedCardFeature: (stateObj: HassEntity) => boolean;
+import type { FanSpeedCardFeatureConfig, LovelaceCardFeatureContext } from "./types";
+export declare const supportsFanSpeedCardFeature: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
 declare class HuiFanSpeedCardFeature extends LitElement implements LovelaceCardFeature {
-    hass?: HomeAssistant;
-    stateObj?: FanEntity;
+    context?: LovelaceCardFeatureContext;
+    private _stateObj?;
+    private _localize;
+    private _api;
+    private _formatters;
+    private _entities;
+    private _locale?;
     private _config?;
     static getStubConfig(): FanSpeedCardFeatureConfig;
     setConfig(config: FanSpeedCardFeatureConfig): void;

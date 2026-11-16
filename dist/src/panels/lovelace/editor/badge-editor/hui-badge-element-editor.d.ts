@@ -1,5 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from "lit";
-import "../../../../components/sl-tab-group";
+import "../../../../components/ha-tab-group";
+import "../../../../components/ha-tab-group-tab";
 import type { LovelaceBadgeConfig } from "../../../../data/lovelace/config/badge";
 import type { LovelaceCardEditor, LovelaceConfigForm } from "../../types";
 import { HuiTypedElementEditor } from "../hui-typed-element-editor";

@@ -1,7 +1,7 @@
 import { LitElement } from "lit";
 import type { HomeAssistant } from "../types";
 import "./ha-svg-icon";
-import "./ha-textfield";
+import "./input/ha-input";
 export interface DatePickerDialogParams {
     value?: string;
     min?: string;
@@ -19,8 +19,12 @@ export declare class HaDateInput extends LitElement {
     disabled: boolean;
     required: boolean;
     label?: string;
+    /** Accessible name for the input when it has no visible label. */
+    accessibleLabel?: string;
     helper?: string;
     canClear: boolean;
+    private _input?;
+    reportValidity(): boolean;
     render(): import("lit-html").TemplateResult<1>;
     private _openDialog;
     private _keyDown;

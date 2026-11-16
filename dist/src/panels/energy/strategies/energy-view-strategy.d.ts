@@ -1,9 +1,11 @@
 import { ReactiveElement } from "lit";
-import type { HomeAssistant } from "../../../types";
 import type { LovelaceViewConfig } from "../../../data/lovelace/config/view";
-import type { LovelaceStrategyConfig } from "../../../data/lovelace/config/strategy";
+import type { HomeAssistant } from "../../../types";
+import type { EnergyViewStrategyConfig } from "./energy-cards";
+import type { LovelaceStrategyDependency } from "../../lovelace/strategies/types";
 export declare class EnergyViewStrategy extends ReactiveElement {
-    static generate(_config: LovelaceStrategyConfig, hass: HomeAssistant): Promise<LovelaceViewConfig>;
+    static registryDependencies: readonly LovelaceStrategyDependency[];
+    static generate(_config: EnergyViewStrategyConfig, hass: HomeAssistant): Promise<LovelaceViewConfig>;
 }
 declare global {
     interface HTMLElementTagNameMap {

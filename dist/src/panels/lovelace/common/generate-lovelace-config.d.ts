@@ -7,9 +7,13 @@ import type { LovelaceSectionConfig } from "../../../data/lovelace/config/sectio
 import type { LovelaceViewConfig } from "../../../data/lovelace/config/view";
 import type { HomeAssistant } from "../../../types";
 import type { EntitiesCardConfig } from "../cards/types";
-import type { LovelaceBadgeConfig } from "../../../data/lovelace/config/badge";
+import type { EntityConfig } from "../entity-rows/types";
 export declare const computeSection: (entityIds: string[], sectionOptions?: Partial<LovelaceSectionConfig>) => LovelaceSectionConfig;
-export declare const computeCards: (states: HassEntities, entityIds: string[], entityCardOptions: Partial<EntitiesCardConfig>, renderFooterEntities?: boolean) => LovelaceCardConfig[];
-export declare const computeBadges: (_states: HassEntities, entityIds: string[]) => LovelaceBadgeConfig[];
-export declare const generateViewConfig: (localize: LocalizeFunc, path: string, title: string | undefined, icon: string | undefined, entities: HassEntities) => LovelaceViewConfig;
-export declare const generateDefaultViewConfig: (areaEntries: HomeAssistant["areas"], deviceEntries: HomeAssistant["devices"], entityEntries: HomeAssistant["entities"], entities: HassEntities, localize: LocalizeFunc, energyPrefs?: EnergyPreferences, areasPrefs?: AreasDisplayValue, hideEntitiesWithoutAreas?: boolean, hideEnergy?: boolean) => LovelaceViewConfig;
+interface ComputeCardsOptions {
+    renderFooterEntities?: boolean;
+    entityName?: EntityConfig["name"];
+}
+export declare const computeCards: (hass: HomeAssistant, entityIds: string[], entityCardOptions: Partial<EntitiesCardConfig>, options?: ComputeCardsOptions) => LovelaceCardConfig[];
+export declare const generateViewConfig: (hass: HomeAssistant, path: string, title: string | undefined, icon: string | undefined, show_icon_and_title: boolean | undefined, entities: HassEntities) => LovelaceViewConfig;
+export declare const generateDefaultViewConfig: (hass: HomeAssistant, localize: LocalizeFunc, energyPrefs?: EnergyPreferences, areasPrefs?: AreasDisplayValue, hideEntitiesWithoutAreas?: boolean, hideEnergy?: boolean) => LovelaceViewConfig;
+export {};

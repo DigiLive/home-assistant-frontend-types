@@ -1,10 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
+import "../../../../../components/ha-dialog";
 import "../../../../../components/ha-expansion-panel";
 import "../../../../../components/ha-help-tooltip";
-import "../../../../../components/ha-list";
-import "../../../../../components/ha-list-item";
 import "../../../../../components/ha-svg-icon";
+import "../../../../../components/item/ha-list-item-base";
+import "../../../../../components/list/ha-list-base";
 import type { HomeAssistant } from "../../../../../types";
 import type { ZWaveJSNodeStatisticsDialogParams } from "./show-dialog-zwave_js-node-statistics";
 declare class DialogZWaveJSNodeStatistics extends LitElement {
@@ -13,10 +14,12 @@ declare class DialogZWaveJSNodeStatistics extends LitElement {
     private _nodeStatistics?;
     private _deviceIDsToName;
     private _workingRoutes;
+    private _open;
     private _subscribedNodeStatistics?;
     private _subscribedDeviceRegistry?;
     showDialog(params: ZWaveJSNodeStatisticsDialogParams): void;
     closeDialog(): void;
+    private _dialogClosed;
     protected render(): typeof nothing | TemplateResult<1>;
     private _computeRSSI;
     private _computeDeviceNameById;

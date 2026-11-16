@@ -1,11 +1,17 @@
-import { IconButton } from "@material/web/iconbutton/internal/icon-button";
-export declare class HaOutlinedIconButton extends IconButton {
-    protected getRenderClasses(): {
-        outlined: boolean;
-        'flip-icon': boolean;
-        selected: boolean;
-    };
-    static styles: import("lit").CSSResult[];
+import type { CSSResultGroup } from "lit";
+import { HaIconButton } from "./ha-icon-button";
+/**
+ * @element ha-outlined-icon-button
+ * @extends {HaIconButton}
+ *
+ * @summary
+ * Icon button with a circular outline.
+ *
+ * @cssprop --ha-icon-button-size - Size of the button. Defaults to `40px`.
+ * @cssprop --ha-outlined-icon-button-outline-color - Color of the outline. Defaults to `--secondary-text-color`.
+ */
+export declare class HaOutlinedIconButton extends HaIconButton {
+    static styles: CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

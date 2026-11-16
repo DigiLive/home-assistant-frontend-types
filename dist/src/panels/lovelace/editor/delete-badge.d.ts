@@ -1,8 +1,8 @@
-import type { HomeAssistant } from "../../../types";
+import type { LocalizeFunc } from "../../../common/translations/localize";
 import type { Lovelace } from "../types";
-import type { LovelaceCardPath } from "./lovelace-path";
+import type { LovelacePath } from "./lovelace-path";
 export interface DeleteBadgeParams {
-    path: LovelaceCardPath;
+    path: LovelacePath;
     silent: boolean;
 }
-export declare function performDeleteBadge(hass: HomeAssistant, lovelace: Lovelace, params: DeleteBadgeParams): Promise<void>;
+export declare function performDeleteBadge(localize: LocalizeFunc, lovelace: Lovelace, params: DeleteBadgeParams): Promise<boolean>;

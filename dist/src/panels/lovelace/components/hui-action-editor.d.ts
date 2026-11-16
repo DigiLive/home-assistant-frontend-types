@@ -1,13 +1,20 @@
-import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
-import "../../../components/ha-assist-pipeline-picker";
 import "../../../components/ha-help-tooltip";
-import "../../../components/ha-list-item";
 import "../../../components/ha-navigation-picker";
 import "../../../components/ha-service-control";
+import "../../../components/input/ha-input";
 import type { ActionConfig } from "../../../data/lovelace/config/action";
 import type { HomeAssistant } from "../../../types";
 export type UiAction = Exclude<ActionConfig["action"], "fire-dom-event">;
+export interface ActionRelatedContext {
+    entity_id?: string;
+    area_id?: string;
+}
+export declare const ACTION_RELATED_CONTEXT: {
+    readonly entity_id: "entity";
+    readonly area_id: "area";
+};
+export declare const supportedActions: (struct: any, supported_actions: UiAction[]) => import("superstruct").Struct<any, unknown>;
 export declare class HuiActionEditor extends LitElement {
     config?: ActionConfig;
     label?: string;
@@ -15,12 +22,14 @@ export declare class HuiActionEditor extends LitElement {
     defaultAction?: UiAction;
     tooltipText?: string;
     hass?: HomeAssistant;
-    private _select;
+    required?: boolean;
+    context?: ActionRelatedContext;
     get _navigation_path(): string;
     get _url_path(): string;
     get _service(): string;
     private _serviceAction;
-    protected updated(changedProperties: PropertyValues<typeof this>): void;
+    private _navigateSchema;
+    private _filterToggleAction;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _actionPicked;
     private _valueChanged;

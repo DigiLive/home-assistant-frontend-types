@@ -1,9 +1,9 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { ClimateEntity } from "../data/climate";
-import type { HomeAssistant } from "../types";
 declare class HaClimateState extends LitElement {
-    hass: HomeAssistant;
+    private _formatters?;
+    private _localize;
     stateObj: ClimateEntity;
     protected render(): TemplateResult;
     private _computeCurrentStatus;

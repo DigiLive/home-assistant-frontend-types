@@ -1,14 +1,12 @@
 import type { HassEntity } from "home-assistant-js-websocket";
-import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
+import type { TemplateResult, PropertyValues } from "lit";
 import type { HaDevicePickerDeviceFilterFunc } from "./device/ha-device-picker";
 import "./ha-combo-box-item";
 import "./ha-generic-picker";
 import "./ha-icon-button";
 import "./ha-svg-icon";
 export declare class HaAreaPicker extends LitElement {
-    hass: HomeAssistant;
     label?: string;
     value?: string;
     helper?: string;
@@ -42,16 +40,27 @@ export declare class HaAreaPicker extends LitElement {
     entityFilter?: (entity: HassEntity) => boolean;
     disabled: boolean;
     required: boolean;
+    addButtonLabel?: string;
+    private _api;
+    private _i18n;
+    private _states;
+    private _entities;
+    private _devices;
+    private _areas;
+    private _floors;
     private _picker?;
+    private _pendingAreaId?;
+    protected willUpdate(changedProperties: PropertyValues): void;
     open(): Promise<void>;
+    private _getAreasMemoized;
     private _computeValueRenderer;
-    private _getAreas;
     private _getItems;
     private _allAreaNames;
     private _getAdditionalItems;
     protected render(): TemplateResult;
     private _valueChanged;
     private _setValue;
+    private _notFoundLabel;
 }
 declare global {
     interface HTMLElementTagNameMap {

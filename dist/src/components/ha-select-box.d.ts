@@ -1,6 +1,8 @@
+import type { ContextType } from "@lit/context";
 import { LitElement } from "lit";
-import "./ha-radio";
-import type { HomeAssistant } from "../types";
+import { internationalizationContext, uiContext } from "../data/context";
+import "./radio/ha-radio-group";
+import "./radio/ha-radio-option";
 interface SelectBoxOptionImage {
     src: string;
     src_dark?: string;
@@ -14,14 +16,15 @@ export interface SelectBoxOption {
     disabled?: boolean;
 }
 export declare class HaSelectBox extends LitElement {
-    hass?: HomeAssistant;
     options: SelectBoxOption[];
     value?: string;
     disabled?: boolean;
     maxColumns?: number;
+    stackedImage: boolean;
+    protected _i18n?: ContextType<typeof internationalizationContext>;
+    protected _ui?: ContextType<typeof uiContext>;
     render(): import("lit-html").TemplateResult<1>;
     private _renderOption;
-    private _labelClick;
     private _radioChanged;
     static styles: import("lit").CSSResult;
 }

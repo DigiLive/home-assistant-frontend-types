@@ -1,5 +1,6 @@
 import type { HassEntity } from "home-assistant-js-websocket";
 import type { HomeAssistant } from "../../types";
+export { isMoreInfoView, MORE_INFO_VIEWS, type MoreInfoView, } from "./more-info-view";
 export declare const DOMAINS_NO_INFO: string[];
 /**
  * Entity domains that should be editable *if* they have an id present;
@@ -22,5 +23,5 @@ export declare const DOMAINS_HIDE_DEFAULT_MORE_INFO: string[];
 /** Domains that should have the history hidden in the more info dialog. */
 export declare const DOMAINS_MORE_INFO_NO_HISTORY: string[];
 export declare const computeShowHistoryComponent: (hass: HomeAssistant, entityId: string) => boolean;
-export declare const computeShowLogBookComponent: (hass: HomeAssistant, entityId: string, sensorNumericalDeviceClasses?: string[]) => boolean;
+export declare const computeShowLogBookComponent: (hass: HomeAssistant, entityId: string) => boolean;
 export declare const computeShowNewMoreInfo: (stateObj: HassEntity) => boolean;

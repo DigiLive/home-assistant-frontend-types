@@ -1,34 +1,57 @@
-import type { HassEntityAttributeBase, HassEntityBase, HassServiceTarget } from "home-assistant-js-websocket";
+import type { HassEntityAttributeBase, HassEntityBase, HassServices } from "home-assistant-js-websocket";
 import type { Describe } from "superstruct";
 import type { HomeAssistant } from "../types";
-import type { Condition, ShorthandAndCondition, ShorthandNotCondition, ShorthandOrCondition, Trigger } from "./automation";
+import type { AutomationMigrationReport, Condition, ShorthandAndCondition, ShorthandNotCondition, ShorthandOrCondition, Trigger } from "./automation";
 import type { BlueprintInput } from "./blueprint";
+import type { HassServiceTargetWithExclude } from "./target";
 export declare const MODES: readonly ["single", "restart", "queued", "parallel"];
 export declare const MODES_MAX: readonly ["queued", "parallel"];
 export declare const isMaxMode: (searchElement: unknown, fromIndex?: number) => searchElement is "parallel" | "queued";
 export declare const baseActionStruct: import("superstruct").Struct<{
-    enabled?: boolean | undefined;
-    alias?: string | undefined;
-    continue_on_error?: boolean | undefined;
+    alias: string;
+    note: string;
+    continue_on_error: boolean;
+    enabled: boolean;
 }, {
-    alias: import("superstruct").Struct<string | undefined, null>;
-    continue_on_error: import("superstruct").Struct<boolean | undefined, null>;
-    enabled: import("superstruct").Struct<boolean | undefined, null>;
+    alias: import("superstruct").Struct<string, null>;
+    note: import("superstruct").Struct<string, null>;
+    continue_on_error: import("superstruct").Struct<boolean, null>;
+    enabled: import("superstruct").Struct<boolean, null>;
 }>;
 export declare const targetStruct: import("superstruct").Struct<{
-    device_id?: string | string[] | undefined;
-    floor_id?: string | string[] | undefined;
-    area_id?: string | string[] | undefined;
-    entity_id?: string | string[] | undefined;
-    label_id?: string | string[] | undefined;
+    entity_id: string | string[];
+    device_id: string | string[];
+    area_id: string | string[];
+    floor_id: string | string[];
+    label_id: string | string[];
+    exclude: {
+        entity_id: string | string[];
+        device_id: string | string[];
+        area_id: string | string[];
+        floor_id: string | string[];
+        label_id: string | string[];
+    };
 }, {
-    entity_id: import("superstruct").Struct<string | string[] | undefined, null>;
-    device_id: import("superstruct").Struct<string | string[] | undefined, null>;
-    area_id: import("superstruct").Struct<string | string[] | undefined, null>;
-    floor_id: import("superstruct").Struct<string | string[] | undefined, null>;
-    label_id: import("superstruct").Struct<string | string[] | undefined, null>;
+    entity_id: import("superstruct").Struct<string | string[], null>;
+    device_id: import("superstruct").Struct<string | string[], null>;
+    area_id: import("superstruct").Struct<string | string[], null>;
+    floor_id: import("superstruct").Struct<string | string[], null>;
+    label_id: import("superstruct").Struct<string | string[], null>;
+    exclude: import("superstruct").Struct<{
+        entity_id: string | string[];
+        device_id: string | string[];
+        area_id: string | string[];
+        floor_id: string | string[];
+        label_id: string | string[];
+    }, {
+        entity_id: import("superstruct").Struct<string | string[], null>;
+        device_id: import("superstruct").Struct<string | string[], null>;
+        area_id: import("superstruct").Struct<string | string[], null>;
+        floor_id: import("superstruct").Struct<string | string[], null>;
+        label_id: import("superstruct").Struct<string | string[], null>;
+    }>;
 }>;
-export declare const serviceActionStruct: Describe<ServiceAction>;
+export declare const serviceActionStruct: Describe<ServiceActionWithTemplate>;
 export interface ScriptEntity extends HassEntityBase {
     attributes: HassEntityAttributeBase & {
         last_triggered: string;
@@ -65,6 +88,7 @@ export interface Field {
 }
 interface BaseAction {
     alias?: string;
+    note?: string;
     continue_on_error?: boolean;
     enabled?: boolean;
 }
@@ -77,16 +101,20 @@ export interface ServiceAction extends BaseAction {
     action?: string;
     service_template?: string;
     entity_id?: string;
-    target?: HassServiceTarget;
+    target?: HassServiceTargetWithExclude;
     data?: Record<string, unknown>;
     response_variable?: string;
     metadata?: Record<string, unknown>;
 }
+type ServiceActionWithTemplate = ServiceAction & {
+    target?: HassServiceTargetWithExclude | string;
+};
+export type { ServiceActionWithTemplate };
 export interface DeviceAction extends BaseAction {
     type: string;
     device_id: string;
     domain: string;
-    entity_id: string;
+    entity_id?: string;
 }
 export interface DelayActionParts extends BaseAction {
     milliseconds?: number;
@@ -115,18 +143,6 @@ export interface WaitForTriggerAction extends BaseAction {
     timeout?: number | Partial<WaitForTriggerActionParts> | string;
     continue_on_timeout?: boolean;
 }
-export interface PlayMediaAction extends BaseAction {
-    action: "media_player.play_media";
-    target?: {
-        entity_id?: string;
-    };
-    entity_id?: string;
-    data: {
-        media_content_id: string;
-        media_content_type: string;
-    };
-    metadata: Record<string, unknown>;
-}
 export interface RepeatAction extends BaseAction {
     repeat: CountRepeat | WhileRepeat | UntilRepeat | ForEachRepeat;
 }
@@ -147,6 +163,7 @@ export interface ForEachRepeat extends BaseRepeat {
 }
 export interface Option {
     alias?: string;
+    note?: string;
     conditions: string | Condition[];
     sequence: Action | Action[];
 }
@@ -168,7 +185,8 @@ export interface StopAction extends BaseAction {
     error?: boolean;
 }
 export interface SequenceAction extends BaseAction {
-    sequence: (ManualScriptConfig | Action)[];
+    sequence: (ManualScriptConfig | Action)[] | null;
+    metadata?: {};
 }
 export interface ParallelAction extends BaseAction {
     parallel: ManualScriptConfig | Action | (ManualScriptConfig | Action)[];
@@ -178,7 +196,7 @@ export interface SetConversationResponseAction extends BaseAction {
 }
 interface UnknownAction extends BaseAction, Record<string, unknown> {
 }
-export type NonConditionAction = EventAction | DeviceAction | ServiceAction | DelayAction | WaitAction | WaitForTriggerAction | RepeatAction | ChooseAction | IfAction | VariablesAction | PlayMediaAction | StopAction | SequenceAction | ParallelAction | UnknownAction;
+export type NonConditionAction = EventAction | DeviceAction | ServiceAction | DelayAction | WaitAction | WaitForTriggerAction | RepeatAction | ChooseAction | IfAction | VariablesAction | StopAction | SequenceAction | ParallelAction | UnknownAction;
 export type Action = NonConditionAction | Condition | ShorthandAndCondition | ShorthandOrCondition | ShorthandNotCondition;
 export interface ActionTypes {
     delay: DelayAction;
@@ -192,7 +210,6 @@ export interface ActionTypes {
     wait_for_trigger: WaitForTriggerAction;
     variables: VariablesAction;
     service: ServiceAction;
-    play_media: PlayMediaAction;
     stop: StopAction;
     sequence: SequenceAction;
     parallel: ParallelAction;
@@ -200,7 +217,7 @@ export interface ActionTypes {
     unknown: UnknownAction;
 }
 export type ActionType = keyof ActionTypes;
-export declare const triggerScript: (hass: HomeAssistant, scriptId: string, variables?: Record<string, unknown>) => Promise<import("../types").ServiceCallResponse>;
+export declare const triggerScript: (hass: HomeAssistant, scriptId: string, variables?: Record<string, unknown>) => Promise<import("../types").ServiceCallResponse<any>>;
 export declare const canRun: (state: ScriptEntity) => boolean;
 export declare const deleteScript: (hass: HomeAssistant, objectId: string) => Promise<unknown>;
 export declare const fetchScriptFileConfig: (hass: HomeAssistant, objectId: string) => Promise<ScriptConfig>;
@@ -208,9 +225,13 @@ export declare const getScriptStateConfig: (hass: HomeAssistant, entity_id: stri
     config: ScriptConfig;
 }>;
 export declare const showScriptEditor: (data?: Partial<ScriptConfig>, expanded?: boolean) => void;
-export declare const getScriptEditorInitData: () => Partial<ScriptConfig> | undefined;
+export declare const getScriptEditorInitData: () => Partial<ScriptConfig>;
 export declare const getActionType: (action: Action) => ActionType;
-export declare const hasScriptFields: (hass: HomeAssistant, entityId: string) => boolean;
-export declare const migrateAutomationAction: (action: Action | Action[]) => Action | Action[];
-export declare const normalizeScriptConfig: (config: ScriptConfig) => ScriptConfig;
-export {};
+export declare const isAction: (value: unknown) => value is Action;
+export declare const hasScriptFields: (services: HassServices, entityId: string) => boolean;
+export declare const hasRequiredScriptFieldsForServices: (services: HassServices, entityId: string) => boolean;
+export declare const hasRequiredScriptFields: (hass: HomeAssistant, entityId: string) => boolean;
+export declare const requiredScriptFieldsFilledForServices: (services: HassServices, entityId: string, data?: Record<string, any>) => boolean;
+export declare const requiredScriptFieldsFilled: (hass: HomeAssistant, entityId: string, data?: Record<string, any>) => boolean;
+export declare const migrateAutomationAction: (action: Action | Action[], report?: AutomationMigrationReport) => Action | Action[];
+export declare const normalizeScriptConfig: (config: ScriptConfig, report?: AutomationMigrationReport) => ScriptConfig;

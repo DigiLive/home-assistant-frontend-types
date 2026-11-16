@@ -1,24 +1,25 @@
-import type { HassServiceTarget } from "home-assistant-js-websocket";
 import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
+import type { HassServiceTargetWithExclude } from "../data/target";
 import type { HomeAssistant } from "../types";
 import "./ha-checkbox";
 import "./ha-icon-button";
+import "./ha-markdown";
 import "./ha-selector/ha-selector";
 import "./ha-service-picker";
+import "./ha-service-section-icon";
 import "./ha-settings-row";
 import "./ha-yaml-editor";
-import "./ha-service-section-icon";
 export declare class HaServiceControl extends LitElement {
     hass: HomeAssistant;
     value?: {
         action: string;
-        target?: HassServiceTarget;
+        target?: HassServiceTargetWithExclude;
         data?: Record<string, any>;
     };
     disabled: boolean;
     narrow: boolean;
-    showAdvanced: boolean;
+    showServiceId: boolean;
     hidePicker: boolean;
     hideDescription: boolean;
     private _value;
@@ -35,7 +36,9 @@ export declare class HaServiceControl extends LitElement {
     private _getSectionDescription;
     private _hasFilteredFields;
     private _renderField;
+    private _selectorContext;
     private _localizeValueCallback;
+    private _toggleCheckbox;
     private _checkboxChanged;
     private _serviceChanged;
     private _entityPicked;

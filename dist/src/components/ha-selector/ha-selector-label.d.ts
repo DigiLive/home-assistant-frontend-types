@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { LabelSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-labels-picker";
 export declare class HaLabelSelector extends LitElement {
-    hass?: HomeAssistant;
     value?: string | string[];
     name?: string;
     label?: string;

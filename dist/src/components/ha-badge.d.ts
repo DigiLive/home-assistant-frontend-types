@@ -5,6 +5,10 @@ export declare class HaBadge extends LitElement {
     type: BadgeType;
     label?: string;
     iconOnly: boolean;
+    /**
+     * Accessible name for the badge button when it shows only its icon.
+     */
+    accessibleLabel?: string;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

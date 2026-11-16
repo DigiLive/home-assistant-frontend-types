@@ -1,4 +1,4 @@
-import type { DeviceRegistryEntry } from "../../../../../data/device_registry";
+import type { DeviceRegistryEntry } from "../../../../../data/device/device_registry";
 export interface ZWaveJSUpdateFirmwareNodeDialogParams {
     device: DeviceRegistryEntry;
 }

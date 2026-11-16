@@ -1,7 +1,6 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import "../../../../../components/ha-fab";
+import "../../../../../components/ha-button";
 import "../../../../../components/ha-icon-button";
 import type { ZHAGroup } from "../../../../../data/zha";
 import "../../../../../layouts/hass-tabs-subpage-data-table";
@@ -16,13 +15,17 @@ export declare class ZHAGroupsDashboard extends LitElement {
     narrow: boolean;
     isWide: boolean;
     private _groups;
+    private _loading;
+    private _loadFailed;
     private _firstUpdatedCalled;
+    private _tableSettings;
     connectedCallback(): void;
-    protected firstUpdated(changedProperties: PropertyValues): void;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
     private _formattedGroups;
     private _columns;
     protected render(): TemplateResult;
     private _fetchGroups;
+    private _retryFetchGroups;
     private _handleRowClicked;
     static get styles(): CSSResultGroup;
 }

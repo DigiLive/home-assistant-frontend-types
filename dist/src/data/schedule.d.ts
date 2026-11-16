@@ -3,6 +3,7 @@ export declare const weekdays: readonly ["sunday", "monday", "tuesday", "wednesd
 export interface ScheduleDay {
     from: string;
     to: string;
+    data?: Record<string, boolean | string | number>;
 }
 type ScheduleDays = Partial<Record<(typeof weekdays)[number], ScheduleDay[]>>;
 export interface Schedule extends ScheduleDays {

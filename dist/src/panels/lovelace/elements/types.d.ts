@@ -1,8 +1,10 @@
 import type { HassServiceTarget } from "home-assistant-js-websocket";
+import type { ActionHandlerOptions } from "../../../data/lovelace/action_handler";
 import type { ActionConfig } from "../../../data/lovelace/config/action";
 import type { HomeAssistant } from "../../../types";
-import type { Condition } from "../common/validate-condition";
+import type { VisibilityCondition } from "../common/validate-condition";
 import type { HuiImage } from "../components/hui-image";
+import type { MediaSelectorValue } from "../../../data/selector";
 interface LovelaceElementConfigBase {
     type: string;
     style?: Record<string, string>;
@@ -10,10 +12,30 @@ interface LovelaceElementConfigBase {
 export type LovelaceElementConfig = ConditionalElementConfig | IconElementConfig | ImageElementConfig | ServiceButtonElementConfig | StateBadgeElementConfig | StateIconElementConfig | StateLabelElementConfig;
 export interface LovelaceElement extends HTMLElement {
     hass?: HomeAssistant;
+    preview?: boolean;
     setConfig(config: LovelaceElementConfig): void;
+    /**
+     * Set by the picture-elements card on elements that take part in its
+     * nearest-target tap routing: the card's container gesture handles pointer
+     * input, the element keeps keyboard activation.
+     */
+    delegatedActions?: boolean;
+    /**
+     * The element's current visible hit target and gesture options, or null
+     * while it has nothing actionable to offer (no actions configured, or an
+     * entity-not-found warning is rendered instead of the element).
+     */
+    getHitInfo?(): LovelaceElementHitInfo | null;
+}
+export interface LovelaceElementHitInfo {
+    /** Viewport-relative box of the element's visible hit target. */
+    rect: DOMRect;
+    /** The rect is a text line: route it as a segment, not a point. */
+    isText?: boolean;
+    options: ActionHandlerOptions;
 }
 export interface ConditionalElementConfig extends LovelaceElementConfigBase {
-    conditions: Condition[];
+    conditions: VisibilityCondition[];
     elements: LovelaceElementConfigBase[];
     title?: string;
 }
@@ -31,7 +53,7 @@ export interface ImageElementConfig extends LovelaceElementConfigBase {
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
-    image?: string;
+    image?: string | MediaSelectorValue;
     image_entity?: string;
     state_image?: string;
     camera_image?: string;
@@ -53,6 +75,7 @@ export interface ServiceButtonElementConfig extends LovelaceElementConfigBase {
 }
 export interface StateBadgeElementConfig extends LovelaceElementConfigBase {
     entity?: string;
+    name?: string;
     title?: string;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;

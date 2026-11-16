@@ -1,4 +1,5 @@
-import type { HomeAssistant, ServiceCallResponse } from "../types";
+import type { Connection, HassEntities } from "home-assistant-js-websocket";
+import type { HomeAssistant, HomeAssistantFormatters, ServiceCallResponse } from "../types";
 export interface TodoList {
     entity_id: string;
     name: string;
@@ -20,8 +21,9 @@ export interface TodoItem {
     status: TodoItemStatus | null;
     description?: string | null;
     due?: string | null;
+    completed?: string | null;
 }
-export declare const enum TodoListEntityFeature {
+export declare enum TodoListEntityFeature {
     CREATE_TODO_ITEM = 1,
     DELETE_TODO_ITEM = 2,
     UPDATE_TODO_ITEM = 4,
@@ -30,13 +32,13 @@ export declare const enum TodoListEntityFeature {
     SET_DUE_DATETIME_ON_ITEM = 32,
     SET_DESCRIPTION_ON_ITEM = 64
 }
-export declare const getTodoLists: (hass: HomeAssistant) => TodoList[];
+export declare const getTodoLists: (states: HassEntities, entities: HomeAssistant["entities"], formatEntityName: HomeAssistantFormatters["formatEntityName"], language: string, includeHidden?: boolean) => TodoList[];
 export interface TodoItems {
     items: TodoItem[];
 }
-export declare const fetchItems: (hass: HomeAssistant, entity_id: string) => Promise<TodoItem[]>;
-export declare const subscribeItems: (hass: HomeAssistant, entity_id: string, callback: (update: TodoItems) => void) => Promise<() => Promise<void>>;
-export declare const updateItem: (hass: HomeAssistant, entity_id: string, item: TodoItem) => Promise<ServiceCallResponse>;
-export declare const createItem: (hass: HomeAssistant, entity_id: string, item: Omit<TodoItem, "uid" | "status">) => Promise<ServiceCallResponse>;
-export declare const deleteItems: (hass: HomeAssistant, entity_id: string, uids: string[]) => Promise<ServiceCallResponse>;
-export declare const moveItem: (hass: HomeAssistant, entity_id: string, uid: string, previous_uid: string | undefined) => Promise<void>;
+export declare const fetchItems: (callWS: HomeAssistant["callWS"], entity_id: string) => Promise<TodoItem[]>;
+export declare const subscribeItems: (connection: Connection, entity_id: string, callback: (update: TodoItems) => void) => Promise<() => Promise<void>>;
+export declare const updateItem: (callService: HomeAssistant["callService"], entity_id: string, item: TodoItem) => Promise<ServiceCallResponse>;
+export declare const createItem: (callService: HomeAssistant["callService"], entity_id: string, item: Omit<TodoItem, "uid" | "status">) => Promise<ServiceCallResponse>;
+export declare const deleteItems: (callService: HomeAssistant["callService"], entity_id: string, uids: string[]) => Promise<ServiceCallResponse>;
+export declare const moveItem: (callWS: HomeAssistant["callWS"], entity_id: string, uid: string, previous_uid: string | undefined) => Promise<void>;

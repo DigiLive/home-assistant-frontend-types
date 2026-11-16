@@ -8,7 +8,7 @@ declare global {
         "connection-status": ConnectionStatus;
     }
     interface GlobalEventHandlersEventMap {
-        "connection-status": HASSDomEvent<ConnectionStatus>;
+        "connection-status": HASSDomEvent<HASSDomEvents["connection-status"]>;
     }
 }
 export declare const broadcastConnectionStatus: (status: ConnectionStatus) => void;

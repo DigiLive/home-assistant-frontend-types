@@ -22,11 +22,11 @@ declare class HaHsColorPicker extends LitElement {
     private _pressed?;
     private _cursorPosition?;
     private _localValue?;
-    protected firstUpdated(changedProps: PropertyValues): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     private _generateColorWheel;
     connectedCallback(): void;
     disconnectedCallback(): void;
-    protected updated(changedProps: PropertyValues): void;
+    protected updated(changedProps: PropertyValues<this>): void;
     private _setupListeners;
     private _resetPosition;
     private _getCoordsFromValue;

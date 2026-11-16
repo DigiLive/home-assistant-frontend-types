@@ -1,21 +1,20 @@
-import type { PropertyValueMap } from "lit";
+import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import type { AssistPipeline } from "../data/assist_pipeline";
-import type { HomeAssistant } from "../types";
-import "./ha-list-item";
 import "./ha-select";
 export declare class HaAssistPipelinePicker extends LitElement {
     value?: string;
     label?: string;
-    hass: HomeAssistant;
     disabled: boolean;
     required: boolean;
     includeLastUsed: boolean;
     _pipelines?: AssistPipeline[];
     _preferredPipeline: string | null;
+    private _i18n;
+    private _api;
     private get _default();
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected firstUpdated(changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
     static styles: import("lit").CSSResult;
     private _changed;
 }

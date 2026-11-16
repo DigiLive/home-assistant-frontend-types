@@ -1,5 +1,5 @@
 export interface LongLivedAccessTokenDialogParams {
-    token: string;
-    name: string;
+    createdCallback: () => void;
+    existingNames: string[];
 }
 export declare const showLongLivedAccessTokenDialog: (element: HTMLElement, longLivedAccessTokenDialogParams: LongLivedAccessTokenDialogParams) => void;

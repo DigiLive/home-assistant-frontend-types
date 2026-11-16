@@ -1,5 +1,4 @@
-import "@material/mwc-button";
-import type { CSSResultGroup, TemplateResult } from "lit";
+import type { CSSResultGroup, TemplateResult, PropertyValues } from "lit";
 import { LitElement } from "lit";
 import type { DataEntryFlowStepExternal } from "../../data/data_entry_flow";
 import type { HomeAssistant } from "../../types";
@@ -9,7 +8,7 @@ declare class StepFlowExternal extends LitElement {
     hass: HomeAssistant;
     step: DataEntryFlowStepExternal;
     protected render(): TemplateResult;
-    protected firstUpdated(changedProps: any): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     static get styles(): CSSResultGroup;
 }
 declare global {

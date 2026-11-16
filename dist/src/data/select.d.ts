@@ -6,5 +6,5 @@ interface SelectEntityAttributes extends HassEntityAttributeBase {
 export interface SelectEntity extends HassEntityBase {
     attributes: SelectEntityAttributes;
 }
-export declare const setSelectOption: (hass: HomeAssistant, entity: string, option: string) => Promise<import("../types").ServiceCallResponse>;
+export declare const setSelectOption: (callService: HomeAssistant["callService"], entity: string, option: string) => Promise<import("../types").ServiceCallResponse<any>>;
 export {};

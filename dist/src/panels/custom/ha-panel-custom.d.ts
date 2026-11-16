@@ -17,11 +17,16 @@ export declare class HaPanelCustom extends ReactiveElement {
     route: Route;
     panel: CustomPanelInfo;
     private _setProperties?;
+    private _wasDisconnected;
+    private _syncSafeArea;
     protected createRenderRoot(): this;
     navigate: (path: string, options?: NavigateOptions) => Promise<boolean>;
     registerIframe(initialize: any, setProperties: any): void;
+    connectedCallback(): void;
     disconnectedCallback(): void;
-    protected update(changedProps: PropertyValues): void;
+    private _handleResize;
+    private _syncSafeAreaToIframe;
+    protected update(changedProps: PropertyValues<this>): void;
     private _cleanupPanel;
     private _createPanel;
 }

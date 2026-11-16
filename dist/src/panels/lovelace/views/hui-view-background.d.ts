@@ -5,7 +5,11 @@ import type { LovelaceViewBackgroundConfig } from "../../../data/lovelace/config
 export declare class HUIViewBackground extends LitElement {
     hass: HomeAssistant;
     background?: string | LovelaceViewBackgroundConfig | undefined;
+    resolvedImage?: string;
+    private _entityId;
     protected render(): symbol;
+    private _getBackgroundImage;
+    private _fetchMedia;
     private _applyTheme;
     private _isFixedBackground;
     private _computeBackgroundProperty;

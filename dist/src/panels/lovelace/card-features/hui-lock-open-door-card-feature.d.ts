@@ -1,16 +1,17 @@
-import type { HassEntity } from "home-assistant-js-websocket";
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-control-button";
 import "../../../components/ha-control-button-group";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardFeature } from "../types";
-import type { LockOpenDoorCardFeatureConfig } from "./types";
-export declare const supportsLockOpenDoorCardFeature: (stateObj: HassEntity) => boolean;
+import type { LockOpenDoorCardFeatureConfig, LovelaceCardFeatureContext } from "./types";
+export declare const supportsLockOpenDoorCardFeature: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
 type ButtonState = "normal" | "confirm" | "done";
 declare class HuiLockOpenDoorCardFeature extends LitElement implements LovelaceCardFeature {
-    hass?: HomeAssistant;
-    stateObj?: HassEntity;
+    context?: LovelaceCardFeatureContext;
+    private _stateObj?;
+    private _localize;
+    private _api;
     _buttonState: ButtonState;
     private _config?;
     private _buttonTimeout?;

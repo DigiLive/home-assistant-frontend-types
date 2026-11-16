@@ -8,7 +8,7 @@ declare class MoreInfoGroup extends LitElement {
     stateObj?: GroupEntity;
     private _groupDomainStateObj?;
     private _moreInfoType?;
-    protected updated(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static get styles(): CSSResultGroup;
 }

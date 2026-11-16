@@ -1,11 +1,8 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../components/ha-card";
-import "../../../../components/ha-formfield";
+import "../../../../components/ha-form/ha-form";
 import "../../../../components/ha-icon";
-import "../../../../components/ha-switch";
-import "../../../../components/ha-textfield";
-import "../../../../components/ha-theme-picker";
 import type { HomeAssistant } from "../../../../types";
 import type { EntitiesCardConfig } from "../../cards/types";
 import type { LovelaceCardEditor } from "../../types";
@@ -18,9 +15,10 @@ export declare class HuiEntitiesCardEditor extends LitElement implements Lovelac
     private _configEntities?;
     private _subElementEditorConfig?;
     setConfig(config: EntitiesCardConfig): void;
-    get _title(): string;
-    get _theme(): string;
+    private _showHeaderToggle;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _formChanged;
+    private _computeLabelCallback;
     private _valueChanged;
     private _handleSubElementChanged;
     private _editDetailElement;

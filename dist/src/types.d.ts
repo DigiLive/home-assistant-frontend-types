@@ -1,11 +1,12 @@
-import type { DurationFormatConstructor } from "@formatjs/intl-durationformat/src/types";
+import type { DurationFormat as FormatJSDurationFormat } from "@formatjs/intl-durationformat";
 import type { Auth, Connection, HassConfig, HassEntities, HassEntity, HassServices, HassServiceTarget, MessageBase } from "home-assistant-js-websocket";
+import type { EntityNameItem, EntityNameOptions } from "./common/entity/compute_entity_name_display";
 import type { LocalizeFunc } from "./common/translations/localize";
-import type { AreaRegistryEntry } from "./data/area_registry";
-import type { DeviceRegistryEntry } from "./data/device_registry";
-import type { EntityRegistryDisplayEntry } from "./data/entity_registry";
+import type { AreaRegistryEntry } from "./data/area/area_registry";
+import type { DeviceRegistryEntry } from "./data/device/device_registry";
+import type { EntityRegistryDisplayEntry } from "./data/entity/entity_registry";
 import type { FloorRegistryEntry } from "./data/floor_registry";
-import type { CoreFrontendUserData } from "./data/frontend";
+import type { CoreFrontendSystemData, CoreFrontendUserData } from "./data/frontend";
 import type { FrontendLocaleData, getHassTranslations } from "./data/translation";
 import type { Themes } from "./data/ws-themes";
 import type { ExternalMessaging } from "./external_app/external_messaging";
@@ -15,20 +16,15 @@ declare global {
     var __BUILD__: "modern" | "legacy";
     var __VERSION__: string;
     var __STATIC_PATH__: string;
+    var __MAPLIBRE_WORKER_URL__: string;
     var __BACKWARDS_COMPAT__: boolean;
-    var __SUPERVISOR__: boolean;
     var __HASS_URL__: string;
+    var __haNativeTimeZone: string | undefined;
+    var __haIntlPolyfill: Promise<void> | undefined;
+    var __haScopedRegistryReady: boolean | undefined;
+    var __haLoadExtraModules: (() => void) | undefined;
     interface Window {
         customPanelJS: string;
-        ShadyCSS: {
-            nativeCss: boolean;
-            nativeShadow: boolean;
-            prepareTemplate(templateElement: any, elementName: any, elementExtension: any): any;
-            styleElement(element: any): any;
-            styleSubtree(element: any, overrideProperties: any): any;
-            styleDocument(overrideProperties: any): any;
-            getComputedStyleValue(element: any, propertyName: any): any;
-        };
     }
     interface HASSDomEvents {
         "value-changed": {
@@ -46,7 +42,7 @@ declare global {
         url: string;
     }
     namespace Intl {
-        const DurationFormat: DurationFormatConstructor;
+        const DurationFormat: typeof FormatJSDurationFormat;
     }
 }
 export interface ValueChangedEvent<T> extends CustomEvent {
@@ -94,6 +90,9 @@ export interface PanelInfo<T = Record<string, any> | null> {
     title: string | null;
     url_path: string;
     config_panel_domain?: string;
+    default_visible?: boolean;
+    require_admin?: boolean;
+    show_in_sidebar?: boolean;
 }
 export type Panels = Record<string, PanelInfo>;
 export interface CalendarViewChanged {
@@ -102,7 +101,8 @@ export interface CalendarViewChanged {
     view: string;
 }
 export type FullCalendarView = "dayGridMonth" | "dayGridWeek" | "dayGridDay" | "listWeek";
-export type ThemeMode = "auto" | "light" | "dark";
+export declare const THEME_MODES: readonly ["auto", "light", "dark"];
+export type ThemeMode = (typeof THEME_MODES)[number];
 export interface ToggleButton {
     label: string;
     iconPath?: string;
@@ -139,9 +139,13 @@ export interface Context {
     parent_id?: string;
     user_id?: string | null;
 }
-export interface ServiceCallResponse {
+export interface ValuePart {
+    type: "value" | "literal" | "unit";
+    value: string;
+}
+export interface ServiceCallResponse<T = any> {
     context: Context;
-    response?: any;
+    response?: T;
 }
 export interface ServiceCallRequest {
     domain: string;
@@ -149,51 +153,74 @@ export interface ServiceCallRequest {
     serviceData?: Record<string, any>;
     target?: HassServiceTarget;
 }
-export interface HomeAssistant {
-    auth: Auth & {
-        external?: ExternalMessaging;
-    };
-    connection: Connection;
-    connected: boolean;
-    states: HassEntities;
+export interface HomeAssistantRegistries {
     entities: Record<string, EntityRegistryDisplayEntry>;
     devices: Record<string, DeviceRegistryEntry>;
     areas: Record<string, AreaRegistryEntry>;
     floors: Record<string, FloorRegistryEntry>;
-    services: HassServices;
-    config: HassConfig;
-    themes: Themes;
-    selectedTheme: ThemeSettings | null;
-    panels: Panels;
-    panelUrl: string;
+}
+export interface HomeAssistantInternationalization {
     language: string;
     selectedLanguage: string | null;
     locale: FrontendLocaleData;
-    resources: Resources;
     localize: LocalizeFunc;
     translationMetadata: TranslationMetadata;
-    suspendWhenHidden: boolean;
-    enableShortcuts: boolean;
-    vibrate: boolean;
-    debugConnection: boolean;
-    dockedSidebar: "docked" | "always_hidden" | "auto";
-    defaultPanel: string;
-    moreInfoEntityId: string | null;
-    user?: CurrentUser;
-    userData?: CoreFrontendUserData | null;
-    hassUrl(path?: any): string;
-    callService(domain: ServiceCallRequest["domain"], service: ServiceCallRequest["service"], serviceData?: ServiceCallRequest["serviceData"], target?: ServiceCallRequest["target"], notifyOnError?: boolean, returnResponse?: boolean): Promise<ServiceCallResponse>;
+    loadBackendTranslation(category: Parameters<typeof getHassTranslations>[2], integrations?: Parameters<typeof getHassTranslations>[3], configFlow?: Parameters<typeof getHassTranslations>[4]): Promise<LocalizeFunc>;
+    loadFragmentTranslation(fragment: string): Promise<LocalizeFunc | undefined>;
+}
+export type CallWS = <T>(msg: MessageBase) => Promise<T>;
+export interface HomeAssistantApi {
+    callService<T = any>(domain: ServiceCallRequest["domain"], service: ServiceCallRequest["service"], serviceData?: ServiceCallRequest["serviceData"], target?: ServiceCallRequest["target"], notifyOnError?: boolean, returnResponse?: boolean): Promise<ServiceCallResponse<T>>;
     callApi<T>(method: "GET" | "POST" | "PUT" | "DELETE", path: string, parameters?: Record<string, any>, headers?: Record<string, string>): Promise<T>;
     callApiRaw(// introduced in 2024.11
     method: "GET" | "POST" | "PUT" | "DELETE", path: string, parameters?: Record<string, any>, headers?: Record<string, string>, signal?: AbortSignal): Promise<Response>;
     fetchWithAuth(path: string, init?: Record<string, any>): Promise<Response>;
     sendWS(msg: MessageBase): void;
-    callWS<T>(msg: MessageBase): Promise<T>;
-    loadBackendTranslation(category: Parameters<typeof getHassTranslations>[2], integrations?: Parameters<typeof getHassTranslations>[3], configFlow?: Parameters<typeof getHassTranslations>[4]): Promise<LocalizeFunc>;
-    loadFragmentTranslation(fragment: string): Promise<LocalizeFunc | undefined>;
+    callWS: CallWS;
+}
+export interface HomeAssistantFormatters {
     formatEntityState(stateObj: HassEntity, state?: string): string;
+    formatEntityStateToParts(stateObj: HassEntity, state?: string): ValuePart[];
     formatEntityAttributeValue(stateObj: HassEntity, attribute: string, value?: any): string;
+    formatEntityAttributeValueToParts(stateObj: HassEntity, attribute: string, value?: any): ValuePart[];
     formatEntityAttributeName(stateObj: HassEntity, attribute: string): string;
+    formatEntityName(stateObj: HassEntity, name?: string | EntityNameItem | EntityNameItem[], options?: EntityNameOptions): string;
+}
+export interface HomeAssistantConnection {
+    connection: Connection;
+    connected: boolean;
+    debugConnection: boolean;
+    hassUrl(path?: any): string;
+}
+export interface HomeAssistantUI {
+    themes: Themes;
+    selectedTheme: ThemeSettings | null;
+    panels: Panels;
+    panelUrl: string;
+    dockedSidebar: "docked" | "always_hidden" | "auto";
+    kioskMode: boolean;
+    enableShortcuts: boolean;
+    vibrate: boolean;
+    suspendWhenHidden: boolean;
+}
+export type LogFileDisabledReason = "environment";
+export interface HassLoggingConfig {
+    log_file_disabled_reason: LogFileDisabledReason | null;
+}
+export interface HomeAssistantConfig {
+    auth: Auth & {
+        external?: ExternalMessaging;
+    };
+    config: HassConfig & {
+        logging?: HassLoggingConfig;
+    };
+    user?: CurrentUser;
+    userData?: CoreFrontendUserData;
+    systemData?: CoreFrontendSystemData;
+}
+export interface HomeAssistant extends HomeAssistantRegistries, HomeAssistantInternationalization, HomeAssistantApi, HomeAssistantFormatters, HomeAssistantConnection, HomeAssistantUI, HomeAssistantConfig {
+    states: HassEntities;
+    services: HassServices;
 }
 export interface Route {
     prefix: string;

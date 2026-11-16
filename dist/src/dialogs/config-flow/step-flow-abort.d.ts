@@ -1,4 +1,3 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import type { DataEntryFlowStepAbort } from "../../data/data_entry_flow";
@@ -10,10 +9,11 @@ declare class StepFlowAbort extends LitElement {
     step: DataEntryFlowStepAbort;
     domain: string;
     handler: string;
-    protected firstUpdated(changed: PropertyValues): void;
+    protected firstUpdated(changed: PropertyValues<this>): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _handleMissingCreds;
     private _flowDone;
+    close(): void;
     static get styles(): CSSResultGroup;
 }
 declare global {

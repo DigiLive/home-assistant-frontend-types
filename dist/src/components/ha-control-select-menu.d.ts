@@ -1,23 +1,32 @@
-import { SelectBase } from "@material/mwc-select/mwc-select-base";
-import type { PropertyValues } from "lit";
+import type { TemplateResult } from "lit";
+import { LitElement, nothing } from "lit";
+import "./ha-dropdown";
+import "./ha-dropdown-item";
 import "./ha-icon";
-import "./ha-ripple";
 import "./ha-svg-icon";
-import "./ha-menu";
-export declare class HaControlSelectMenu extends SelectBase {
-    protected mdcRoot: HTMLElement;
-    protected anchorElement: HTMLDivElement | null;
+export interface SelectOption {
+    label: string;
+    value: string;
+    iconPath?: string;
+    icon?: string;
+}
+export declare class HaControlSelectMenu extends LitElement {
     showArrow: boolean;
     hideLabel: boolean;
-    options: any;
-    protected updated(changedProps: PropertyValues): void;
-    render(): import("lit-html").TemplateResult<1>;
-    protected renderMenu(): import("lit-html").TemplateResult<1>;
+    disabled: boolean;
+    required: boolean;
+    label?: string;
+    value?: string;
+    options: SelectOption[];
+    renderIcon?: (value: string) => TemplateResult<1> | typeof nothing;
+    private _triggerButton;
+    render(): TemplateResult<1>;
+    private _renderTrigger;
+    private _renderOption;
     private _renderArrow;
     private _renderIcon;
-    connectedCallback(): void;
-    disconnectedCallback(): void;
-    private _translationsUpdated;
+    private _showDropdown;
+    private getValueObject;
     static styles: import("lit").CSSResult[];
 }
 declare global {

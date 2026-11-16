@@ -1,6 +1,7 @@
 import { ReactiveElement } from "lit";
 import type { LovelaceViewConfig } from "../../../../data/lovelace/config/view";
 import type { HomeAssistant } from "../../../../types";
+import type { LovelaceStrategyDependency } from "../types";
 export interface EntitiesDisplay {
     hidden?: string[];
     order?: string[];
@@ -11,6 +12,7 @@ export interface AreaViewStrategyConfig {
     groups_options?: Record<string, EntitiesDisplay>;
 }
 export declare class AreaViewStrategy extends ReactiveElement {
+    static registryDependencies: readonly LovelaceStrategyDependency[];
     static generate(config: AreaViewStrategyConfig, hass: HomeAssistant): Promise<LovelaceViewConfig>;
 }
 declare global {

@@ -9,5 +9,10 @@ import type { Schedule } from "../../../data/schedule";
 import type { Timer } from "../../../data/timer";
 export declare const HELPER_DOMAINS: readonly ["input_boolean", "input_button", "input_text", "input_number", "input_datetime", "input_select", "counter", "timer", "schedule"];
 export type HelperDomain = (typeof HELPER_DOMAINS)[number];
-export declare const isHelperDomain: (searchElement: unknown, fromIndex?: number) => searchElement is "schedule" | "counter" | "timer" | "input_text" | "input_number" | "input_select" | "input_boolean" | "input_button" | "input_datetime";
+export declare const isHelperDomain: (searchElement: unknown, fromIndex?: number) => searchElement is "counter" | "input_boolean" | "input_button" | "input_datetime" | "input_number" | "input_select" | "input_text" | "schedule" | "timer";
 export type Helper = InputBoolean | InputButton | InputText | InputNumber | InputSelect | InputDateTime | Counter | Timer | Schedule;
+type HelperWithoutId<T> = T extends {
+    id: string;
+} ? Omit<T, "id"> : never;
+export type HelperFormItem = HelperWithoutId<Helper>;
+export {};

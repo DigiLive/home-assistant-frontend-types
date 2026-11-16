@@ -1,28 +1,31 @@
 import { LitElement } from "lit";
 import "../../../../components/ha-yaml-editor";
+import type { HaYamlEditor } from "../../../../components/ha-yaml-editor";
 import type { Condition } from "../../../../data/automation";
+import type { ConditionDescription } from "../../../../data/condition";
 import type { HomeAssistant } from "../../../../types";
-import "./types/ha-automation-condition-and";
-import "./types/ha-automation-condition-device";
-import "./types/ha-automation-condition-not";
-import "./types/ha-automation-condition-numeric_state";
-import "./types/ha-automation-condition-or";
-import "./types/ha-automation-condition-state";
-import "./types/ha-automation-condition-sun";
-import "./types/ha-automation-condition-template";
-import "./types/ha-automation-condition-time";
-import "./types/ha-automation-condition-trigger";
-import "./types/ha-automation-condition-zone";
+import "../ha-automation-editor-warning";
+import "./types/ha-automation-condition-platform";
 export default class HaAutomationConditionEditor extends LitElement {
     hass: HomeAssistant;
     condition: Condition;
     disabled: boolean;
     yamlMode: boolean;
+    indent: boolean;
+    narrow: boolean;
+    inSidebar: boolean;
+    selected: boolean;
+    uiSupported: boolean;
+    description?: ConditionDescription;
+    yamlEditor?: HaYamlEditor;
+    private _collapsibleElement?;
     private _processedCondition;
     protected render(): import("lit-html").TemplateResult<1>;
     private _onYamlChange;
     private _onUiChanged;
-    static styles: import("lit").CSSResult;
+    expandAll(): void;
+    collapseAll(): void;
+    static styles: import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {

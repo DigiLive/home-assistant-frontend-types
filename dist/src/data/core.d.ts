@@ -1,4 +1,3 @@
-import type { HassConfig } from "home-assistant-js-websocket";
 import type { HomeAssistant } from "../types";
 export interface ConfigUpdateValues {
     location_name: string;
@@ -13,12 +12,13 @@ export interface ConfigUpdateValues {
     currency?: string | null;
     country?: string | null;
     language?: string | null;
+    update_units?: boolean;
 }
 export interface CheckConfigResult {
     result: "valid" | "invalid";
     errors: string | null;
     warnings: string | null;
 }
-export declare const saveCoreConfig: (hass: HomeAssistant, values: Partial<ConfigUpdateValues>) => Promise<HassConfig>;
+export declare const saveCoreConfig: (hass: HomeAssistant, values: Partial<ConfigUpdateValues>) => Promise<undefined>;
 export declare const detectCoreConfig: (hass: HomeAssistant) => Promise<Partial<ConfigUpdateValues>>;
 export declare const checkCoreConfig: (hass: HomeAssistant) => Promise<CheckConfigResult>;

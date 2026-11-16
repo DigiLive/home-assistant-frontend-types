@@ -3,9 +3,8 @@ import { LitElement } from "lit";
 import "../../components/chips/ha-chip-set";
 import "../../components/chips/ha-filter-chip";
 import "../../components/ha-date-input";
-import "../../components/ha-list-item";
 import "../../components/ha-select";
-import "../../components/ha-textfield";
+import "../../components/input/ha-input";
 import type { HomeAssistant } from "../../types";
 export declare class RecurrenceRuleEditor extends LitElement {
     hass: HomeAssistant;
@@ -25,7 +24,6 @@ export declare class RecurrenceRuleEditor extends LitElement {
     private _end;
     private _count?;
     private _untilDay?;
-    private _monthlyRepeatSelect;
     private _allWeekdays?;
     private _monthlyRepeatItems;
     protected willUpdate(changedProps: PropertyValues): void;
@@ -46,8 +44,6 @@ export declare class RecurrenceRuleEditor extends LitElement {
     private _computeWeekday;
     private _computeRRule;
     private _updateRule;
-    private _formatDate;
-    private _formatTime;
     static styles: import("lit").CSSResult;
 }
 declare global {

@@ -1,11 +1,11 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-switch";
 export declare const pushSupported: boolean;
 declare class HaPushNotificationsToggle extends LitElement {
-    hass: HomeAssistant;
     disabled: boolean;
+    private _localize;
+    private _api;
     private _pushChecked;
     private _loading;
     protected render(): TemplateResult;

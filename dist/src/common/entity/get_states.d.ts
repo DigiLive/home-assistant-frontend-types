@@ -1,11 +1,10 @@
-import type { HassEntity } from "home-assistant-js-websocket";
-import type { HomeAssistant } from "../../types";
+import type { HassEntities, HassEntity } from "home-assistant-js-websocket";
 export declare const FIXED_DOMAIN_STATES: {
     readonly alarm_control_panel: readonly ["armed_away", "armed_custom_bypass", "armed_home", "armed_night", "armed_vacation", "arming", "disarmed", "disarming", "pending", "triggered"];
+    readonly alert: readonly ["on", "off", "idle"];
     readonly assist_satellite: readonly ["idle", "listening", "responding", "processing"];
     readonly automation: readonly ["on", "off"];
     readonly binary_sensor: readonly ["on", "off"];
-    readonly button: readonly [];
     readonly calendar: readonly ["on", "off"];
     readonly camera: readonly ["idle", "recording", "streaming"];
     readonly cover: readonly ["closed", "closing", "open", "opening"];
@@ -13,15 +12,14 @@ export declare const FIXED_DOMAIN_STATES: {
     readonly fan: readonly ["on", "off"];
     readonly humidifier: readonly ["on", "off"];
     readonly input_boolean: readonly ["on", "off"];
-    readonly input_button: readonly [];
-    readonly lawn_mower: readonly ["error", "paused", "mowing", "returning", "docked"];
+    readonly lawn_mower: readonly ["error", "paused", "mowing", "returning", "docked", "idle"];
     readonly light: readonly ["on", "off"];
     readonly lock: readonly ["jammed", "locked", "locking", "unlocked", "unlocking", "opening", "open"];
     readonly media_player: readonly ["off", "on", "idle", "playing", "paused", "standby", "buffering"];
     readonly person: readonly ["home", "not_home"];
     readonly plant: readonly ["ok", "problem"];
+    readonly radio_frequency: readonly [];
     readonly remote: readonly ["on", "off"];
-    readonly scene: readonly [];
     readonly schedule: readonly ["on", "off"];
     readonly script: readonly ["on", "off"];
     readonly siren: readonly ["on", "off"];
@@ -33,4 +31,8 @@ export declare const FIXED_DOMAIN_STATES: {
     readonly valve: readonly ["closed", "closing", "open", "opening"];
     readonly weather: readonly ["clear-night", "cloudy", "exceptional", "fog", "hail", "lightning-rainy", "lightning", "partlycloudy", "pouring", "rainy", "snowy-rainy", "snowy", "sunny", "windy-variant", "windy"];
 };
-export declare const getStates: (hass: HomeAssistant, state: HassEntity, attribute?: string | undefined) => string[];
+export declare const getStatesDomain: (states: HassEntities, language: string, domain: string, attribute?: string | undefined) => string[];
+export declare const DOMAIN_OPTIONS_ATTRIBUTES: Record<string, Record<string, string>>;
+export declare const getOptionsAttribute: (domain: string, attribute?: string) => string | undefined;
+export declare const getValueAttribute: (domain: string, optionsAttribute: string) => string | undefined;
+export declare const getStates: (states: HassEntities, language: string, stateObj: HassEntity, attribute?: string | undefined) => string[];

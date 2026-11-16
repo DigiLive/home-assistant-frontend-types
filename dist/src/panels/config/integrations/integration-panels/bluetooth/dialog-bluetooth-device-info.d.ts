@@ -1,17 +1,22 @@
-import type { TemplateResult } from "lit";
+import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
-import type { HassDialog } from "../../../../../dialogs/make-dialog-manager";
+import "../../../../../components/ha-button";
+import "../../../../../components/ha-dialog-footer";
+import "../../../../../components/ha-dialog";
 import type { HomeAssistant } from "../../../../../types";
 import type { BluetoothDeviceInfoDialogParams } from "./show-dialog-bluetooth-device-info";
-import "../../../../../components/ha-button";
-declare class DialogBluetoothDeviceInfo extends LitElement implements HassDialog {
+declare class DialogBluetoothDeviceInfo extends LitElement {
     hass: HomeAssistant;
     private _params?;
+    private _open;
     showDialog(params: BluetoothDeviceInfoDialogParams): Promise<void>;
-    closeDialog(): boolean;
+    closeDialog(): void;
+    private _dialogClosed;
     showDataAsHex(bytestring: string): string;
     private _copyToClipboard;
+    private _openDevice;
     protected render(): TemplateResult | typeof nothing;
+    static readonly styles: CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

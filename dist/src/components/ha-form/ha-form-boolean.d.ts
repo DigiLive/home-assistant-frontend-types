@@ -1,8 +1,7 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HaFormBooleanData, HaFormBooleanSchema, HaFormElement } from "./types";
 import "../ha-checkbox";
-import "../ha-formfield";
+import type { HaFormBooleanData, HaFormBooleanSchema, HaFormElement } from "./types";
 export declare class HaFormBoolean extends LitElement implements HaFormElement {
     schema: HaFormBooleanSchema;
     data: HaFormBooleanData;

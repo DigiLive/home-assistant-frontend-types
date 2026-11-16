@@ -13,6 +13,7 @@ export declare class HuiHumidifierCard extends LitElement implements LovelaceCar
     static getStubConfig(hass: HomeAssistant, entities: string[], entitiesFallback: string[]): HumidifierCardConfig;
     hass?: HomeAssistant;
     private _config?;
+    private _featureContext;
     getCardSize(): number;
     setConfig(config: HumidifierCardConfig): void;
     private _handleMoreInfo;

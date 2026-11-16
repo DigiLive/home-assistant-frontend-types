@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { TTSSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-tts-picker";
 export declare class HaTTSSelector extends LitElement {
-    hass: HomeAssistant;
     selector: TTSSelector;
     value?: any;
     label?: string;

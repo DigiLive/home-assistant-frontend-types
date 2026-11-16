@@ -1,19 +1,20 @@
 import { type CSSResultGroup, LitElement, nothing } from "lit";
 import "../../../components/ha-alert";
 import "../../../components/ha-button";
-import "../../../components/ha-button-menu";
 import "../../../components/ha-card";
+import "../../../components/ha-dropdown";
+import "../../../components/ha-dropdown-item";
 import "../../../components/ha-expansion-panel";
-import "../../../components/ha-formfield";
 import "../../../components/ha-icon-button";
 import "../../../components/ha-list";
 import "../../../components/ha-list-item";
-import "../../../components/ha-password-field";
-import "../../../components/ha-radio";
+import "../../../components/radio/ha-radio-group";
+import "../../../components/radio/ha-radio-option";
 import "../../../components/ha-spinner";
-import "../../../components/ha-textfield";
+import "../../../components/ha-tab-group";
+import "../../../components/ha-tab-group-tab";
+import "../../../components/input/ha-input";
 import type { HomeAssistant } from "../../../types";
-import "../../../components/sl-tab-group";
 export declare class HassioNetwork extends LitElement {
     hass: HomeAssistant;
     private _accessPoints;
@@ -32,6 +33,7 @@ export declare class HassioNetwork extends LitElement {
     private _selectAP;
     private _scanForAP;
     private _renderIPConfiguration;
+    private _getPredefinedDnsName;
     private _updateNetwork;
     private _clear;
     private _handleTabActivated;
@@ -46,6 +48,7 @@ export declare class HassioNetwork extends LitElement {
     private _addPredefinedDNS;
     private _addCustomDNS;
     private _removeNameserver;
+    private _handleDropdownSelect;
     static get styles(): CSSResultGroup;
 }
 declare global {

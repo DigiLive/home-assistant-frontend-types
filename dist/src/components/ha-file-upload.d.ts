@@ -1,10 +1,8 @@
-import "@material/mwc-linear-progress/mwc-linear-progress";
 import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-button";
 import "./ha-icon-button";
-import type { LocalizeFunc } from "../common/translations/localize";
+import "./progress/ha-progress-bar";
 declare global {
     interface HASSDomEvents {
         "file-picked": {
@@ -14,8 +12,8 @@ declare global {
     }
 }
 export declare class HaFileUpload extends LitElement {
-    hass?: HomeAssistant;
-    localize?: LocalizeFunc;
+    private _localize;
+    private _locale?;
     accept: string;
     icon?: string;
     label?: string;
@@ -31,7 +29,8 @@ export declare class HaFileUpload extends LitElement {
     autoOpenFileDialog: boolean;
     private _drag;
     private _input?;
-    protected firstUpdated(changedProperties: PropertyValues): void;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
     private get _name();
     render(): TemplateResult;
     private _openFilePicker;

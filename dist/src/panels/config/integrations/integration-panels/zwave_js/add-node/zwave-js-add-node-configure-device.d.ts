@@ -6,7 +6,7 @@ export declare class ZWaveJsAddNodeConfigureDevice extends LitElement {
     deviceName: string;
     longRangeSupported: boolean;
     private _options?;
-    protected willUpdate(changedProps: PropertyValues): void;
+    protected willUpdate(changedProps: PropertyValues<this>): void;
     render(): import("lit-html").TemplateResult<1>;
     private _getSchema;
     private _computeLabel;

@@ -1,13 +1,14 @@
-import type { TemplateResult } from "lit";
+import type { TemplateResult, PropertyValues } from "lit";
 import { LitElement } from "lit";
 import "../../components/ha-control-slider";
 import type { LightEntity } from "../../data/light";
-import type { HomeAssistant } from "../../types";
 export declare class HaStateControlLightBrightness extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _formatters;
+    private _i18n;
     stateObj: LightEntity;
     value?: number;
-    protected updated(changedProp: Map<string | number | symbol, unknown>): void;
+    protected updated(changedProp: PropertyValues<this>): void;
     private _valueChanged;
     protected render(): TemplateResult;
     static styles: import("lit").CSSResult;

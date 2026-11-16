@@ -1,18 +1,23 @@
-import type { HassEntity } from "home-assistant-js-websocket";
 import { LitElement, type PropertyValues } from "lit";
-import type { HomeAssistant } from "../../types";
+import type { HaEntityPickerEntityFilterFunc } from "../../data/entity/entity";
+import type { EntitySelectorExtraOption } from "../../data/selector";
 import "../ha-combo-box-item";
 import "../ha-generic-picker";
+import "../ha-icon";
 import "../ha-svg-icon";
 import "./state-badge";
-export type HaEntityPickerEntityFilterFunc = (entity: HassEntity) => boolean;
 export declare class HaEntityPicker extends LitElement {
-    hass: HomeAssistant;
+    private _states;
+    private _registries;
+    private _i18n;
+    private _config;
     autofocus: boolean;
     disabled: boolean;
     required: boolean;
     allowCustomEntity: any;
+    showEntityId: boolean;
     label?: string;
+    ariaLabel: string | null;
     value?: string;
     helper?: string;
     placeholder?: string;
@@ -55,19 +60,37 @@ export declare class HaEntityPicker extends LitElement {
      */
     excludeEntities?: string[];
     entityFilter?: HaEntityPickerEntityFilterFunc;
+    /**
+     * Extra options shown alongside entities. The `id` is used as the value
+     * when the option is selected (it does not need to be a valid entity id).
+     */
+    extraOptions?: EntitySelectorExtraOption[];
     hideClearIcon: boolean;
+    addButton: boolean;
+    addButtonLabel?: string;
     private _picker?;
-    protected firstUpdated(changedProperties: PropertyValues): void;
+    private _pendingEntityId?;
+    private _relatedIdSets?;
+    private get _hasRelatedContext();
+    protected willUpdate(changedProperties: PropertyValues): void;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
+    private _findExtraOption;
+    private _renderExtraOptionStart;
     private _valueRenderer;
+    private get _showEntityId();
     private _rowRenderer;
     private _getAdditionalItems;
     private _getCreateItems;
+    private _getEntitiesMemoized;
+    private _sortByRelatedContext;
     private _getItems;
-    private _getEntities;
+    private _shouldHideClearIcon;
     protected render(): import("lit-html").TemplateResult<1>;
+    private _searchFn;
     open(): Promise<void>;
     private _valueChanged;
     private _setValue;
+    private _notFoundLabel;
 }
 declare global {
     interface HTMLElementTagNameMap {

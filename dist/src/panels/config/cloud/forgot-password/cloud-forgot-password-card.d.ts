@@ -3,19 +3,18 @@ import { LitElement } from "lit";
 import "../../../../components/buttons/ha-progress-button";
 import "../../../../components/ha-alert";
 import "../../../../components/ha-card";
-import type { HaTextField } from "../../../../components/ha-textfield";
-import "../../../../components/ha-textfield";
-import type { LocalizeFunc } from "../../../../common/translations/localize";
+import "../../../../components/input/ha-input";
+import type { HaInput } from "../../../../components/input/ha-input";
 import type { HomeAssistant } from "../../../../types";
 export declare class CloudForgotPasswordCard extends LitElement {
     hass?: HomeAssistant;
-    localize: LocalizeFunc;
     translationKeyPanel: "page-onboarding.restore.ha-cloud.forgot_password" | "config.cloud.forgot_password";
     email?: string;
     cardLess: boolean;
+    private _localize;
     private _inProgress;
     private _error?;
-    emailField: HaTextField;
+    emailField: HaInput;
     protected render(): TemplateResult;
     private _renderContent;
     private _keyDown;
@@ -26,5 +25,10 @@ export declare class CloudForgotPasswordCard extends LitElement {
 declare global {
     interface HTMLElementTagNameMap {
         "cloud-forgot-password-card": CloudForgotPasswordCard;
+    }
+    interface HASSDomEvents {
+        "cloud-done": {
+            flashMessage: string;
+        };
     }
 }

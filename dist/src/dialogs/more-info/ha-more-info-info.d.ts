@@ -1,5 +1,5 @@
 import { LitElement } from "lit";
-import type { ExtEntityRegistryEntry } from "../../data/entity_registry";
+import type { ExtEntityRegistryEntry } from "../../data/entity/entity_registry";
 import type { HomeAssistant } from "../../types";
 import "./ha-more-info-history";
 import "./ha-more-info-logbook";
@@ -9,9 +9,7 @@ export declare class MoreInfoInfo extends LitElement {
     entityId: string;
     entry?: ExtEntityRegistryEntry | null;
     editMode?: boolean;
-    private _sensorNumericDeviceClasses?;
-    private _loadNumericDeviceClasses;
-    protected firstUpdated(changedProps: any): void;
+    data?: Record<string, any>;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

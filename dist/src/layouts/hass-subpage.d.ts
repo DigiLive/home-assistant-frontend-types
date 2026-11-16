@@ -10,7 +10,7 @@ declare class HassSubpage extends LitElement {
     backPath?: string;
     backCallback?: () => void;
     narrow: boolean;
-    supervisor: boolean;
+    scrollable: boolean;
     private _savedScrollPos?;
     protected render(): TemplateResult;
     private _saveScrollPos;

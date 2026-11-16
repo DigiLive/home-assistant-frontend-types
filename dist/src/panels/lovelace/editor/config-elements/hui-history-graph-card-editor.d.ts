@@ -5,15 +5,24 @@ import type { HomeAssistant } from "../../../../types";
 import type { HistoryGraphCardConfig } from "../../cards/types";
 import "../../components/hui-entity-editor";
 import type { LovelaceCardEditor } from "../../types";
+import "../hui-sub-element-editor";
 export declare class HuiHistoryGraphCardEditor extends LitElement implements LovelaceCardEditor {
     hass?: HomeAssistant;
     private _config?;
-    private _configEntities?;
-    setConfig(config: HistoryGraphCardConfig): void;
+    private _subElementEditorConfig?;
     private _schema;
+    setConfig(config: HistoryGraphCardConfig): void;
+    private _subForm;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _goBack;
+    private _editDetailElement;
+    private _handleSubEntityChanged;
     private _valueChanged;
     private _entitiesChanged;
+    private _shouldDisableColorOption;
+    private _deleteColorOption;
+    private _orderProperties;
+    private _computeHelperCallback;
     private _computeLabelCallback;
     static styles: CSSResultGroup;
 }

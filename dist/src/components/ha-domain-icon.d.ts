@@ -1,12 +1,16 @@
 import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-icon";
 export declare class HaDomainIcon extends LitElement {
-    hass: HomeAssistant;
     domain?: string;
     deviceClass?: string;
+    state?: string;
     icon?: string;
     brandFallback?: boolean;
+    private _hassConfig?;
+    private _connection?;
+    private _hassUi?;
+    private _brandsAccessToken?;
+    private _iconTask;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _renderFallback;
     static styles: import("lit").CSSResult;

@@ -1,17 +1,18 @@
 import { LitElement, nothing } from "lit";
 import type { TemplateResult } from "lit";
-import type { HassDialog } from "../../../../../dialogs/make-dialog-manager";
-import type { HomeAssistant } from "../../../../../types";
 import "../../../../../components/ha-code-editor";
+import "../../../../../components/ha-dialog";
 export interface SSDPRawDataDialogParams {
     key: string;
     data: Record<string, unknown>;
 }
-declare class DialogSSDPRawData extends LitElement implements HassDialog {
-    hass: HomeAssistant;
+declare class DialogSSDPRawData extends LitElement {
     private _params?;
+    private _open;
+    private _i18n;
     showDialog(params: SSDPRawDataDialogParams): Promise<void>;
-    closeDialog(): boolean;
+    closeDialog(): void;
+    private _dialogClosed;
     protected render(): TemplateResult | typeof nothing;
     static styles: import("lit").CSSResult;
 }

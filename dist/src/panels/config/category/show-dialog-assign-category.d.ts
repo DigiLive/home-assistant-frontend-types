@@ -1,4 +1,4 @@
-import type { EntityRegistryEntry } from "../../../data/entity_registry";
+import type { EntityRegistryEntry } from "../../../data/entity/entity_registry";
 export interface AssignCategoryDialogParams {
     entityReg: EntityRegistryEntry;
     scope: string;

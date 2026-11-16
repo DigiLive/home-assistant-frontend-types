@@ -1,8 +1,6 @@
-import "@material/mwc-button";
 import { LitElement, nothing } from "lit";
 import type { MediaPlayerItem } from "../../data/media-player";
-import type { HomeAssistant } from "../../types";
-import "../ha-spinner";
+import "../ha-button";
 import "../ha-svg-icon";
 declare global {
     interface HASSDomEvents {
@@ -11,12 +9,12 @@ declare global {
     }
 }
 declare class MediaUploadButton extends LitElement {
-    hass: HomeAssistant;
     currentItem?: MediaPlayerItem;
+    private _localize;
+    private _api;
     _uploading: number;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _startUpload;
-    static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

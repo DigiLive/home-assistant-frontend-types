@@ -10,6 +10,7 @@ export declare class HaTraceLogbook extends LitElement {
     narrow: boolean;
     trace: TraceExtended;
     logbookEntries: LogbookEntry[];
+    private _localize;
     protected render(): TemplateResult;
     static get styles(): CSSResultGroup;
 }

@@ -3,6 +3,7 @@ import { LitElement, nothing } from "lit";
 import "../../../components/ha-card";
 import "../../../components/ha-icon-button";
 import "../../../state-control/climate/ha-state-control-climate-temperature";
+import "../../../state-control/water_heater/ha-state-control-water_heater-temperature";
 import type { HomeAssistant } from "../../../types";
 import "../card-features/hui-card-features";
 import type { LovelaceCard, LovelaceCardEditor, LovelaceGridOptions } from "../types";
@@ -13,6 +14,7 @@ export declare class HuiThermostatCard extends LitElement implements LovelaceCar
     static getStubConfig(hass: HomeAssistant, entities: string[], entitiesFallback: string[]): ThermostatCardConfig;
     hass?: HomeAssistant;
     private _config?;
+    private _featureContext;
     getCardSize(): number;
     setConfig(config: ThermostatCardConfig): void;
     private _handleMoreInfo;

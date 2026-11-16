@@ -9,7 +9,7 @@ export declare class AssistPipelineDetailWakeWord extends LitElement {
     private _wakeWords?;
     private _schema;
     private _computeLabel;
-    protected willUpdate(changedProps: PropertyValues): void;
+    protected willUpdate(changedProps: PropertyValues<this>): void;
     protected render(): import("lit-html").TemplateResult<1>;
     private _fetchWakeWords;
     static styles: import("lit").CSSResult;

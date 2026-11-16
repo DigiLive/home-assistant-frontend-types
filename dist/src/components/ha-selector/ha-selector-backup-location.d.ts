@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { BackupLocationSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-mount-picker";
 export declare class HaBackupLocationSelector extends LitElement {
-    hass: HomeAssistant;
     selector: BackupLocationSelector;
     value?: any;
     label?: string;

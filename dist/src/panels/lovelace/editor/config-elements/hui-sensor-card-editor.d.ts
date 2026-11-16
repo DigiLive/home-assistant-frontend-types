@@ -10,6 +10,7 @@ export declare class HuiSensorCardEditor extends LitElement implements LovelaceC
     setConfig(config: SensorCardConfig): void;
     private _schema;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _computeHelperCallback;
     private _valueChanged;
     private _computeLabelCallback;
     static get styles(): CSSResultGroup;

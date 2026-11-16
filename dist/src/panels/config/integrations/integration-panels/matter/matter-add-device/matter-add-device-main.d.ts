@@ -1,7 +1,7 @@
 import { LitElement } from "lit";
 import "../../../../../../components/ha-icon-next";
-import "../../../../../../components/ha-md-list-item";
-import "../../../../../../components/ha-md-list";
+import "../../../../../../components/item/ha-list-item-button";
+import "../../../../../../components/list/ha-list-base";
 import type { HomeAssistant } from "../../../../../../types";
 declare class MatterAddDeviceMain extends LitElement {
     hass: HomeAssistant;

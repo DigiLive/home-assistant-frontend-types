@@ -14,7 +14,7 @@ export declare class CastManager {
     get castState(): cast.framework.CastState;
     get castContext(): cast.framework.CastContext;
     get castSession(): cast.framework.CastSession;
-    requestSession(): Promise<chrome.cast.ErrorCode | undefined>;
+    requestSession(): Promise<chrome.cast.ErrorCode>;
     private _fireEvent;
     private _receiveMessage;
     private _sessionStateChanged;

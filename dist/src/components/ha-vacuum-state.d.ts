@@ -1,10 +1,10 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { HassEntity } from "home-assistant-js-websocket";
-import type { HomeAssistant } from "../types";
+import "./ha-button";
 export declare class HaVacuumState extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
+    private _api;
     stateObj: HassEntity;
     protected render(): TemplateResult;
     private _computeInterceptable;

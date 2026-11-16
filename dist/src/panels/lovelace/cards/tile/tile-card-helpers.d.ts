@@ -1,0 +1,10 @@
+import type { HassEntity } from "home-assistant-js-websocket";
+import type { HomeAssistantConnection } from "../../../../types";
+import type { ActionConfigParams } from "../../common/handle-action";
+import type { TileActionsConfig } from "../types";
+export declare const getEntityDefaultTileIconAction: (entityId: string) => "none" | "toggle";
+export declare const getTileActionDefaults: (entityId: string) => Pick<TileActionsConfig, "tap_action" | "icon_tap_action">;
+export declare const hasTileCardAction: (config?: TileActionsConfig) => boolean;
+export declare const hasTileIconAction: (config?: TileActionsConfig) => boolean;
+export declare const getTileIconActionConfig: (entity: string, config: TileActionsConfig) => ActionConfigParams;
+export declare const getTileImageUrl: (connection: Pick<HomeAssistantConnection, "hassUrl">, stateObj: HassEntity, size?: number) => string | undefined;

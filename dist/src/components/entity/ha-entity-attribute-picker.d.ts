@@ -1,12 +1,7 @@
-import type { HassEntity } from "home-assistant-js-websocket";
-import type { PropertyValues } from "lit";
-import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../../types";
-import "../ha-combo-box";
-export type HaEntityPickerEntityFilterFunc = (entityId: HassEntity) => boolean;
+import { LitElement } from "lit";
+import "../ha-generic-picker";
 declare class HaEntityAttributePicker extends LitElement {
-    hass: HomeAssistant;
-    entityId?: string;
+    entityId?: string | string[];
     /**
      * List of attributes to be hidden.
      * @type {Array}
@@ -20,12 +15,13 @@ declare class HaEntityAttributePicker extends LitElement {
     label?: string;
     value?: string;
     helper?: string;
-    private _opened;
-    private _comboBox;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
-    protected updated(changedProps: PropertyValues): void;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    private _openedChanged;
+    private _stateObjs?;
+    private _formatEntityAttributeName;
+    private _localize;
+    private _getItemsMemoized;
+    private _getItems;
+    private _valueRenderer;
+    protected render(): import("lit-html").TemplateResult<1>;
     private _valueChanged;
 }
 declare global {

@@ -1,6 +1,8 @@
-import "../../../../../components/entity/ha-entity-picker";
-import "../../../../../components/ha-formfield";
 import { LitElement } from "lit";
+import "../../../../../components/entity/ha-entities-picker";
+import "../../../../../components/entity/ha-entity-picker";
+import "../../../../../components/radio/ha-radio-group";
+import "../../../../../components/radio/ha-radio-option";
 import type { ZoneTrigger } from "../../../../../data/automation";
 import type { HomeAssistant } from "../../../../../types";
 export declare class HaZoneTrigger extends LitElement {

@@ -2,9 +2,13 @@ import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { LocalizeFunc } from "../../common/translations/localize";
 import type { HomeAssistant } from "../../types";
+import "../ha-button";
+import "../ha-dropdown";
+import "../ha-dropdown-item";
+import "../ha-svg-icon";
 import "./ha-form";
-import "../ha-list-item";
-import type { HaFormOptionalActionsSchema, HaFormDataContainer, HaFormElement, HaFormSchema } from "./types";
+import "./ha-form-divider";
+import type { HaFormDataContainer, HaFormElement, HaFormOptionalActionsSchema, HaFormSchema } from "./types";
 export declare class HaFormOptionalActions extends LitElement implements HaFormElement {
     localize?: LocalizeFunc;
     hass: HomeAssistant;
@@ -15,8 +19,10 @@ export declare class HaFormOptionalActions extends LitElement implements HaFormE
     computeHelper?: (schema: HaFormSchema) => string;
     localizeValue?: (key: string) => string;
     private _displayActions?;
+    private _form?;
     focus(): Promise<void>;
-    protected updated(changedProps: PropertyValues): void;
+    reportValidity(): boolean;
+    protected updated(changedProps: PropertyValues<this>): void;
     private _hiddenActions;
     private _displaySchema;
     render(): TemplateResult;

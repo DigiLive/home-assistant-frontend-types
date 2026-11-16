@@ -4,6 +4,7 @@ export declare enum NumberFormat {
     system = "system",
     comma_decimal = "comma_decimal",
     decimal_comma = "decimal_comma",
+    quote_decimal = "quote_decimal",
     space_comma = "space_comma",
     none = "none"
 }
@@ -47,8 +48,7 @@ declare global {
         language: FrontendLocaleData;
     }
 }
-export type TranslationCategory = "title" | "state" | "entity" | "entity_component" | "exceptions" | "config" | "config_subentries" | "config_panel" | "options" | "device_automation" | "mfa_setup" | "system_health" | "application_credentials" | "issues" | "selector" | "services";
-export declare const fetchTranslationPreferences: (hass: HomeAssistant) => Promise<FrontendLocaleData | null>;
+export type TranslationCategory = "title" | "state" | "entity" | "entity_component" | "exceptions" | "config" | "config_subentries" | "config_panel" | "options" | "device_automation" | "mfa_setup" | "system_health" | "application_credentials" | "issues" | "preview_features" | "selector" | "services" | "triggers" | "conditions";
 export declare const subscribeTranslationPreferences: (hass: HomeAssistant, callback: (data: {
     value: FrontendLocaleData | null;
 }) => void) => Promise<() => Promise<void>>;

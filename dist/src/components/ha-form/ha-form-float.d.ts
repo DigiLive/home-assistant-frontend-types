@@ -1,8 +1,8 @@
-import type { TemplateResult, PropertyValues } from "lit";
+import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import "../ha-textfield";
-import type { HaFormElement, HaFormFloatData, HaFormFloatSchema } from "./types";
 import type { LocalizeFunc } from "../../common/translations/localize";
+import "../input/ha-input";
+import type { HaFormElement, HaFormFloatData, HaFormFloatSchema } from "./types";
 export declare class HaFormFloat extends LitElement implements HaFormElement {
     localize?: LocalizeFunc;
     schema: HaFormFloatSchema;
@@ -11,10 +11,18 @@ export declare class HaFormFloat extends LitElement implements HaFormElement {
     helper?: string;
     disabled: boolean;
     private _input?;
-    focus(): void;
+    static shadowRootOptions: {
+        clonable?: boolean;
+        customElementRegistry?: CustomElementRegistry | null;
+        mode: ShadowRootMode;
+        serializable?: boolean;
+        slotAssignment?: SlotAssignmentMode;
+        delegatesFocus: boolean;
+    };
+    reportValidity(): boolean;
     protected render(): TemplateResult;
-    protected updated(changedProps: PropertyValues): void;
-    private _valueChanged;
+    protected updated(changedProps: PropertyValues<this>): void;
+    private _handleInput;
     static styles: import("lit").CSSResult;
 }
 declare global {

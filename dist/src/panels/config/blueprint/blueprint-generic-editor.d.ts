@@ -1,5 +1,4 @@
-import "@material/mwc-button/mwc-button";
-import type { CSSResultGroup } from "lit";
+import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement } from "lit";
 import "../../../components/ha-blueprint-picker";
 import "../../../components/ha-card";
@@ -17,8 +16,13 @@ export declare abstract class HaBlueprintGenericEditor extends LitElement {
     disabled: boolean;
     narrow: boolean;
     protected _blueprints?: Blueprints;
-    protected firstUpdated(changedProps: any): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     protected get _blueprint(): BlueprintOrError | undefined;
+    private _inputValues;
+    private _hiddenInputs;
+    private get _metadataInput();
+    private get _values();
+    private get _hidden();
     protected abstract get _config(): BlueprintAutomationConfig | BlueprintScriptConfig;
     protected renderCard(): import("lit-html").TemplateResult<1>;
     private _renderSection;

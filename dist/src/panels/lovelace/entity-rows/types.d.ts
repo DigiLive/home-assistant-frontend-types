@@ -1,14 +1,16 @@
+import type { EntityNameItem } from "../../../common/entity/compute_entity_name_display";
 import type { ActionConfig, ConfirmationRestrictionConfig } from "../../../data/lovelace/config/action";
 import type { HomeAssistant } from "../../../types";
 import type { LegacyStateFilter } from "../common/evaluate-filter";
-import type { Condition } from "../common/validate-condition";
+import type { Condition, VisibilityCondition } from "../common/validate-condition";
 import type { TimestampRenderingFormat } from "../components/types";
 export interface EntityConfig {
     entity: string;
     type?: string;
-    name?: string;
+    name?: string | EntityNameItem | EntityNameItem[];
     icon?: string;
     image?: string;
+    time_format?: TimestampRenderingFormat;
 }
 export interface ConfirmableRowConfig extends EntityConfig {
     confirmation?: ConfirmationRestrictionConfig;
@@ -79,11 +81,10 @@ export interface LovelaceRow extends HTMLElement {
 }
 export interface ConditionalRowConfig extends EntityConfig {
     row: EntityConfig;
-    conditions: Condition[];
+    conditions: VisibilityCondition[];
 }
 export interface AttributeRowConfig extends EntityConfig {
     attribute: string;
     prefix?: string;
     suffix?: string;
-    format?: TimestampRenderingFormat;
 }

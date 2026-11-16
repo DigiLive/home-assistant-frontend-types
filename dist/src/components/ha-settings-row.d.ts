@@ -5,6 +5,8 @@ export declare class HaSettingsRow extends LitElement {
     slim: boolean;
     threeLine: boolean;
     wrapHeading: boolean;
+    empty: boolean;
+    private readonly _hasSlotController;
     protected render(): TemplateResult;
     static styles: import("lit").CSSResult;
 }

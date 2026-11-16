@@ -1,8 +1,9 @@
 import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
-import "../../../../components/user/ha-user-badge";
-import "../../../../components/ha-list-item";
 import "../../../../components/ha-switch";
+import "../../../../components/item/ha-list-item-base";
+import "../../../../components/list/ha-list-base";
+import "../../../../components/user/ha-user-badge";
 import type { LovelaceViewConfig, ShowViewConfig } from "../../../../data/lovelace/config/view";
 import type { HomeAssistant } from "../../../../types";
 declare global {
@@ -19,7 +20,7 @@ export declare class HuiViewVisibilityEditor extends LitElement {
     private _users;
     private _visible;
     private _sortedUsers;
-    protected firstUpdated(changedProps: PropertyValues): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     protected checkUser(userId: string): boolean;
     private _valChange;

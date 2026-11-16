@@ -1,7 +1,7 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 declare class MQTTDiscoveryPayload extends LitElement {
-    payload: Record<string, unknown>;
+    payload: Record<string, unknown> | string;
     showAsYaml: boolean;
     summary: string;
     private _open;

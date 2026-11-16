@@ -1,5 +1,5 @@
 import type { PropertyValues } from "lit";
-import type { EntityRegistryEntry } from "../../../data/entity_registry";
+import type { CloudStatus } from "../../../data/cloud";
 import type { ScriptEntity } from "../../../data/script";
 import type { RouterOptions } from "../../../layouts/hass-router-page";
 import { HassRouterPage } from "../../../layouts/hass-router-page";
@@ -10,13 +10,12 @@ declare class HaConfigScript extends HassRouterPage {
     hass: HomeAssistant;
     narrow: boolean;
     isWide: boolean;
-    showAdvanced: boolean;
+    cloudStatus?: CloudStatus;
     scripts: ScriptEntity[];
-    _entityReg: EntityRegistryEntry[];
     protected routerOptions: RouterOptions;
     private _debouncedUpdateScripts;
     private _getScripts;
-    protected firstUpdated(changedProps: any): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     protected updatePageEl(pageEl: any, changedProps: PropertyValues): void;
 }
 declare global {

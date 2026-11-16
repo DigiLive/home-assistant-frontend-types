@@ -8,8 +8,10 @@ export declare class HaWaitAction extends LitElement implements ActionElement {
     action: WaitAction;
     disabled: boolean;
     static get defaultConfig(): WaitAction;
+    private _schema;
     protected render(): import("lit-html").TemplateResult<1>;
     private _computeLabelCallback;
+    private _formValueChanged;
 }
 declare global {
     interface HTMLElementTagNameMap {

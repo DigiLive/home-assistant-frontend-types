@@ -1,0 +1,11 @@
+import type { HassEntity } from "home-assistant-js-websocket";
+import type { SecurityAlertEntityConfig, SecurityAlertSeverity } from "../../../data/frontend";
+import type { HomeAssistant } from "../../../types";
+import type { AlertCardConfig } from "../../lovelace/cards/types";
+import type { StateCondition } from "../../lovelace/common/validate-condition";
+export declare const computeDefaultSecurityAlertSeverity: (stateObj?: HassEntity) => SecurityAlertSeverity;
+export declare const computeDefaultSecurityAlertVisibility: (entityId: string) => StateCondition[];
+export declare const resolveSecurityAlertSeverity: (alertEntity: SecurityAlertEntityConfig, stateObj?: HassEntity) => SecurityAlertSeverity;
+export declare const isSecurityAlertActive: (states: HomeAssistant["states"], entityId: string) => boolean;
+export declare const filterSecurityAlertEntities: (alertEntities: SecurityAlertEntityConfig[], hass: HomeAssistant, severity: SecurityAlertSeverity) => SecurityAlertEntityConfig[];
+export declare const computeSecurityAlertCardConfig: (stateObj: HassEntity | undefined, alertEntity: SecurityAlertEntityConfig) => AlertCardConfig;

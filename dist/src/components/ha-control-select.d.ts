@@ -1,10 +1,11 @@
-import type { PropertyValues, TemplateResult } from "lit";
+import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "./ha-icon";
 import "./ha-svg-icon";
 export interface ControlSelectOption {
     value: string;
     label?: string;
+    ariaLabel?: string;
     icon?: TemplateResult;
     path?: string;
 }
@@ -13,21 +14,19 @@ export declare class HaControlSelect extends LitElement {
     options?: ControlSelectOption[];
     value?: string;
     vertical: boolean;
-    hideLabel: boolean;
+    hideOptionLabel: boolean;
+    label?: string;
     private _activeIndex?;
-    protected firstUpdated(changedProperties: PropertyValues): void;
-    protected updated(changedProps: PropertyValues): void;
-    connectedCallback(): void;
-    disconnectedCallback(): void;
-    private _setupListeners;
-    private _destroyListeners;
     private _handleFocus;
+    private _focusOption;
     private _handleBlur;
     private _handleKeydown;
     private _handleOptionClick;
     private _handleOptionMouseDown;
     private _handleOptionMouseUp;
+    private _handleOptionFocus;
     protected render(): TemplateResult<1>;
+    private get _tabbableIndex();
     private _renderOption;
     static styles: import("lit").CSSResult;
 }

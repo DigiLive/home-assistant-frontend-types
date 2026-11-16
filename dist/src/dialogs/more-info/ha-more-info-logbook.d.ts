@@ -9,7 +9,7 @@ export declare class MoreInfoLogbook extends LitElement {
     private _time;
     private _entityIdAsList;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected willUpdate(changedProps: PropertyValues): void;
+    protected willUpdate(changedProps: PropertyValues<this>): void;
     static get styles(): import("lit").CSSResult[];
 }
 declare global {

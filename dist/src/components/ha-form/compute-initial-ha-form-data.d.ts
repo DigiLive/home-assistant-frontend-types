@@ -1,2 +1,6 @@
 import type { HaFormSchema } from "./types";
-export declare const computeInitialHaFormData: (schema: HaFormSchema[] | readonly HaFormSchema[]) => Record<string, any>;
+interface ComputeInitialHaFormDataOptions {
+    skipUnsupportedSelectors?: boolean;
+}
+export declare const computeInitialHaFormData: (schema: HaFormSchema[] | readonly HaFormSchema[], options?: ComputeInitialHaFormDataOptions) => Record<string, any>;
+export {};

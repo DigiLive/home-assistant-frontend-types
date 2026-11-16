@@ -1,0 +1,8 @@
+import type { HomeAssistant } from "../../../types";
+import type { LovelaceCardFeatureConfig, LovelaceCardFeatureContext } from "./types";
+export type FeatureType = LovelaceCardFeatureConfig["type"];
+export type SupportsFeature = (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
+export declare const UI_FEATURE_TYPES: readonly ["alarm-modes", "area-controls", "bar-gauge", "button", "climate-fan-modes", "climate-hvac-modes", "climate-preset-modes", "climate-swing-modes", "climate-swing-horizontal-modes", "counter-actions", "cover-open-close", "cover-position-favorite", "cover-position", "cover-tilt-favorite", "cover-tilt-position", "cover-tilt", "date-set", "fan-direction", "fan-oscillate", "fan-preset-modes", "fan-speed", "humidifier-modes", "humidifier-toggle", "lawn-mower-commands", "light-brightness", "light-color", "light-color-temp", "light-color-favorites", "light-effect", "lock-commands", "lock-open-door", "media-player-playback", "media-player-sound-mode", "media-player-source", "media-player-volume-buttons", "media-player-volume-slider", "numeric-input", "precipitation-forecast", "select-options", "temperature-forecast", "trend-graph", "target-humidity", "target-temperature", "timer-actions", "timer-presets", "toggle", "update-actions", "vacuum-commands", "vacuum-fan-speed", "valve-open-close", "valve-position-favorite", "valve-position", "water-heater-operation-modes"];
+export type UiFeatureType = (typeof UI_FEATURE_TYPES)[number];
+export declare const SUPPORTS_FEATURE_TYPES: Record<UiFeatureType, SupportsFeature>;
+export declare const supportsFeatureType: (hass: HomeAssistant, context: LovelaceCardFeatureContext, type: UiFeatureType) => boolean;

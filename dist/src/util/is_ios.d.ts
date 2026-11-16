@@ -1,2 +1,2 @@
 import type { HomeAssistant } from "../types";
-export declare const isIosApp: (hass: HomeAssistant) => boolean;
+export declare const isIosApp: (authExternal: HomeAssistant["auth"]["external"]) => boolean;

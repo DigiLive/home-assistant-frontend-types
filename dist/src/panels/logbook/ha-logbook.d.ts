@@ -1,8 +1,14 @@
 import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../components/ha-spinner";
+import type { LogbookEntry } from "../../data/logbook";
 import type { HomeAssistant } from "../../types";
 import "./ha-logbook-renderer";
+import type { LogbookNameDetail } from "./logbook-entry-model";
+/**
+ * @slot empty - Shown instead of the default text when there is no activity,
+ * for surfaces that can offer a way out (e.g. changing the filters).
+ */
 export declare class HaLogbook extends LitElement {
     hass: HomeAssistant;
     time: {
@@ -12,26 +18,39 @@ export declare class HaLogbook extends LitElement {
     };
     entityIds?: string[];
     deviceIds?: string[];
+    stateFilter?: string[];
+    /** Keys from `computeLogbookCauseKey` to keep. */
+    causeFilter?: string[];
     narrow: boolean;
     virtualize: boolean;
     noIcon: boolean;
-    noName: boolean;
-    showIndicator: boolean;
-    relativeTime: boolean;
+    graphColor: boolean;
+    showCause: boolean;
+    nameDetail?: LogbookNameDetail;
     showMoreLink: boolean;
+    maxEntries?: number;
     private _logbookEntries?;
     private _traceContexts;
     private _userIdToName;
+    private _systemUserIds;
+    private _personUserIds;
     private _error?;
     private _unsubLogbook?;
     private _liveUpdatesEnabled;
     private _pendingStreamMessages;
     private _throttleGetLogbookEntries;
+    private _logbookSubscriptionId;
+    private _readyListenerAttached;
+    getEntries(): LogbookEntry[];
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _shownEntries;
+    private _limitEntries;
+    private _filterEntriesByCause;
     refresh(force?: boolean): Promise<void>;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected willUpdate(changedProps: PropertyValues): void;
     private _handleLogbookLive;
+    private _setLiveUpdates;
     private get _filterAlwaysEmptyResults();
     /**
      * Unsubscribe from a logbook stream since
@@ -49,6 +68,9 @@ export declare class HaLogbook extends LitElement {
     private _unsubscribe;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    private _attachReadyListener;
+    private _detachReadyListener;
+    private _handleConnectionReady;
     private _calculateLogbookPeriod;
     private _subscribeLogbookPeriod;
     private _getLogBookData;

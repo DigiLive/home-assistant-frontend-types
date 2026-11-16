@@ -3,12 +3,12 @@ import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../components/entity/state-info";
 import "../components/ha-slider";
-import "../components/ha-textfield";
-import type { HomeAssistant } from "../types";
+import "../components/input/ha-input";
 declare class StateCardInputNumber extends LitElement {
-    hass: HomeAssistant;
     stateObj: HassEntity;
     inDialog: boolean;
+    private _formatEntityState?;
+    private _api;
     private _loaded?;
     private _updated?;
     private _resizeObserver?;

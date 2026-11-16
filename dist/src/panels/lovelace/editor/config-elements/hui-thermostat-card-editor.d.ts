@@ -10,6 +10,8 @@ export declare class HuiThermostatCardEditor extends LitElement implements Lovel
     hass?: HomeAssistant;
     private _config?;
     setConfig(config: ThermostatCardConfig): void;
+    private _featureContext;
+    private _schema;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _valueChanged;
     private _featuresChanged;

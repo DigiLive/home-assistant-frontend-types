@@ -1,6 +1,7 @@
 import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import type { LocalizeFunc } from "../common/translations/localize";
 import type { HomeAssistant } from "../types";
-export declare const enum LockEntityFeature {
+export declare enum LockEntityFeature {
     OPEN = 1
 }
 interface LockEntityAttributes extends HassEntityAttributeBase {
@@ -22,5 +23,5 @@ export declare function isWaiting(stateObj: LockEntity): boolean;
 export declare function canOpen(stateObj: LockEntity): boolean;
 export declare function canLock(stateObj: LockEntity): boolean;
 export declare function canUnlock(stateObj: LockEntity): boolean;
-export declare const callProtectedLockService: (element: HTMLElement, hass: HomeAssistant, stateObj: LockEntity, service: ProtectedLockService) => Promise<void>;
+export declare const callProtectedLockService: (element: HTMLElement, callService: HomeAssistant["callService"], callWS: HomeAssistant["callWS"], localize: LocalizeFunc, stateObj: LockEntity, service: ProtectedLockService) => Promise<void>;
 export {};

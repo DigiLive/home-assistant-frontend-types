@@ -2,11 +2,14 @@ import { LitElement, nothing } from "lit";
 import "../../../../components/ha-card";
 import "../../../../components/ha-icon-next";
 import "../../../../components/ha-list-item";
+import type { EntityRegistryEntry } from "../../../../data/entity/entity_registry";
 import type { HomeAssistant } from "../../../../types";
 export declare class HaDeviceViaDevicesCard extends LitElement {
     hass: HomeAssistant;
     deviceId: string;
     _showAll: boolean;
+    _entityReg: EntityRegistryEntry[];
+    private _entityCounts;
     private _viaDevices;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _toggleShowAll;

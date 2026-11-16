@@ -1,3 +1,4 @@
+import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../components/ha-expansion-panel";
 import "../../../../components/ha-form/ha-form";
@@ -10,7 +11,9 @@ export declare class HuiHeadingEntityEditor extends LitElement implements Lovela
     hass?: HomeAssistant;
     preview: boolean;
     private _config?;
+    private _contextProvider;
     setConfig(config: EntityHeadingBadgeConfig): void;
+    protected willUpdate(changedProperties: PropertyValues): void;
     private _schema;
     private _displayedElements;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;

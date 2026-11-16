@@ -1,1 +1,1 @@
-export default function isValidObject(obj: any, requiredKeys?: never[]): any;
+export default function isValidObject(obj: any, requiredKeys?: any[]): boolean;

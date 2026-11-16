@@ -1,30 +1,19 @@
-import type { HassEntity } from "home-assistant-js-websocket";
-import type { PropertyValues, TemplateResult } from "lit";
-import { LitElement } from "lit";
-import "../../../components/ha-attribute-icon";
-import "../../../components/ha-control-select";
-import "../../../components/ha-control-select-menu";
-import "../../../components/ha-list-item";
 import type { ClimateEntity } from "../../../data/climate";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardFeature, LovelaceCardFeatureEditor } from "../types";
-import type { ClimatePresetModesCardFeatureConfig } from "./types";
-export declare const supportsClimatePresetModesCardFeature: (stateObj: HassEntity) => boolean;
-declare class HuiClimatePresetModesCardFeature extends LitElement implements LovelaceCardFeature {
-    hass?: HomeAssistant;
-    stateObj?: ClimateEntity;
-    private _config?;
-    _currentPresetMode?: string;
-    private _haSelect?;
+import { HuiModeSelectCardFeatureBase } from "./hui-mode-select-card-feature-base";
+import type { ClimatePresetModesCardFeatureConfig, LovelaceCardFeatureContext } from "./types";
+export declare const supportsClimatePresetModesCardFeature: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
+declare class HuiClimatePresetModesCardFeature extends HuiModeSelectCardFeatureBase<ClimateEntity, ClimatePresetModesCardFeatureConfig> implements LovelaceCardFeature {
+    protected readonly _attribute = "preset_mode";
+    protected readonly _modesAttribute = "preset_modes";
+    protected get _configuredModes(): string[];
+    protected readonly _dropdownIconPath: string;
+    protected readonly _serviceDomain = "climate";
+    protected readonly _serviceAction = "set_preset_mode";
     static getStubConfig(): ClimatePresetModesCardFeatureConfig;
     static getConfigElement(): Promise<LovelaceCardFeatureEditor>;
-    setConfig(config: ClimatePresetModesCardFeatureConfig): void;
-    protected willUpdate(changedProp: PropertyValues): void;
-    protected updated(changedProps: PropertyValues): void;
-    private _valueChanged;
-    private _setMode;
-    protected render(): TemplateResult | null;
-    static get styles(): import("lit").CSSResult;
+    protected _isSupported(): boolean;
 }
 declare global {
     interface HTMLElementTagNameMap {

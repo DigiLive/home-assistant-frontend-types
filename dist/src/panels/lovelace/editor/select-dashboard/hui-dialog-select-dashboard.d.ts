@@ -1,12 +1,10 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
-import "../../../../components/ha-md-dialog";
-import "../../../../components/ha-dialog-header";
-import "../../../../components/ha-icon-button";
-import "../../../../components/ha-md-select";
-import "../../../../components/ha-md-select-option";
 import "../../../../components/ha-button";
+import "../../../../components/ha-dialog-footer";
+import "../../../../components/ha-select";
 import "../../../../components/ha-spinner";
+import "../../../../components/ha-dialog";
 import type { HomeAssistant } from "../../../../types";
 import type { SelectDashboardDialogParams } from "./show-select-dashboard-dialog";
 export declare class HuiDialogSelectDashboard extends LitElement {
@@ -17,7 +15,7 @@ export declare class HuiDialogSelectDashboard extends LitElement {
     private _toUrlPath?;
     private _config?;
     private _saving;
-    private _dialog?;
+    private _open;
     showDialog(params: SelectDashboardDialogParams): void;
     closeDialog(): void;
     private _dialogClosed;

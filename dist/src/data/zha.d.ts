@@ -1,29 +1,30 @@
-import type { HassEntity } from "home-assistant-js-websocket";
 import type { HaFormSchema } from "../components/ha-form/types";
 import type { HomeAssistant } from "../types";
-export interface ZHAEntityReference extends HassEntity {
-    name: string;
-    original_name?: string;
+export interface ZHAEntityReference {
+    entity_id?: string;
+    name: string | null;
+    original_name?: string | null;
 }
+export declare const computeZHAEntityName: (entity: ZHAEntityReference, deviceName: string) => string;
 export interface ZHADevice {
     available: boolean;
     name: string;
     ieee: string;
     nwk: number;
-    lqi: number;
-    rssi: string;
+    lqi: number | null;
+    rssi: number | null;
     last_seen: string;
     manufacturer: string;
     model: string;
     quirk_applied: boolean;
     quirk_class: string;
     entities: ZHAEntityReference[];
-    manufacturer_code: number;
+    manufacturer_code: number | null;
     device_reg_id: string;
-    user_given_name?: string;
+    user_given_name?: string | null;
     power_source?: string;
-    area_id?: string;
-    device_type: string;
+    area_id?: string | null;
+    device_type: ZHADeviceType;
     active_coordinator: boolean;
     signature: any;
     neighbors: Neighbor[];
@@ -44,6 +45,13 @@ export interface Route {
     many_to_one: boolean;
     route_record_required: boolean;
     next_hop: string;
+}
+export declare enum ZHADeviceType {
+    Coordinator = "Coordinator",
+    Router = "Router",
+    EndDevice = "EndDevice",
+    GreenPower = "GreenPower",
+    Unknown = "unknown"
 }
 export declare enum RouteStatus {
     Active = "Active",
@@ -150,9 +158,9 @@ export interface ZHANetworkBackupNetworkInfo {
     key_table: ZHANetworkBackupKey[];
     children: string[];
     nwk_addresses: Record<string, string>;
-    stack_specific?: Record<string, any>;
+    stack_specific: Record<string, any>;
     metadata: Record<string, any>;
-    source: string;
+    source: string | null;
 }
 export interface ZHANetworkBackup {
     backup_time: string;
@@ -166,7 +174,7 @@ export interface ZHADeviceSettings {
 }
 export interface ZHANetworkSettings {
     settings: ZHANetworkBackup;
-    radio_type: "ezsp" | "znp" | "deconz" | "zigate" | "xbee";
+    radio_type: string;
     device: ZHADeviceSettings;
 }
 export interface ZHANetworkBackupAndMetadata {

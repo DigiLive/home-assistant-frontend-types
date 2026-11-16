@@ -5,12 +5,14 @@ export interface AuthUrlSearchParams {
     client_id?: string;
     redirect_uri?: string;
     state?: string;
+    code_challenge?: string;
+    code_challenge_method?: string;
+    response_type?: string;
 }
 export interface AuthProvider {
     name: string;
     id: string;
     type: string;
-    users?: Record<string, string>;
 }
 export interface Credential {
     type: string;
@@ -19,10 +21,10 @@ export interface SignedPath {
     path: string;
 }
 export declare const hassUrl: string;
-export declare const autocompleteLoginFields: (schema: HaFormSchema[]) => (import("../components/ha-form/types").HaFormConstantSchema | import("../components/ha-form/types").HaFormStringSchema | import("../components/ha-form/types").HaFormIntegerSchema | import("../components/ha-form/types").HaFormFloatSchema | import("../components/ha-form/types").HaFormBooleanSchema | import("../components/ha-form/types").HaFormSelectSchema | import("../components/ha-form/types").HaFormMultiSelectSchema | import("../components/ha-form/types").HaFormTimeSchema | import("../components/ha-form/types").HaFormSelector | import("../components/ha-form/types").HaFormGridSchema | import("../components/ha-form/types").HaFormExpandableSchema | import("../components/ha-form/types").HaFormOptionalActionsSchema)[];
-export declare const getSignedPath: (hass: HomeAssistant, path: string) => Promise<SignedPath>;
+export declare const autocompleteLoginFields: (schema: HaFormSchema[]) => (import("../components/ha-form/types").HaFormBooleanSchema | import("../components/ha-form/types").HaFormConstantSchema | import("../components/ha-form/types").HaFormDividerSchema | import("../components/ha-form/types").HaFormExpandableSchema | import("../components/ha-form/types").HaFormFloatSchema | import("../components/ha-form/types").HaFormGridSchema | import("../components/ha-form/types").HaFormIntegerSchema | import("../components/ha-form/types").HaFormMultiSelectSchema | import("../components/ha-form/types").HaFormOptionalActionsSchema | import("../components/ha-form/types").HaFormSelectSchema | import("../components/ha-form/types").HaFormStringSchema | import("../components/ha-form/types").HaFormTimeSchema)[];
+export declare const getSignedPath: (hass: Pick<HomeAssistant, "callWS">, path: string) => Promise<SignedPath>;
 export declare const fetchAuthProviders: () => Promise<Response>;
-export declare const createLoginFlow: (client_id: string | undefined, redirect_uri: string | undefined, handler: (string | null)[]) => Promise<Response>;
+export declare const createLoginFlow: (client_id: string | undefined, redirect_uri: string | undefined, handler: (string | null)[], code_challenge?: string, code_challenge_method?: string, response_type?: string) => Promise<Response>;
 export declare const submitLoginFlow: (flow_id: string, data: Record<string, any>) => Promise<Response>;
 export declare const deleteLoginFlow: (flow_id: any) => Promise<Response>;
 export declare const redirectWithAuthCode: (url: string, authCode: string, oauth2State: string | undefined, storeToken: boolean) => void;

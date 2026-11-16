@@ -1,18 +1,16 @@
 import type { PropertyValues } from "lit";
 import { ReactiveElement } from "lit";
-import type { HomeAssistant } from "../types";
 declare class HaRelativeTime extends ReactiveElement {
-    hass: HomeAssistant;
     datetime?: string | Date;
+    format: Intl.RelativeTimeFormatStyle;
     capitalize: boolean;
-    private _interval?;
+    private _i18n?;
+    private _timeout?;
     disconnectedCallback(): void;
     connectedCallback(): void;
     protected createRenderRoot(): this;
-    protected firstUpdated(changedProps: PropertyValues): void;
-    protected update(changedProps: PropertyValues): void;
-    private _clearInterval;
-    private _startInterval;
+    protected update(changedProps: PropertyValues<this>): void;
+    private _clearTimeout;
     private _updateRelative;
 }
 declare global {

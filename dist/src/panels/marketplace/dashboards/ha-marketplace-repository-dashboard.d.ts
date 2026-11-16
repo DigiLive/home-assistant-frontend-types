@@ -1,0 +1,72 @@
+import type { PropertyValues, TemplateResult } from "lit";
+import { LitElement } from "lit";
+import "../../../components/ha-alert";
+import "../../../components/ha-card";
+import "../../../components/ha-button";
+import "../../../components/ha-markdown";
+import "@home-assistant/webawesome/dist/components/divider/divider";
+import "../../../components/ha-dropdown";
+import "../../../components/ha-dropdown-item";
+import "../../../components/ha-icon-button";
+import "../../../components/ha-svg-icon";
+import "../../../layouts/hass-error-screen";
+import "../../../layouts/hass-loading-screen";
+import "../../../layouts/hass-subpage";
+import type { Route } from "../../../types";
+import type { MarketplaceData } from "../../../data/marketplace/marketplace";
+export declare class HaMarketplaceRepositoryDashboard extends LitElement {
+    marketplace: MarketplaceData;
+    narrow: boolean;
+    route: Route;
+    private _i18n;
+    private _darkMode?;
+    private _hassUrl;
+    private _brandsAccessToken?;
+    private _api;
+    private _updateEntity?;
+    private _repository?;
+    private _error?;
+    private _refreshError?;
+    private _configEntryCount?;
+    private _request;
+    private _settingPreReleases;
+    protected firstUpdated(changedProperties: PropertyValues<this>): Promise<void>;
+    private _loadRepository;
+    private _loadRepositoryFromMyLink;
+    protected willUpdate(changedProps: PropertyValues<this>): void;
+    protected updated(changedProps: PropertyValues<this>): void;
+    reloadRepository(): void;
+    includePreReleases(include: boolean): Promise<void>;
+    private _loadRepositoryFromRoute;
+    private _fetchRepository;
+    private _loadConfigEntryCount;
+    private _isCurrentRequest;
+    private _retry;
+    private _readme;
+    private _readmeUrl;
+    private _getAuthors;
+    protected render(): TemplateResult;
+    private _renderIcon;
+    private _renderSummary;
+    private _renderStatus;
+    private _status;
+    private _installButton;
+    private _nextStep;
+    private _integrationNextStep;
+    private _renderCommunity;
+    private _authorLinks;
+    private _renderDetails;
+    private _signals;
+    private _relativeTime;
+    private _update;
+    private _restart;
+    private _setUp;
+    private _handleOverflowAction;
+    private _installRepositoryDialog;
+    static get styles(): import("lit").CSSResult[];
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        "ha-marketplace-repository-dashboard": HaMarketplaceRepositoryDashboard;
+    }
+}

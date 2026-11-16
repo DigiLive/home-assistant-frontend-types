@@ -17,7 +17,7 @@ export declare class HuiEntityFilterCard extends ReactiveElement implements Love
     setConfig(config: EntityFilterCardConfig): void;
     protected createRenderRoot(): this;
     protected shouldUpdate(changedProps: PropertyValues): boolean;
-    protected update(changedProps: PropertyValues): void;
+    protected update(changedProps: PropertyValues<this>): void;
     private _haveEntitiesChanged;
     private _createCardElement;
 }

@@ -1,16 +1,16 @@
 import { LitElement } from "lit";
 import type { EChartsType } from "echarts/core";
-import type { HomeAssistant } from "../../types";
 import "./ha-chart-base";
+import "./ha-chart-tooltip-marker";
 import "../ha-alert";
 export interface Node {
     id: string;
     value: number;
     index: number;
     label?: string;
-    tooltip?: string;
     color?: string;
     passThrough?: boolean;
+    entityId?: string;
 }
 export interface Link {
     source: string;
@@ -22,14 +22,18 @@ export interface SankeyChartData {
     links: Link[];
 }
 export declare class HaSankeyChart extends LitElement {
-    hass: HomeAssistant;
     data: SankeyChartData;
     vertical: boolean;
+    showValues: boolean;
     valueFormatter?: (value: number) => string;
     chart?: EChartsType;
+    private _currentZoom;
     private _sizeController;
     render(): import("lit-html").TemplateResult<1>;
     private _renderTooltip;
+    private _handleChartSankeyRoam;
+    private _handleChartClick;
+    private _computeData;
     private _createData;
     private _processLinks;
     private _findParentIndex;
@@ -38,5 +42,10 @@ export declare class HaSankeyChart extends LitElement {
 declare global {
     interface HTMLElementTagNameMap {
         "ha-sankey-chart": HaSankeyChart;
+    }
+    interface HASSDomEvents {
+        "node-click": {
+            node: Node;
+        };
     }
 }

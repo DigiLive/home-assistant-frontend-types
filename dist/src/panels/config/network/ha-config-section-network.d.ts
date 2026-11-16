@@ -1,11 +1,12 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import "../../../layouts/hass-subpage";
 import "../../../components/ha-card";
-import "../../../components/ha-md-list";
-import "../../../components/ha-md-list-item";
 import "../../../components/ha-icon-next";
+import "../../../components/item/ha-list-item-button";
+import "../../../components/list/ha-list-nav";
+import "../../../layouts/hass-subpage";
 import type { HomeAssistant, Route } from "../../../types";
+import "./ha-config-http-form";
 import "./ha-config-network";
 import "./ha-config-url-form";
 import "./supervisor-hostname";

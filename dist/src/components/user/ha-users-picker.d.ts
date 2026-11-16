@@ -1,17 +1,18 @@
+import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import type { User } from "../../data/user";
-import type { HomeAssistant } from "../../types";
 import "../ha-icon-button";
 import "./ha-user-picker";
 declare class HaUsersPicker extends LitElement {
-    hass: HomeAssistant;
     label?: string;
     value?: string[];
     pickedUserLabel?: string;
     pickUserLabel?: string;
     users?: User[];
     disabled: boolean;
-    protected firstUpdated(changedProps: any): void;
+    private _localize;
+    private _api;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     private _fetchUsers;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _notSelectedUsers;

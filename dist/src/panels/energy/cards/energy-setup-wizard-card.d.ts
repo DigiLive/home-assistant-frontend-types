@@ -1,4 +1,3 @@
-import "@material/mwc-button/mwc-button";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { LovelaceCardConfig } from "../../../data/lovelace/config/card";
@@ -9,6 +8,7 @@ import "../../config/energy/components/ha-energy-gas-settings";
 import "../../config/energy/components/ha-energy-grid-settings";
 import "../../config/energy/components/ha-energy-solar-settings";
 import "../../config/energy/components/ha-energy-water-settings";
+import "../../../components/ha-button";
 import type { Lovelace, LovelaceCard } from "../../lovelace/types";
 export declare class EnergySetupWizard extends LitElement implements LovelaceCard {
     hass: HomeAssistant;

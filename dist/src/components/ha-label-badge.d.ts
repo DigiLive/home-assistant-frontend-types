@@ -6,7 +6,7 @@ declare class HaLabelBadge extends LitElement {
     image?: string;
     protected render(): TemplateResult;
     static get styles(): CSSResultGroup;
-    protected updated(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
 }
 declare global {
     interface HTMLElementTagNameMap {

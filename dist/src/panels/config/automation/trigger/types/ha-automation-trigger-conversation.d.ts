@@ -1,6 +1,8 @@
+import "@home-assistant/webawesome/dist/components/divider/divider";
+import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
-import "../../../../../components/ha-textfield";
 import "../../../../../components/ha-icon-button";
+import "../../../../../components/input/ha-input";
 import type { ConversationTrigger } from "../../../../../data/automation";
 import type { HomeAssistant } from "../../../../../types";
 import type { TriggerElement } from "../ha-automation-trigger-row";
@@ -9,7 +11,10 @@ export declare class HaConversationTrigger extends LitElement implements Trigger
     trigger: ConversationTrigger;
     disabled: boolean;
     private _optionInput?;
+    private _options;
     static get defaultConfig(): ConversationTrigger;
+    protected updated(changedProps: PropertyValues<this>): void;
+    private _validateOptions;
     protected render(): import("lit-html").TemplateResult<1>;
     private _handleKeyAdd;
     private _addOption;

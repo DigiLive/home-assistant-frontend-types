@@ -1,13 +1,16 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-items-display-editor";
 export interface EntitiesDisplayValue {
     hidden?: string[];
     order?: string[];
 }
 export declare class HaEntitiesDisplayEditor extends LitElement {
-    hass: HomeAssistant;
+    private _entityStates?;
+    private _entitiesReg;
+    private _config;
+    private _connection;
+    private _formatters;
     label?: string;
     value?: EntitiesDisplayValue;
     entitiesIds: string[];
@@ -16,6 +19,7 @@ export declare class HaEntitiesDisplayEditor extends LitElement {
     disabled: boolean;
     required: boolean;
     protected render(): TemplateResult;
+    private _items;
     private _itemDisplayChanged;
 }
 declare global {

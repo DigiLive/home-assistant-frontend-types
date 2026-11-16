@@ -14,7 +14,7 @@ export declare class HaVoiceAssistantSetupStepLocal extends LitElement {
     private _localTts?;
     private _localStt?;
     protected render(): import("lit-html").TemplateResult<1>;
-    protected willUpdate(changedProperties: PropertyValues): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
     private _prevStep;
     private _nextStep;
     private _checkLocal;
@@ -33,7 +33,7 @@ export declare class HaVoiceAssistantSetupStepLocal extends LitElement {
     private _pickOrCreatePipelineExists;
     private _createPipeline;
     private _findEntitiesAndCreatePipeline;
-    static styles: (import("lit").CSSResult | import("lit").CSSResult[])[];
+    static styles: (import("lit").CSSResult[] | import("lit").CSSResult)[];
 }
 declare global {
     interface HTMLElementTagNameMap {

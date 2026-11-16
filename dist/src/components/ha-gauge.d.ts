@@ -1,4 +1,4 @@
-import type { PropertyValues, TemplateResult } from "lit";
+import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import type { FrontendLocaleData } from "../data/translation";
 export interface LevelDefinition {
@@ -19,9 +19,16 @@ export declare class HaGauge extends LitElement {
     private _angle;
     private _updated;
     private _segment_label?;
-    protected firstUpdated(changedProperties: PropertyValues): void;
+    private _textSvg?;
+    private _valueText?;
+    private _sortedLevels?;
+    private _rescalePending;
+    private _resizeController;
+    connectedCallback(): void;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
     protected updated(changedProperties: PropertyValues): void;
-    protected render(): TemplateResult<2>;
+    protected render(): import("lit-html").TemplateResult<2>;
     private _rescaleSvg;
     private _getSegmentLabel;
     static styles: import("lit").CSSResult;

@@ -3,4 +3,4 @@
  * @param arr - The array to get combinations of
  * @returns A multidimensional array of all possible combinations
  */
-export declare function getAllCombinations<T>(arr: T[]): T[][];
+export declare function getAllCombinations<T>(arr: readonly T[]): T[][];

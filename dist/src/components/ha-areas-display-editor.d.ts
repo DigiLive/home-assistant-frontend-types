@@ -1,16 +1,15 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-expansion-panel";
 import "./ha-items-display-editor";
 import "./ha-svg-icon";
-import "./ha-textfield";
 export interface AreasDisplayValue {
     hidden?: string[];
     order?: string[];
 }
 export declare class HaAreasDisplayEditor extends LitElement {
-    hass: HomeAssistant;
+    private _areas;
+    private _floors;
     label?: string;
     value?: AreasDisplayValue;
     helper?: string;

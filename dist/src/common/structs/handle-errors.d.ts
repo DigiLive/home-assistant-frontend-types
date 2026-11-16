@@ -1,5 +1,5 @@
-import type { HomeAssistant } from "../../types";
-export declare const handleStructError: (hass: HomeAssistant, err: Error) => {
+import type { LocalizeFunc } from "../translations/localize";
+export declare const handleStructError: (localize: LocalizeFunc, err: Error) => {
     warnings: string[];
     errors?: string[];
 };

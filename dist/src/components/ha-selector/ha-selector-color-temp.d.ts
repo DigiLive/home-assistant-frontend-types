@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { ColorTempSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-labeled-slider";
 export declare class HaColorTempSelector extends LitElement {
-    hass: HomeAssistant;
     selector: ColorTempSelector;
     value?: string;
     label?: string;

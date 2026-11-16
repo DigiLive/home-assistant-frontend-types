@@ -10,6 +10,7 @@ export declare class HuiIframeCardEditor extends LitElement implements LovelaceC
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _valueChanged;
     private _computeLabelCallback;
+    private _computeHelperCallback;
 }
 declare global {
     interface HTMLElementTagNameMap {

@@ -3,16 +3,18 @@ export interface MQTTMessage {
     topic: string;
     payload: string;
     qos: number;
-    retain: number;
+    retain: boolean;
+}
+export interface MQTTLoggedMessage extends MQTTMessage {
     time: string;
 }
 export interface MQTTTopicDebugInfo {
     topic: string;
-    messages: MQTTMessage[];
+    messages: MQTTLoggedMessage[];
 }
 export interface MQTTDiscoveryDebugInfo {
     topic: string;
-    payload: string;
+    payload: Record<string, unknown> | string;
 }
 export interface MQTTEntityDebugInfo {
     entity_id: string;
@@ -21,7 +23,7 @@ export interface MQTTEntityDebugInfo {
     transmitted: MQTTTopicDebugInfo[];
 }
 export interface MQTTTriggerDebugInfo {
-    discovery_data: MQTTDiscoveryDebugInfo;
+    discovery_data: MQTTDiscoveryDebugInfo | null;
 }
 export interface MQTTDeviceDebugInfo {
     entities: MQTTEntityDebugInfo[];

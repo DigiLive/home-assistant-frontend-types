@@ -1,19 +1,21 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import type { MediaPlayerLayoutType } from "../../data/media-player";
-import type { HomeAssistant } from "../../types";
-import "../ha-dialog";
 import "../ha-dialog-header";
-import "../ha-list-item";
+import "../ha-dropdown";
+import "../ha-dropdown-item";
+import "../ha-icon-button-arrow-prev";
+import "../ha-dialog";
 import "./ha-media-manage-button";
 import "./ha-media-player-browse";
 import type { MediaPlayerBrowseDialogParams } from "./show-media-browser-dialog";
 declare class DialogMediaPlayerBrowse extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
     private _currentItem?;
     private _navigateIds?;
     private _params?;
     _preferredLayout: MediaPlayerLayoutType;
+    private _open;
     private _browser;
     showDialog(params: MediaPlayerBrowseDialogParams): void;
     closeDialog(): void;

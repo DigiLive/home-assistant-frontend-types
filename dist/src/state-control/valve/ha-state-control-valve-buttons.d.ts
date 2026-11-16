@@ -5,11 +5,11 @@ import "../../components/ha-control-button-group";
 import "../../components/ha-control-slider";
 import "../../components/ha-svg-icon";
 import type { ValveEntity } from "../../data/valve";
-import type { HomeAssistant } from "../../types";
 type ValveButton = "open" | "close" | "stop" | "none";
 export declare const getValveButtons: import("memoize-one").MemoizedFn<(stateObj: ValveEntity) => ValveButton[]>;
 export declare class HaStateControlValveButtons extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _localize;
     stateObj: ValveEntity;
     private _onOpenTap;
     private _onCloseTap;

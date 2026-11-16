@@ -1,6 +1,4 @@
 import type { Connection } from "home-assistant-js-websocket";
-import type { FlattenObjectKeys, LocalizeFunc } from "../../common/translations/localize";
-import type { TranslationDict } from "../../types";
 import type { HassioAddonsInfo } from "../hassio/addon";
 import type { HassioHassOSInfo, HassioHostInfo } from "../hassio/host";
 import type { NetworkInfo } from "../hassio/network";
@@ -37,7 +35,6 @@ export interface SupervisorEvent {
     data?: any;
     [key: string]: any;
 }
-export type SupervisorKeys = FlattenObjectKeys<TranslationDict["supervisor"]>;
 export interface Supervisor {
     host: HassioHostInfo;
     supervisor: HassioSupervisorInfo;
@@ -48,7 +45,6 @@ export interface Supervisor {
     os: HassioHassOSInfo;
     addon: HassioAddonsInfo;
     store: SupervisorStore;
-    localize: LocalizeFunc<SupervisorKeys>;
 }
 export declare const supervisorApiWsRequest: <T>(conn: Connection, request: SupervisorApiRequest) => Promise<T>;
 export declare const getSupervisorEventCollection: (conn: Connection, key: string, endpoint: string) => import("home-assistant-js-websocket").Collection<unknown>;

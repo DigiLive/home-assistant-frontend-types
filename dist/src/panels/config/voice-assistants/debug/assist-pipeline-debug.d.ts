@@ -1,3 +1,4 @@
+import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import "../../../../layouts/hass-subpage";
 import type { HomeAssistant, Route } from "../../../../types";
@@ -10,9 +11,11 @@ export declare class AssistPipelineDebug extends LitElement {
     private _runId?;
     private _runs?;
     private _events?;
+    private _chatLog?;
     private _unsubRefreshEventsID?;
+    private _unsubChatLogUpdates?;
     protected render(): import("lit-html").TemplateResult<1>;
-    protected willUpdate(changedProperties: any): void;
+    protected willUpdate(changedProperties: PropertyValues): void;
     disconnectedCallback(): void;
     private _fetchRuns;
     private _fetchEvents;

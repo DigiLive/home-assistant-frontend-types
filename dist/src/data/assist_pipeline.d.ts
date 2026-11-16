@@ -1,4 +1,5 @@
 import type { HomeAssistant } from "../types";
+import type { ChatLogToolResult } from "./chat_log";
 import type { ConversationResult } from "./conversation";
 import type { SpeechMetadata } from "./stt";
 export interface AssistPipeline {
@@ -7,7 +8,7 @@ export interface AssistPipeline {
     language: string;
     conversation_engine: string;
     conversation_language: string | null;
-    prefer_local_intents?: boolean;
+    prefer_local_intents: boolean;
     stt_engine: string | null;
     stt_language: string | null;
     tts_engine: string | null;
@@ -18,7 +19,7 @@ export interface AssistPipeline {
 }
 export interface AssistDevice {
     device_id: string;
-    pipeline_entity: string;
+    pipeline_entity: string | null;
 }
 export interface AssistPipelineMutableParams {
     name: string;
@@ -47,6 +48,7 @@ interface PipelineRunStartEvent extends PipelineEventBase {
         pipeline: string;
         language: string;
         conversation_id: string;
+        satellite_id?: string;
         runner_data: {
             stt_binary_handler_id: number | null;
             timeout: number;
@@ -55,12 +57,13 @@ interface PipelineRunStartEvent extends PipelineEventBase {
             token: string;
             url: string;
             mime_type: string;
+            stream_response: boolean;
         };
     };
 }
 interface PipelineRunEndEvent extends PipelineEventBase {
     type: "run-end";
-    data: Record<string, never>;
+    data: null;
 }
 interface PipelineErrorEvent extends PipelineEventBase {
     type: "error";
@@ -72,16 +75,18 @@ interface PipelineErrorEvent extends PipelineEventBase {
 interface PipelineWakeWordStartEvent extends PipelineEventBase {
     type: "wake_word-start";
     data: {
-        engine: string;
-        metadata: SpeechMetadata;
+        entity_id: string;
+        metadata: Omit<SpeechMetadata, "language">;
+        timeout: number;
     };
 }
 interface PipelineWakeWordEndEvent extends PipelineEventBase {
     type: "wake_word-end";
     data: {
         wake_word_output: {
-            ww_id: string;
-            timestamp: number;
+            wake_word_id?: string;
+            wake_word_phrase?: string;
+            timestamp?: number | null;
         };
     };
 }
@@ -90,6 +95,23 @@ interface PipelineSTTStartEvent extends PipelineEventBase {
     data: {
         engine: string;
         metadata: SpeechMetadata;
+        audio_processing: {
+            requires_external_vad: boolean;
+            prefers_auto_gain_enabled: boolean;
+            prefers_noise_reduction_enabled: boolean;
+        };
+    };
+}
+interface PipelineSTTVADStartEvent extends PipelineEventBase {
+    type: "stt-vad-start";
+    data: {
+        timestamp: number;
+    };
+}
+interface PipelineSTTVADEndEvent extends PipelineEventBase {
+    type: "stt-vad-end";
+    data: {
+        timestamp: number;
     };
 }
 interface PipelineSTTEndEvent extends PipelineEventBase {
@@ -105,17 +127,22 @@ interface PipelineIntentStartEvent extends PipelineEventBase {
     data: {
         engine: string;
         language: string;
-        prefer_local_intents: boolean;
         intent_input: string;
+        conversation_id: string;
+        device_id: string | null;
+        satellite_id: string | null;
+        prefer_local_intents: boolean;
     };
 }
 export interface ConversationChatLogAssistantDelta {
     role: "assistant";
     content: string;
+    thinking_content?: string;
     tool_calls: {
         id: string;
         tool_name: string;
         tool_args: Record<string, unknown>;
+        external: boolean;
     }[];
 }
 export interface ConversationChatLogToolResultDelta {
@@ -123,12 +150,14 @@ export interface ConversationChatLogToolResultDelta {
     agent_id: string;
     tool_call_id: string;
     tool_name: string;
-    tool_result: unknown;
+    result: ChatLogToolResult;
+    created: string;
 }
 interface PipelineIntentProgressEvent extends PipelineEventBase {
     type: "intent-progress";
     data: {
-        chat_log_delta: Partial<ConversationChatLogAssistantDelta> | ConversationChatLogToolResultDelta;
+        tts_start_streaming?: boolean;
+        chat_log_delta?: Partial<ConversationChatLogAssistantDelta> | ConversationChatLogToolResultDelta;
     };
 }
 interface PipelineIntentEndEvent extends PipelineEventBase {
@@ -142,9 +171,10 @@ interface PipelineTTSStartEvent extends PipelineEventBase {
     type: "tts-start";
     data: {
         engine: string;
-        language: string;
-        voice: string;
+        language: string | null;
+        voice: string | null;
         tts_input: string;
+        acknowledge_override: boolean;
     };
 }
 interface PipelineTTSEndEvent extends PipelineEventBase {
@@ -158,7 +188,7 @@ interface PipelineTTSEndEvent extends PipelineEventBase {
         };
     };
 }
-export type PipelineRunEvent = PipelineRunStartEvent | PipelineRunEndEvent | PipelineErrorEvent | PipelineWakeWordStartEvent | PipelineWakeWordEndEvent | PipelineSTTStartEvent | PipelineSTTEndEvent | PipelineIntentStartEvent | PipelineIntentProgressEvent | PipelineIntentEndEvent | PipelineTTSStartEvent | PipelineTTSEndEvent;
+export type PipelineRunEvent = PipelineRunStartEvent | PipelineRunEndEvent | PipelineErrorEvent | PipelineWakeWordStartEvent | PipelineWakeWordEndEvent | PipelineSTTStartEvent | PipelineSTTVADStartEvent | PipelineSTTVADEndEvent | PipelineSTTEndEvent | PipelineIntentStartEvent | PipelineIntentProgressEvent | PipelineIntentEndEvent | PipelineTTSStartEvent | PipelineTTSEndEvent;
 export type PipelineRunOptions = ({
     start_stage: "intent" | "tts";
     input: {
@@ -187,6 +217,8 @@ export interface PipelineRun {
     stage: "ready" | "wake_word" | "stt" | "intent" | "tts" | "done" | "error";
     run: PipelineRunStartEvent["data"];
     error?: PipelineErrorEvent["data"];
+    started: Date;
+    finished?: Date;
     wake_word?: PipelineWakeWordStartEvent["data"] & Partial<PipelineWakeWordEndEvent["data"]> & {
         done: boolean;
     };
@@ -202,24 +234,24 @@ export interface PipelineRun {
 }
 export declare const processEvent: (run: PipelineRun | undefined, event: PipelineRunEvent, options?: PipelineRunOptions) => PipelineRun | undefined;
 export declare const runDebugAssistPipeline: (hass: HomeAssistant, callback: (run: PipelineRun) => void, options: PipelineRunOptions) => Promise<() => Promise<void>>;
-export declare const runAssistPipeline: (hass: HomeAssistant, callback: (event: PipelineRunEvent) => void, options: PipelineRunOptions) => Promise<() => Promise<void>>;
+export declare const runAssistPipeline: (hass: Pick<HomeAssistant, "connection">, callback: (event: PipelineRunEvent) => void, options: PipelineRunOptions) => Promise<() => Promise<void>>;
 export declare const listAssistPipelineRuns: (hass: HomeAssistant, pipeline_id: string) => Promise<{
     pipeline_runs: AssistRunListing[];
 }>;
 export declare const getAssistPipelineRun: (hass: HomeAssistant, pipeline_id: string, pipeline_run_id: string) => Promise<{
     events: PipelineRunEvent[];
 }>;
-export declare const listAssistPipelines: (hass: HomeAssistant) => Promise<{
+export declare const listAssistPipelines: (callWS: HomeAssistant["callWS"]) => Promise<{
     pipelines: AssistPipeline[];
     preferred_pipeline: string | null;
 }>;
-export declare const getAssistPipeline: (hass: HomeAssistant, pipeline_id?: string) => Promise<AssistPipeline>;
+export declare const getAssistPipeline: (hass: Pick<HomeAssistant, "callWS">, pipeline_id?: string) => Promise<AssistPipeline>;
 export declare const createAssistPipeline: (hass: HomeAssistant, pipeline: AssistPipelineMutableParams) => Promise<AssistPipeline>;
 export declare const updateAssistPipeline: (hass: HomeAssistant, pipeline_id: string, pipeline: AssistPipelineMutableParams) => Promise<AssistPipeline>;
 export declare const setAssistPipelinePreferred: (hass: HomeAssistant, pipeline_id: string) => Promise<unknown>;
 export declare const deleteAssistPipeline: (hass: HomeAssistant, pipelineId: string) => Promise<undefined>;
 export declare const fetchAssistPipelineLanguages: (hass: HomeAssistant) => Promise<{
-    languages: string[];
+    languages: string[] | null;
 }>;
 export declare const listAssistDevices: (hass: HomeAssistant) => Promise<AssistDevice[]>;
 export {};

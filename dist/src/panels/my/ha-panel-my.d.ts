@@ -20,6 +20,7 @@ declare class HaPanelMy extends LitElement {
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _createRedirectUrl;
     private _createRedirectParams;
+    private _createOptionalParams;
     private _checkParamType;
 }
 declare global {

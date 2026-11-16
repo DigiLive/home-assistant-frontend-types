@@ -1,11 +1,12 @@
-import type { PropertyValues } from "lit";
+import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { LineChartEntity } from "../../data/history";
-import type { HomeAssistant } from "../../types";
+import type { ZoomSliderMode } from "./ha-chart-base";
+import "./ha-chart-tooltip-marker";
 export declare class StateHistoryChartLine extends LitElement {
-    hass: HomeAssistant;
     data: LineChartEntity[];
     names?: Record<string, string>;
+    colors?: Record<string, string | undefined>;
     unit?: string;
     identifier?: string;
     showNames: boolean;
@@ -20,6 +21,7 @@ export declare class StateHistoryChartLine extends LitElement {
     fitYData: boolean;
     height?: string;
     expandLegend?: boolean;
+    zoomSlider: ZoomSliderMode;
     private _chartData;
     private _entityIds;
     private _datasetToDataIndex;
@@ -28,13 +30,26 @@ export declare class StateHistoryChartLine extends LitElement {
     private _yWidth;
     private _visualMap?;
     private _chartTime;
-    protected render(): import("lit-html").TemplateResult<1>;
+    private _yAxisFractionDigits;
+    private _i18n;
+    private _hassConfig;
+    private _formatters;
+    private _entities;
+    private _states?;
+    private _optionsEntityStates;
+    protected render(): TemplateResult<1>;
     private _renderTooltip;
     private _datasetHidden;
     private _datasetUnhidden;
+    zoom(start: number, end: number): void;
+    private _handleDataZoom;
+    private _handleLegendLabelClick;
     willUpdate(changedProps: PropertyValues): void;
+    private _hasEntityStatesChanged;
     private _generateData;
+    private _formatYAxisLabel;
     private _clampYAxis;
+    private _roundYAxis;
 }
 declare global {
     interface HTMLElementTagNameMap {

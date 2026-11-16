@@ -1,9 +1,9 @@
 import { LitElement, nothing } from "lit";
 import "../../../../../components/ha-expansion-panel";
-import "../../../../../components/ha-md-list-item";
-import "../../../../../components/ha-md-select";
-import "../../../../../components/ha-md-select-option";
-import "../../../../../components/ha-md-textfield";
+import "../../../../../components/ha-select";
+import "../../../../../components/input/ha-input";
+import "../../../../../components/item/ha-list-item-base";
+import "../../../../../components/item/ha-row-item";
 import type { BackupConfig, Retention } from "../../../../../data/backup";
 import type { HomeAssistant } from "../../../../../types";
 export type BackupConfigSchedule = Pick<BackupConfig, "schedule" | "retention">;

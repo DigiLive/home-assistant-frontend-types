@@ -1,6 +1,6 @@
 import { LitElement } from "lit";
-import "../../../../../components/ha-textfield";
 import "../../../../../components/ha-yaml-editor";
+import "../../../../../components/input/ha-input";
 import "../../../../../components/user/ha-users-picker";
 import type { EventTrigger } from "../../../../../data/automation";
 import type { HomeAssistant } from "../../../../../types";
@@ -15,7 +15,6 @@ export declare class HaEventTrigger extends LitElement implements TriggerElement
     private _valueChanged;
     private _dataChanged;
     private _usersChanged;
-    static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

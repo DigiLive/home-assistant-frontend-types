@@ -9,5 +9,5 @@ interface TextEntityAttributes extends HassEntityAttributeBase {
 export interface TextEntity extends HassEntityBase {
     attributes: TextEntityAttributes;
 }
-export declare const setValue: (hass: HomeAssistant, entity: string, value: string) => Promise<import("../types").ServiceCallResponse>;
+export declare const setValue: (callService: HomeAssistant["callService"], entity: string, value: string) => Promise<import("../types").ServiceCallResponse<any>>;
 export {};

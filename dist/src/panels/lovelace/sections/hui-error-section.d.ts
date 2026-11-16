@@ -1,5 +1,4 @@
 import { LitElement, nothing } from "lit";
-import "../../../components/ha-label-badge";
 import "../../../components/ha-svg-icon";
 import type { LovelaceSectionElement } from "../../../data/lovelace";
 import type { LovelaceSectionConfig } from "../../../data/lovelace/config/section";

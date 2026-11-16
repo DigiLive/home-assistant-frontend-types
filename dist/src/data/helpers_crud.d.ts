@@ -1,47 +1,56 @@
+import { deleteCounter, fetchCounter, updateCounter } from "./counter";
+import { deleteInputBoolean, fetchInputBoolean, updateInputBoolean } from "./input_boolean";
+import { deleteInputButton, fetchInputButton, updateInputButton } from "./input_button";
+import { deleteInputDateTime, fetchInputDateTime, updateInputDateTime } from "./input_datetime";
+import { deleteInputNumber, fetchInputNumber, updateInputNumber } from "./input_number";
+import { deleteInputSelect, fetchInputSelect, updateInputSelect } from "./input_select";
+import { deleteInputText, fetchInputText, updateInputText } from "./input_text";
+import { deleteSchedule, fetchSchedule, updateSchedule } from "./schedule";
+import { deleteTimer, fetchTimer, updateTimer } from "./timer";
 export declare const HELPERS_CRUD: {
     input_boolean: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./input_boolean").InputBoolean[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./input_boolean").InputBooleanMutableParams>) => Promise<import("./input_boolean").InputBoolean>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchInputBoolean;
+        update: typeof updateInputBoolean;
+        delete: typeof deleteInputBoolean;
     };
     input_button: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./input_button").InputButton[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./input_button").InputButtonMutableParams>) => Promise<import("./input_button").InputButton>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchInputButton;
+        update: typeof updateInputButton;
+        delete: typeof deleteInputButton;
     };
     input_text: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./input_text").InputText[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./input_text").InputTextMutableParams>) => Promise<import("./input_text").InputText>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchInputText;
+        update: typeof updateInputText;
+        delete: typeof deleteInputText;
     };
     input_number: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./input_number").InputNumber[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./input_number").InputNumberMutableParams>) => Promise<import("./input_number").InputNumber>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchInputNumber;
+        update: typeof updateInputNumber;
+        delete: typeof deleteInputNumber;
     };
     input_datetime: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./input_datetime").InputDateTime[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./input_datetime").InputDateTimeMutableParams>) => Promise<import("./input_datetime").InputDateTime>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchInputDateTime;
+        update: typeof updateInputDateTime;
+        delete: typeof deleteInputDateTime;
     };
     input_select: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./input_select").InputSelect[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./input_select").InputSelectMutableParams>) => Promise<import("./input_select").InputSelect>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchInputSelect;
+        update: typeof updateInputSelect;
+        delete: typeof deleteInputSelect;
     };
     counter: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./counter").Counter[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./counter").CounterMutableParams>) => Promise<import("./counter").Counter>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchCounter;
+        update: typeof updateCounter;
+        delete: typeof deleteCounter;
     };
     timer: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./timer").Timer[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./timer").TimerMutableParams>) => Promise<import("./timer").Timer>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchTimer;
+        update: typeof updateTimer;
+        delete: typeof deleteTimer;
     };
     schedule: {
-        fetch: (hass: import("../types").HomeAssistant) => Promise<import("./schedule").Schedule[]>;
-        update: (hass: import("../types").HomeAssistant, id: string, updates: Partial<import("./schedule").ScheduleMutableParams>) => Promise<import("./schedule").Schedule>;
-        delete: (hass: import("../types").HomeAssistant, id: string) => Promise<unknown>;
+        fetch: typeof fetchSchedule;
+        update: typeof updateSchedule;
+        delete: typeof deleteSchedule;
     };
 };

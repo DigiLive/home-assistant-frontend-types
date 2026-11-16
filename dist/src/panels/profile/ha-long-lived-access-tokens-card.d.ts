@@ -1,9 +1,9 @@
-import "@material/mwc-button/mwc-button";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
+import "../../components/ha-button";
 import "../../components/ha-card";
-import "../../components/ha-settings-row";
 import "../../components/ha-icon-button";
+import "../../components/ha-settings-row";
 import type { RefreshToken } from "../../data/refresh_token";
 import type { HomeAssistant } from "../../types";
 declare class HaLongLivedTokens extends LitElement {

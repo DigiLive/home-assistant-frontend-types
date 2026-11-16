@@ -5,7 +5,8 @@ import type { HaFormSchema, SchemaUnion } from "../../../../components/ha-form/t
 import "../../../../components/ha-icon-button";
 import "../../../../components/ha-icon-button-arrow-next";
 import "../../../../components/ha-icon-button-arrow-prev";
-import "../../../../components/sl-tab-group";
+import "../../../../components/ha-tab-group";
+import "../../../../components/ha-tab-group-tab";
 import type { LovelaceCardConfig } from "../../../../data/lovelace/config/card";
 import type { LovelaceConfig } from "../../../../data/lovelace/config/types";
 import type { HomeAssistant } from "../../../../types";
@@ -29,7 +30,7 @@ export declare class HuiStackCardEditor extends LitElement implements LovelaceCa
     protected _config?: StackCardConfig;
     protected _selectedCard: number;
     protected _GUImode: boolean;
-    protected _guiModeAvailable?: boolean | undefined;
+    protected _guiModeAvailable?: boolean;
     protected _keys: Map<string, string>;
     protected _schema: readonly HaFormSchema[];
     protected _cardEditorEl?: HuiCardElementEditor;

@@ -2,6 +2,7 @@ import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../ha-svg-icon";
 export declare class HaTimeline extends LitElement {
+    private _localize;
     label: boolean;
     raised: boolean;
     notEnabled: boolean;

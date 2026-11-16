@@ -1,7 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
 import type { NetworkConfig } from "../data/network";
-import type { HomeAssistant } from "../types";
 import "./ha-checkbox";
 import "./ha-settings-row";
 import "./ha-svg-icon";
@@ -13,9 +12,9 @@ declare global {
     }
 }
 export declare class HaNetwork extends LitElement {
-    hass: HomeAssistant;
     networkConfig?: NetworkConfig;
     private _expanded?;
+    private _localize;
     protected render(): typeof nothing | TemplateResult<1>;
     private _handleAutoConfigureCheckboxClick;
     private _handleAdapterCheckboxClick;

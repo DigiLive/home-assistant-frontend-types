@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { ConfigEntrySelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-config-entry-picker";
 export declare class HaConfigEntrySelector extends LitElement {
-    hass: HomeAssistant;
     selector: ConfigEntrySelector;
     value?: any;
     label?: string;

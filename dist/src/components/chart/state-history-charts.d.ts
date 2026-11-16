@@ -1,7 +1,6 @@
 import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import type { HistoryResult } from "../../data/history";
-import type { HomeAssistant } from "../../types";
 import "./state-history-chart-line";
 import "./state-history-chart-timeline";
 declare global {
@@ -10,19 +9,29 @@ declare global {
             value: number;
             chartIndex: number;
         };
+        "chart-zoom-with-index": {
+            start: number;
+            end: number;
+            chartIndex: number;
+        };
+        "history-charts-zoom": {
+            start: number;
+            end: number;
+        };
     }
 }
 export declare class StateHistoryCharts extends LitElement {
-    hass: HomeAssistant;
     historyData?: HistoryResult;
     narrow: boolean;
     names?: Record<string, string>;
+    colors?: Record<string, string | undefined>;
     virtualize: boolean;
     endTime?: Date;
     startTime?: Date;
     upToNow: boolean;
     hoursToShow?: number;
     showNames: boolean;
+    insideLabels: boolean;
     clickForMoreInfo: boolean;
     isLoadingData: boolean;
     logarithmicScale: boolean;
@@ -31,11 +40,16 @@ export declare class StateHistoryCharts extends LitElement {
     fitYData: boolean;
     height?: string;
     expandLegend?: boolean;
+    syncCharts: boolean;
     private _computedStartTime;
     private _computedEndTime;
     private _maxYWidth;
     private _childYWidths;
     private _chartCount;
+    private _localize;
+    private _hassConfig;
+    private _chartComponents;
+    private _isSyncing;
     private _savedScrollPos?;
     protected render(): import("lit-html").TemplateResult<1>;
     private _renderHistoryItem;
@@ -43,6 +57,10 @@ export declare class StateHistoryCharts extends LitElement {
     protected willUpdate(changedProps: PropertyValues): void;
     protected updated(changedProps: PropertyValues): void;
     private _yWidthChanged;
+    private _handleTimelineSync;
+    private _syncZoomToAllCharts;
+    zoom(start: number, end: number): void;
+    private _newestStateTime;
     private _isHistoryEmpty;
     private _saveScrollPos;
     static styles: import("lit").CSSResult;

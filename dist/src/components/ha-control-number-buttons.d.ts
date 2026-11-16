@@ -1,6 +1,7 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { FrontendLocaleData } from "../data/translation";
+import "./ha-ripple";
 import "./ha-svg-icon";
 export declare class HaControlNumberButton extends LitElement {
     locale?: FrontendLocaleData;
@@ -13,6 +14,7 @@ export declare class HaControlNumberButton extends LitElement {
     unit?: string;
     formatOptions: Intl.NumberFormatOptions;
     _input: HTMLDivElement;
+    private _i18n?;
     private _hideUnit;
     private _boundedValue;
     private get _step();

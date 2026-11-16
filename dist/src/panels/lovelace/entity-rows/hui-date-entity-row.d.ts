@@ -8,9 +8,10 @@ declare class HuiDateEntityRow extends LitElement implements LovelaceRow {
     hass?: HomeAssistant;
     private _config?;
     setConfig(config: EntityConfig): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected render(): TemplateResult | typeof nothing;
     private _dateChanged;
+    static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

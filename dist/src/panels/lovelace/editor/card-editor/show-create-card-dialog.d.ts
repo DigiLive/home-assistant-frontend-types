@@ -1,9 +1,9 @@
 import type { LovelaceConfig } from "../../../../data/lovelace/config/types";
-import type { LovelaceContainerPath } from "../lovelace-path";
+import type { LovelacePath } from "../lovelace-path";
 export interface CreateCardDialogParams {
     lovelaceConfig: LovelaceConfig;
     saveConfig: (config: LovelaceConfig) => void;
-    path: LovelaceContainerPath;
+    path: LovelacePath;
     suggestedCards?: string[];
     entities?: string[];
 }

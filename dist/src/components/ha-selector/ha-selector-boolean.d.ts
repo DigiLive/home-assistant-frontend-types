@@ -1,10 +1,7 @@
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../../types";
-import "../ha-formfield";
 import "../ha-switch";
 import "../ha-input-helper-text";
 export declare class HaBooleanSelector extends LitElement {
-    hass: HomeAssistant;
     value: boolean;
     placeholder?: any;
     label?: string;

@@ -1,0 +1,14 @@
+import type { HassServiceTarget } from "home-assistant-js-websocket";
+import type { Condition, Trigger, TriggerList } from "../../../data/automation";
+import type { ConditionDescriptions } from "../../../data/condition";
+import type { Action } from "../../../data/script";
+import type { TriggerDescriptions } from "../../../data/trigger";
+export declare const createTrigger: (key: string, target?: HassServiceTarget) => Trigger;
+export declare const createCondition: (key: string, target?: HassServiceTarget) => Condition;
+export declare const createAction: (key: string, target?: HassServiceTarget) => Action;
+export declare const getTriggerPickerKey: (trigger: Exclude<Trigger, TriggerList>, descriptions: TriggerDescriptions) => string;
+export declare const getConditionPickerKey: (condition: Condition, descriptions: ConditionDescriptions) => string;
+export declare const getActionPickerKey: (action: Action) => string | undefined;
+export declare const isTriggerReplaceable: (trigger: Trigger) => boolean;
+export declare const isConditionReplaceable: (condition: Condition) => boolean;
+export declare const isActionReplaceable: (action: Action) => boolean;

@@ -9,7 +9,7 @@ declare class HuiAttributeRow extends LitElement implements LovelaceRow {
     hass?: HomeAssistant;
     private _config?;
     setConfig(config: AttributeRowConfig): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

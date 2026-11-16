@@ -19,8 +19,13 @@ export declare class HuiImage extends LitElement {
     fitMode?: "cover" | "contain" | "fill";
     private _imageVisible?;
     private _loadState?;
+    private _img?;
+    private _reconnectImg;
     private _cameraImageSrc?;
     private _loadedImageSrc?;
+    private _resolvedImageSrc?;
+    private _resolvedDarkModeImageSrc?;
+    private _resolvedStateImages;
     private _lastImageHeight?;
     private _intersectionObserver?;
     private _cameraUpdater?;
@@ -31,7 +36,7 @@ export declare class HuiImage extends LitElement {
     willUpdate(changedProps: PropertyValues): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     protected _shouldStartCameraUpdates(oldHass?: HomeAssistant): boolean;
-    private _startIntersectionObserverOrUpdates;
+    private _startIntersectionObserver;
     private _stopIntersectionObserver;
     private _startUpdateCameraInterval;
     private _stopUpdateCameraInterval;

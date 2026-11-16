@@ -1,15 +1,11 @@
 import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
-import type { HomeAssistant } from "../types";
-export declare const enum CoverEntityFeature {
-    OPEN = 1,
-    CLOSE = 2,
-    SET_POSITION = 4,
-    STOP = 8,
-    OPEN_TILT = 16,
-    CLOSE_TILT = 32,
-    STOP_TILT = 64,
-    SET_TILT_POSITION = 128
-}
+import type { HomeAssistantFormatters } from "../types";
+import { CoverEntityFeature } from "./feature/cover_entity_feature";
+export { CoverEntityFeature };
+export declare const DEFAULT_COVER_FAVORITE_POSITIONS: number[];
+export declare const coverSupportsPosition: (stateObj: CoverEntity) => boolean;
+export declare const coverSupportsTiltPosition: (stateObj: CoverEntity) => boolean;
+export declare const coverSupportsAnyPosition: (stateObj: CoverEntity) => boolean;
 export declare function isFullyOpen(stateObj: CoverEntity): boolean;
 export declare function isFullyClosed(stateObj: CoverEntity): boolean;
 export declare function isFullyOpenTilt(stateObj: CoverEntity): boolean;
@@ -26,9 +22,9 @@ export declare function canStopTilt(stateObj: CoverEntity): boolean;
 interface CoverEntityAttributes extends HassEntityAttributeBase {
     current_position?: number;
     current_tilt_position?: number;
+    supported_speeds?: string[];
 }
 export interface CoverEntity extends HassEntityBase {
     attributes: CoverEntityAttributes;
 }
-export declare function computeCoverPositionStateDisplay(stateObj: CoverEntity, hass: HomeAssistant, position?: number): string;
-export {};
+export declare function computeCoverPositionStateDisplay(stateObj: CoverEntity, formatEntityAttributeValue: HomeAssistantFormatters["formatEntityAttributeValue"], position?: number): string;

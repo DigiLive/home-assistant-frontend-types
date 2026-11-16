@@ -6,12 +6,15 @@ export interface RelatedResult {
     config_entry?: string[];
     device?: string[];
     entity?: string[];
+    floor?: string[];
     group?: string[];
     integration?: string[];
+    label?: string[];
+    person?: string[];
     scene?: string[];
     script?: string[];
     script_blueprint?: string[];
 }
 export declare const SearchableDomains: Set<string>;
-export type ItemType = "area" | "automation" | "config_entry" | "device" | "entity" | "floor" | "group" | "label" | "scene" | "script" | "automation_blueprint" | "script_blueprint";
-export declare const findRelated: (hass: HomeAssistant, itemType: ItemType, itemId: string) => Promise<RelatedResult>;
+export type ItemType = "area" | "automation" | "config_entry" | "device" | "entity" | "floor" | "group" | "integration" | "label" | "person" | "scene" | "script" | "automation_blueprint" | "script_blueprint";
+export declare const findRelated: (hass: Pick<HomeAssistant, "callWS">, itemType: ItemType, itemId: string, includeDisabledEntities?: boolean) => Promise<RelatedResult>;

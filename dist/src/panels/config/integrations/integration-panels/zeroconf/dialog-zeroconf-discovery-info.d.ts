@@ -1,14 +1,17 @@
 import type { TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
-import type { HassDialog } from "../../../../../dialogs/make-dialog-manager";
+import "../../../../../components/ha-button";
+import "../../../../../components/ha-dialog-footer";
+import "../../../../../components/ha-dialog";
 import type { HomeAssistant } from "../../../../../types";
 import type { ZeroconfDiscoveryInfoDialogParams } from "./show-dialog-zeroconf-discovery-info";
-import "../../../../../components/ha-button";
-declare class DialogZeroconfDiscoveryInfo extends LitElement implements HassDialog {
+declare class DialogZeroconfDiscoveryInfo extends LitElement {
     hass: HomeAssistant;
     private _params?;
+    private _open;
     showDialog(params: ZeroconfDiscoveryInfoDialogParams): Promise<void>;
-    closeDialog(): boolean;
+    closeDialog(): void;
+    private _dialogClosed;
     private _copyToClipboard;
     protected render(): TemplateResult | typeof nothing;
 }

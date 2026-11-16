@@ -1,15 +1,16 @@
-import type { HassEntity } from "home-assistant-js-websocket";
+import "@home-assistant/webawesome/dist/components/divider/divider";
 import { LitElement, nothing } from "lit";
 import "../../../../components/ha-button";
+import "../../../../components/ha-dropdown";
+import "../../../../components/ha-dropdown-item";
 import "../../../../components/ha-icon-button";
-import "../../../../components/ha-list-item";
 import "../../../../components/ha-sortable";
 import "../../../../components/ha-svg-icon";
 import type { HomeAssistant } from "../../../../types";
-import type { LovelaceCardFeatureConfig } from "../../card-features/types";
+import type { LovelaceCardFeatureConfig, LovelaceCardFeatureContext } from "../../card-features/types";
 export type FeatureType = LovelaceCardFeatureConfig["type"];
-export declare const getSupportedFeaturesType: (stateObj: HassEntity, featuresTypes?: string[]) => string[];
-export declare const supportsFeaturesType: (stateObj: HassEntity, type: string) => any;
+export declare const getSupportedFeaturesType: (hass: HomeAssistant, context: LovelaceCardFeatureContext, featuresTypes?: string[]) => string[];
+export declare const supportsFeaturesType: (hass: HomeAssistant, context: LovelaceCardFeatureContext, type: string) => any;
 declare global {
     interface HASSDomEvents {
         "features-changed": {
@@ -19,7 +20,7 @@ declare global {
 }
 export declare class HuiCardFeaturesEditor extends LitElement {
     hass?: HomeAssistant;
-    stateObj?: HassEntity;
+    context?: LovelaceCardFeatureContext;
     features?: LovelaceCardFeatureConfig[];
     featuresTypes?: FeatureType[];
     label?: string;

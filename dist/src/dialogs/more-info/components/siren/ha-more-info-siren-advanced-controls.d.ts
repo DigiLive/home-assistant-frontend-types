@@ -1,21 +1,21 @@
+import type { HassEntity } from "home-assistant-js-websocket";
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
-import type { HassEntity } from "home-assistant-js-websocket";
-import type { HomeAssistant } from "../../../../types";
-import "../../../../components/ha-dialog-header";
-import "../../../../components/ha-icon-button";
 import "../../../../components/ha-button";
-import "../../../../components/ha-textfield";
 import "../../../../components/ha-control-button";
+import "../../../../components/ha-dialog";
+import "../../../../components/ha-dialog-footer";
+import "../../../../components/ha-icon-button";
 import "../../../../components/ha-select";
-import "../../../../components/ha-list-item";
+import "../../../../components/input/ha-input";
+import type { HomeAssistant } from "../../../../types";
 declare class MoreInfoSirenAdvancedControls extends LitElement {
     hass: HomeAssistant;
     _stateObj?: HassEntity;
+    private _open;
     _tone?: string;
     _volume?: number;
     _duration?: number;
-    private _dialog?;
     showDialog({ stateObj }: {
         stateObj: HassEntity;
     }): void;

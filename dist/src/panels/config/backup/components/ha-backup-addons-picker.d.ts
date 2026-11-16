@@ -1,6 +1,7 @@
 import { LitElement } from "lit";
+import "../../../../components/ha-app-icon";
 import "../../../../components/ha-checkbox";
-import "../../../../components/ha-formfield";
+import "../../../../components/ha-svg-icon";
 import type { HomeAssistant } from "../../../../types";
 import "./ha-backup-formfield-label";
 export interface BackupAddonItem {

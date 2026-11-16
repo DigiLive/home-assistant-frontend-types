@@ -1,11 +1,11 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
+import "../../../../../components/ha-button";
 import "../../../../../components/ha-spinner";
-import "../../../../../layouts/hass-tabs-subpage";
+import "../../../../../components/ha-textarea";
+import "../../../../../layouts/hass-subpage";
 import type { HomeAssistant, Route } from "../../../../../types";
 import "./zha-device-pairing-status-card";
-import "../../../../../components/ha-textarea";
 declare class ZHAAddDevicesPage extends LitElement {
     hass: HomeAssistant;
     narrow: boolean;
@@ -23,7 +23,7 @@ declare class ZHAAddDevicesPage extends LitElement {
     private _wakeLock?;
     connectedCallback(): void;
     disconnectedCallback(): void;
-    protected updated(changedProps: PropertyValues): void;
+    protected updated(changedProps: PropertyValues<this>): void;
     protected render(): TemplateResult;
     private _toggleLogs;
     private _handleMessage;

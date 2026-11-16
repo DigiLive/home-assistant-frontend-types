@@ -2,7 +2,6 @@ import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import { type IntegrationManifest } from "../../../data/integration";
 import type { HomeAssistant } from "../../../types";
-import "./ha-integration-header";
 import "../../../components/ha-card";
 export declare class HaIntegrationActionCard extends LitElement {
     hass: HomeAssistant;

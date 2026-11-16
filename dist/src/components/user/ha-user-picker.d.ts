@@ -1,19 +1,19 @@
-import type { TemplateResult } from "lit";
+import type { TemplateResult, PropertyValues } from "lit";
 import { LitElement } from "lit";
 import type { User } from "../../data/user";
-import type { HomeAssistant } from "../../types";
 import "../ha-combo-box-item";
 import "../ha-generic-picker";
 import "./ha-user-badge";
 declare class HaUserPicker extends LitElement {
-    hass: HomeAssistant;
     label?: string;
     placeholder?: string;
     noUserLabel?: string;
     value: string;
     users?: User[];
     disabled: boolean;
-    protected firstUpdated(changedProps: any): void;
+    private _localize;
+    private _api;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     private _fetchUsers;
     private usersMap;
     private _valueRenderer;
@@ -22,6 +22,7 @@ declare class HaUserPicker extends LitElement {
     private _getItems;
     protected render(): TemplateResult;
     private _valueChanged;
+    private _notFoundLabel;
 }
 declare global {
     interface HTMLElementTagNameMap {

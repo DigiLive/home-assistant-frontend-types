@@ -13,11 +13,10 @@ declare class HaConfigBlueprint extends HassRouterPage {
     hass: HomeAssistant;
     narrow: boolean;
     isWide: boolean;
-    showAdvanced: boolean;
     blueprints: Record<string, Blueprints>;
     protected routerOptions: RouterOptions;
     private _getBlueprints;
-    protected firstUpdated(changedProps: any): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     protected updatePageEl(pageEl: any, changedProps: PropertyValues): void;
 }
 declare global {

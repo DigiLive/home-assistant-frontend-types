@@ -1,6 +1,6 @@
 import { LitElement } from "lit";
-import "../../../../../../components/ha-textfield";
 import "../../../../../../components/ha-alert";
+import "../../../../../../components/input/ha-input";
 export declare class ZWaveJsAddNodeCodeInput extends LitElement {
     value: string;
     description: string;

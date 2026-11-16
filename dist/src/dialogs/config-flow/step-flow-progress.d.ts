@@ -1,8 +1,7 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import "../../components/ha-progress-ring";
 import "../../components/ha-spinner";
+import "../../components/progress/ha-progress-ring";
 import type { DataEntryFlowStepProgress } from "../../data/data_entry_flow";
 import type { HomeAssistant } from "../../types";
 import type { FlowConfig } from "./show-dialog-data-entry-flow";

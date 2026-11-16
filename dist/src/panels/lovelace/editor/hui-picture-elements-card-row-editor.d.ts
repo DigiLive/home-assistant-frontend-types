@@ -1,7 +1,9 @@
 import { LitElement, nothing } from "lit";
+import "../../../components/ha-button";
+import "../../../components/ha-dropdown";
+import "../../../components/ha-dropdown-item";
 import "../../../components/ha-icon-button";
-import "../../../components/ha-list-item";
-import "../../../components/ha-select";
+import "../../../components/ha-sortable";
 import "../../../components/ha-svg-icon";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceElementConfig } from "../elements/types";
@@ -15,10 +17,10 @@ declare global {
 export declare class HuiPictureElementsCardRowEditor extends LitElement {
     hass?: HomeAssistant;
     elements?: LovelaceElementConfig[];
-    private _select;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _getSecondaryDescription;
     private _addElement;
+    private _elementMoved;
     private _removeRow;
     private _editRow;
     private _duplicateRow;

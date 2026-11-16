@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { ConversationAgentSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-conversation-agent-picker";
 export declare class HaConversationAgentSelector extends LitElement {
-    hass: HomeAssistant;
     selector: ConversationAgentSelector;
     value?: any;
     label?: string;

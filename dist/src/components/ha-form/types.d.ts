@@ -1,18 +1,39 @@
 import type { LitElement } from "lit";
 import type { Selector } from "../../data/selector";
 import type { HaDurationData } from "../ha-duration-input";
-export type HaFormSchema = HaFormConstantSchema | HaFormStringSchema | HaFormIntegerSchema | HaFormFloatSchema | HaFormBooleanSchema | HaFormSelectSchema | HaFormMultiSelectSchema | HaFormTimeSchema | HaFormSelector | HaFormGridSchema | HaFormExpandableSchema | HaFormOptionalActionsSchema;
+export type HaFormSchema = HaFormConstantSchema | HaFormDividerSchema | HaFormStringSchema | HaFormIntegerSchema | HaFormFloatSchema | HaFormBooleanSchema | HaFormSelectSchema | HaFormMultiSelectSchema | HaFormTimeSchema | HaFormSelector | HaFormGridSchema | HaFormExpandableSchema | HaFormOptionalActionsSchema;
 export interface HaFormBaseSchema {
     name: string;
     default?: HaFormData;
     required?: boolean;
     disabled?: boolean;
+    visible?: HaFormVisible;
     description?: {
         suffix?: string;
         suggested_value?: HaFormData;
     };
     context?: Record<string, string>;
 }
+export type HaFormVisible = boolean | HaFormCondition | HaFormCondition[];
+export type HaFormConditionOperator = "eq" | "not_eq" | "in" | "not_in" | "exists" | "not_exists";
+export interface HaFormFieldCondition {
+    field: string;
+    operator?: HaFormConditionOperator;
+    value?: HaFormData | readonly HaFormData[];
+}
+export interface HaFormAndCondition {
+    condition: "and";
+    conditions: readonly HaFormCondition[];
+}
+export interface HaFormOrCondition {
+    condition: "or";
+    conditions: readonly HaFormCondition[];
+}
+export interface HaFormNotCondition {
+    condition: "not";
+    conditions: readonly HaFormCondition[];
+}
+export type HaFormCondition = HaFormFieldCondition | HaFormAndCondition | HaFormOrCondition | HaFormNotCondition;
 export interface HaFormGridSchema extends HaFormBaseSchema {
     type: "grid";
     flatten?: boolean;
@@ -41,6 +62,9 @@ export interface HaFormSelector extends HaFormBaseSchema {
 export interface HaFormConstantSchema extends HaFormBaseSchema {
     type: "constant";
     value?: string;
+}
+export interface HaFormDividerSchema extends HaFormBaseSchema {
+    type: "divider";
 }
 export interface HaFormIntegerSchema extends HaFormBaseSchema {
     type: "integer";

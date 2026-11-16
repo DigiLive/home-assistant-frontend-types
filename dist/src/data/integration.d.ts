@@ -4,6 +4,7 @@ import type { HomeAssistant } from "../types";
 export declare const integrationsWithPanel: {
     bluetooth: string;
     dhcp: string;
+    infrared: string;
     matter: string;
     mqtt: string;
     ssdp: string;
@@ -12,14 +13,22 @@ export declare const integrationsWithPanel: {
     zha: string;
     zwave_js: string;
 };
-export type IntegrationType = "device" | "helper" | "hub" | "service" | "hardware" | "entity" | "system";
+/**
+ * The panel an integration is configured in, if it has one of its own.
+ *
+ * An integration can register a panel at runtime; the built-in ones above are
+ * the fallback for those that do not.
+ */
+export declare const getConfigPanelPath: (domain: string, panels: HomeAssistant["panels"]) => string | undefined;
+export type IntegrationType = "device" | "helper" | "hub" | "service" | "hardware" | "entity" | "system" | "virtual";
+export type DomainManifestLookup = Record<string, IntegrationManifest>;
 export interface IntegrationManifest {
     is_built_in: boolean;
     overwrites_built_in?: boolean;
     domain: string;
     name: string;
-    config_flow: boolean;
-    documentation: string;
+    config_flow?: boolean;
+    documentation?: string;
     issue_tracker?: string;
     dependencies?: string[];
     after_dependencies?: string[];
@@ -30,14 +39,21 @@ export interface IntegrationManifest {
         modelName?: string;
         st?: string;
     }[];
-    zeroconf?: string[];
+    zeroconf?: (string | {
+        type: string;
+        macaddress?: string;
+        manufacturer?: string;
+        model?: string;
+        name?: string;
+        properties?: Record<string, string>;
+    })[];
     homekit?: {
-        models: string[];
+        models?: string[];
     };
     integration_type?: IntegrationType;
     loggers?: string[];
     quality_scale?: "bronze" | "silver" | "gold" | "platinum" | "no_score" | "internal" | "legacy" | "custom";
-    iot_class: "assumed_state" | "cloud_polling" | "cloud_push" | "local_polling" | "local_push";
+    iot_class?: "assumed_state" | "calculated" | "cloud_polling" | "cloud_push" | "local_polling" | "local_push";
     single_config_entry?: boolean;
     version?: string;
 }
@@ -61,7 +77,8 @@ export type IntegrationLogPersistance = "none" | "once" | "permanent";
 export declare const integrationIssuesUrl: (domain: string, manifest: IntegrationManifest) => string;
 export declare const domainToName: (localize: LocalizeFunc, domain: string, manifest?: IntegrationManifest) => string;
 export declare const fetchIntegrationManifests: (hass: HomeAssistant, integrations?: string[]) => Promise<IntegrationManifest[]>;
-export declare const fetchIntegrationManifest: (hass: HomeAssistant, integration: string) => Promise<IntegrationManifest>;
+export declare const fetchIntegrationManifestsCollection: (connection: Connection, setValue: (value: DomainManifestLookup) => void) => Promise<() => void>;
+export declare const fetchIntegrationManifest: (hass: Pick<HomeAssistant, "callWS">, integration: string) => Promise<IntegrationManifest>;
 export declare const fetchIntegrationSetups: (hass: HomeAssistant) => Promise<IntegrationSetup[]>;
 export declare const fetchIntegrationLogInfo: (conn: any) => any;
 export declare const setIntegrationLogLevel: (hass: HomeAssistant, integration: string, level: string, persistence: IntegrationLogPersistance) => Promise<unknown>;

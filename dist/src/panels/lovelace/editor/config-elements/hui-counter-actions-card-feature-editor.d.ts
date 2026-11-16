@@ -1,7 +1,7 @@
 import { LitElement, nothing } from "lit";
 import "../../../../components/ha-form/ha-form";
 import type { HomeAssistant } from "../../../../types";
-import { type LovelaceCardFeatureContext, type CounterActionsCardFeatureConfig } from "../../card-features/types";
+import type { CounterActionsCardFeatureConfig, LovelaceCardFeatureContext } from "../../card-features/types";
 import type { LovelaceCardFeatureEditor } from "../../types";
 export declare class HuiCounterActionsCardFeatureEditor extends LitElement implements LovelaceCardFeatureEditor {
     hass?: HomeAssistant;

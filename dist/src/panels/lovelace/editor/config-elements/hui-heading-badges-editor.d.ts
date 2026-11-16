@@ -1,7 +1,7 @@
-import "@material/mwc-menu/mwc-menu-surface";
 import { LitElement, nothing } from "lit";
-import "../../../../components/entity/ha-entity-picker";
 import "../../../../components/ha-button";
+import "../../../../components/ha-dropdown";
+import "../../../../components/ha-dropdown-item";
 import "../../../../components/ha-icon-button";
 import "../../../../components/ha-sortable";
 import "../../../../components/ha-svg-icon";
@@ -20,22 +20,17 @@ declare global {
 export declare class HuiHeadingBadgesEditor extends LitElement {
     hass: HomeAssistant;
     badges?: LovelaceHeadingBadgeConfig[];
-    private _addContainer?;
-    private _entityPicker?;
-    private _addMode;
-    private _opened;
     private _badgesKeys;
     private _getKey;
-    private _computeBadgeLabel;
+    private _getBadgeTypeLabel;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    private _renderPicker;
-    private _onClosed;
-    private _onOpened;
-    private _openedChanged;
-    private _addEntity;
-    private _entityPicked;
+    private _renderBadgeItem;
+    private _renderEntityBadge;
+    private _renderButtonBadge;
+    private _renderUnknownBadge;
+    private _addBadge;
     private _badgeMoved;
-    private _removeEntity;
+    private _removeBadge;
     private _editBadge;
     static styles: import("lit").CSSResult;
 }

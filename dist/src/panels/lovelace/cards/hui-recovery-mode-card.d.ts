@@ -1,4 +1,3 @@
-import "@material/mwc-button";
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../../../components/ha-card";

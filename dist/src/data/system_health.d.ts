@@ -12,7 +12,7 @@ interface SystemCheckValuePendingObject {
     type: "pending";
 }
 export type SystemCheckValueObject = SystemCheckValueDateObject | SystemCheckValueErrorObject | SystemCheckValuePendingObject;
-export type SystemCheckValue = string | number | boolean | SystemCheckValueObject;
+export type SystemCheckValue = string | number | boolean | null | SystemCheckValueObject;
 export type SystemHealthInfo = Partial<{
     homeassistant: {
         info: {
@@ -21,7 +21,8 @@ export type SystemHealthInfo = Partial<{
             dev: boolean;
             hassio: boolean;
             docker: boolean;
-            user: string;
+            container_arch: string | null;
+            user: string | null;
             virtualenv: boolean;
             python_version: string;
             os_name: string;
@@ -36,5 +37,5 @@ export type SystemHealthInfo = Partial<{
         info: Record<string, SystemCheckValue>;
     };
 }>;
-export declare const subscribeSystemHealthInfo: (hass: HomeAssistant, callback: (info: SystemHealthInfo | undefined) => void) => Promise<() => Promise<void>>;
+export declare const subscribeSystemHealthInfo: (hass: Pick<HomeAssistant, "connection">, callback: (info: SystemHealthInfo | undefined) => void) => Promise<() => Promise<void>>;
 export {};

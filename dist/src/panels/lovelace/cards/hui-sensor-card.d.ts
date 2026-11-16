@@ -1,13 +1,15 @@
+import type { HassEntity } from "home-assistant-js-websocket/dist/types";
 import type { CSSResultGroup } from "lit";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardEditor, LovelaceGridOptions } from "../types";
 import { HuiEntityCard } from "./hui-entity-card";
-import type { SensorCardConfig } from "./types";
+import type { EntityCardConfig, SensorCardConfig } from "./types";
 export declare const DEFAULT_HOURS_TO_SHOW = 24;
 declare class HuiSensorCard extends HuiEntityCard {
     static getConfigElement(): Promise<LovelaceCardEditor>;
     static getStubConfig(hass: HomeAssistant, entities: string[], entitiesFallback: string[]): SensorCardConfig;
     setConfig(config: SensorCardConfig): void;
+    protected _getStateColor(_stateObj: HassEntity, config: EntityCardConfig): boolean;
     getGridOptions(): LovelaceGridOptions;
     static get styles(): CSSResultGroup;
 }

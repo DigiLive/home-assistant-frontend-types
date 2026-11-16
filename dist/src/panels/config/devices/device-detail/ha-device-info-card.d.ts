@@ -1,15 +1,19 @@
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../../../../components/ha-card";
-import type { DeviceRegistryEntry } from "../../../../data/device_registry";
+import "../../../../components/ha-icon";
+import "../../../../components/ha-label";
+import type { DeviceRegistryEntry } from "../../../../data/device/device_registry";
 import type { HomeAssistant } from "../../../../types";
 export declare class HaDeviceCard extends LitElement {
     hass: HomeAssistant;
     device: DeviceRegistryEntry;
     narrow: boolean;
+    private _labelRegistry?;
+    private _labelsData;
     protected render(): TemplateResult;
     protected _getAddresses(): [string, string][];
-    private _computeDeviceNameDislay;
+    private _computeDeviceNameDisplay;
     static get styles(): CSSResultGroup;
 }
 declare global {

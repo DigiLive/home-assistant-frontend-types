@@ -10,6 +10,7 @@ declare global {
         "item-added": {
             index: number;
             data: any;
+            item: any;
         };
         "item-removed": {
             index: number;

@@ -1,12 +1,13 @@
 import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../components/ha-icon-picker";
-import "../../../../components/ha-textfield";
+import "../../../../components/input/ha-input";
 import type { Schedule } from "../../../../data/schedule";
 import type { HomeAssistant } from "../../../../types";
 declare class HaScheduleForm extends LitElement {
     hass: HomeAssistant;
     new: boolean;
+    disabled: boolean;
     private _name;
     private _icon;
     private _monday;
@@ -17,6 +18,7 @@ declare class HaScheduleForm extends LitElement {
     private _saturday;
     private _sunday;
     private calendar?;
+    private _focusElement?;
     private _item?;
     set item(item: Schedule);
     disconnectedCallback(): void;

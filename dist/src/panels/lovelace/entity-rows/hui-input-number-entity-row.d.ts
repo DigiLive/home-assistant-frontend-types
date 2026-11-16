@@ -1,7 +1,7 @@
 import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-slider";
-import "../../../components/ha-textfield";
+import "../../../components/input/ha-input";
 import type { HomeAssistant } from "../../../types";
 import "../components/hui-generic-entity-row";
 import type { EntityConfig, LovelaceRow } from "./types";
@@ -15,7 +15,7 @@ declare class HuiInputNumberEntityRow extends LitElement implements LovelaceRow 
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected firstUpdated(): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
     private _initialLoad;

@@ -1,11 +1,11 @@
-import "@material/mwc-button";
 import type { HassEntity } from "home-assistant-js-websocket";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../components/entity/state-info";
-import type { HomeAssistant } from "../types";
+import "../components/ha-button";
 declare class StateCardLock extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
+    private _api;
     stateObj: HassEntity;
     inDialog: boolean;
     protected render(): TemplateResult;

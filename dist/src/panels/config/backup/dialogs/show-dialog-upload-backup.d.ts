@@ -3,4 +3,4 @@ export interface UploadBackupDialogParams {
     cancel?: () => void;
 }
 export declare const loadUploadBackupDialog: () => Promise<typeof import("./dialog-upload-backup")>;
-export declare const showUploadBackupDialog: (element: HTMLElement, params: UploadBackupDialogParams) => Promise<null | undefined>;
+export declare const showUploadBackupDialog: (element: HTMLElement, params: UploadBackupDialogParams) => Promise<null>;

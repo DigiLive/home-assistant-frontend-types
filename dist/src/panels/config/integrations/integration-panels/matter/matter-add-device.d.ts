@@ -1,7 +1,7 @@
 import type { HomeAssistant } from "../../../../../types";
 export declare class MatterAddDevice extends HTMLElement {
     hass: HomeAssistant;
-    connectedCallback(): void;
+    connectedCallback(): Promise<void>;
 }
 declare global {
     interface HTMLElementTagNameMap {

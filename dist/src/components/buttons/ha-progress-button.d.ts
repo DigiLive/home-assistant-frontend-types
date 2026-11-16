@@ -1,14 +1,17 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../ha-button";
+import type { Appearance } from "../ha-button";
 import "../ha-spinner";
 import "../ha-svg-icon";
 export declare class HaProgressButton extends LitElement {
     label?: string;
     disabled: boolean;
     progress: boolean;
-    raised: boolean;
-    unelevated: boolean;
+    appearance: Appearance;
+    size: "xs" | "s" | "m" | "l" | "xl";
+    iconPath?: string;
+    variant: "brand" | "danger" | "neutral" | "warning" | "success";
     private _result?;
     render(): TemplateResult;
     actionSuccess(): void;

@@ -1,5 +1,6 @@
-import type { CSSResultGroup } from "lit";
+import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
+import "../../../../components/ha-alert";
 import "../../../../components/ha-card";
 import "../../../../components/ha-form/ha-form";
 import "../../../../components/ha-icon";
@@ -13,9 +14,20 @@ export declare class HuiPictureElementsCardEditor extends LitElement implements 
     hass?: HomeAssistant;
     private _config?;
     private _subElementEditorConfig?;
+    private _movedFromPreview;
     setConfig(config: PictureElementsCardConfig): void;
+    private _bridge;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    protected updated(changedProps: PropertyValues): void;
+    private _handOverBridge;
+    private _updateBridge;
+    private _fireConfigChanged;
+    private _selectElement;
+    private _setElementPosition;
     private _schema;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _processData;
     private _formChanged;
     private _elementsChanged;
     private _handleSubElementChanged;

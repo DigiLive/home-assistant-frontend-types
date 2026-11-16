@@ -1,9 +1,7 @@
-import "@shoelace-style/shoelace/dist/components/animation/animation";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../../../../../../types";
 import { SecurityClass } from "../../../../../../data/zwave_js";
+import type { HomeAssistant } from "../../../../../../types";
 import "../../../../../../components/ha-alert";
-import "../../../../../../components/ha-formfield";
 import "../../../../../../components/ha-checkbox";
 export declare class ZWaveJsAddNodeGrantSecurityClasses extends LitElement {
     hass: HomeAssistant;

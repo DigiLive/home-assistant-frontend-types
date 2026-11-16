@@ -1,14 +1,17 @@
-import "@material/mwc-button/mwc-button";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-card";
-import type { HomeAssistant } from "../../../types";
-import type { LovelaceCard } from "../types";
+import "../../../components/ha-button";
+import "../../../components/ha-icon";
+import type { LovelaceCard, LovelaceCardEditor } from "../types";
 import type { EmptyStateCardConfig } from "./types";
 export declare class HuiEmptyStateCard extends LitElement implements LovelaceCard {
-    hass?: HomeAssistant;
+    static getConfigElement(): Promise<LovelaceCardEditor>;
+    static getStubConfig(): EmptyStateCardConfig;
+    private _config?;
     getCardSize(): number;
-    setConfig(_config: EmptyStateCardConfig): void;
+    setConfig(config: EmptyStateCardConfig): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _handleButtonAction;
     static styles: import("lit").CSSResult;
 }
 declare global {

@@ -1,9 +1,11 @@
 import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-alert";
 declare class HaHLSPlayer extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
+    private _config;
+    private _api;
+    private _connection;
     entityid?: string;
     url?: string;
     posterUrl?: string;
@@ -21,10 +23,12 @@ declare class HaHLSPlayer extends LitElement {
     private _hlsPolyfillInstance?;
     private _exoPlayer;
     private static streamCount;
+    private _hiddenCleanupTimeout?;
+    private _handleVisibilityChange;
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected render(): TemplateResult;
-    protected updated(changedProps: PropertyValues): void;
+    protected updated(changedProps: PropertyValues<this>): void;
     private _getStreamUrlFromEntityId;
     private _startHls;
     private _renderHLSExoPlayer;

@@ -3,6 +3,7 @@ import "./ha-checkbox";
 export declare class HaCheckListItem extends CheckListItemBase {
     checkboxDisabled: boolean;
     indeterminate: boolean;
+    separateCheckboxClick: boolean;
     onChange(event: any): Promise<void>;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];

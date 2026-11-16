@@ -1,7 +1,7 @@
-import "@material/mwc-button";
 import { LitElement, nothing } from "lit";
 import type { PersitentNotificationEntity } from "../../data/persistent_notification";
 import type { HomeAssistant } from "../../types";
+import "../../components/ha-button";
 import "./notification-item-template";
 export declare class HuiConfiguratorNotificationItem extends LitElement {
     hass?: HomeAssistant;

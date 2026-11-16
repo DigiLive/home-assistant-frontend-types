@@ -1,13 +1,12 @@
 import type { TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-icon";
 import "./ha-icon-button";
 import "./ha-icon-next";
-import "./ha-md-list";
-import "./ha-md-list-item";
 import "./ha-sortable";
 import "./ha-svg-icon";
+import "./item/ha-list-item-button";
+import "./list/ha-list-base";
 export interface DisplayItem {
     icon?: string | Promise<string | undefined>;
     iconPath?: string;
@@ -15,6 +14,7 @@ export interface DisplayItem {
     label: string;
     description?: string;
     disableSorting?: boolean;
+    disableHiding?: boolean;
 }
 export interface DisplayValue {
     order: string[];
@@ -31,7 +31,7 @@ declare global {
     }
 }
 export declare class HaItemDisplayEditor extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
     items: DisplayItem[];
     showNavigationButton: boolean;
     dontSortVisible: boolean;

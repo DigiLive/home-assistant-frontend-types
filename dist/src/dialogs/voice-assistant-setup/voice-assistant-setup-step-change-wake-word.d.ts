@@ -1,6 +1,6 @@
 import { LitElement } from "lit";
-import "../../components/ha-md-list";
-import "../../components/ha-md-list-item";
+import "../../components/item/ha-list-item-button";
+import "../../components/list/ha-list-base";
 import type { AssistSatelliteConfiguration } from "../../data/assist_satellite";
 import type { HomeAssistant } from "../../types";
 export declare class HaVoiceAssistantSetupStepChangeWakeWord extends LitElement {
@@ -10,7 +10,7 @@ export declare class HaVoiceAssistantSetupStepChangeWakeWord extends LitElement 
     protected render(): import("lit-html").TemplateResult<1>;
     private _wakeWordPicked;
     private _nextStep;
-    static styles: (import("lit").CSSResult | import("lit").CSSResult[])[];
+    static styles: (import("lit").CSSResult[] | import("lit").CSSResult)[];
 }
 declare global {
     interface HTMLElementTagNameMap {

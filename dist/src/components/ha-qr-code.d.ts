@@ -11,8 +11,8 @@ export declare class HaQrCode extends LitElement {
     centerImage?: string;
     private _error?;
     private _canvas?;
-    protected willUpdate(changedProperties: PropertyValues): void;
-    updated(changedProperties: PropertyValues): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
+    updated(changedProperties: PropertyValues<this>): void;
     render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

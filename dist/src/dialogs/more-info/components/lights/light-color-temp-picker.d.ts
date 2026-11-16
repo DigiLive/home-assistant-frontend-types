@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../components/ha-control-slider";
 import type { LightColor, LightEntity } from "../../../../data/light";
-import type { HomeAssistant } from "../../../../types";
 declare global {
     interface HASSDomEvents {
         "color-changed": LightColor;
@@ -10,14 +9,15 @@ declare global {
 }
 export declare const generateColorTemperatureGradient: (min: number, max: number) => string;
 declare class LightColorTempPicker extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _i18n;
     stateObj: LightEntity;
     private _ctPickerValue?;
     private _isInteracting?;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _generateTemperatureGradient;
     private _updateSliderValues;
-    willUpdate(changedProps: PropertyValues): void;
+    willUpdate(changedProps: PropertyValues<this>): void;
     private _ctColorCursorMoved;
     private _throttleUpdateColorTemp;
     private _ctColorChanged;

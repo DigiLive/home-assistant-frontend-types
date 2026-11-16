@@ -11,6 +11,7 @@ export interface IPv4ConfiguredAddress {
 }
 export interface Adapter {
     name: string;
+    index: number | null;
     enabled: boolean;
     auto: boolean;
     default: boolean;
@@ -22,10 +23,12 @@ export interface NetworkConfig {
     configured_adapters: string[];
 }
 export interface NetworkUrls {
-    internal: string;
-    external: string;
-    cloud: string;
+    internal: string | null;
+    external: string | null;
+    cloud: string | null;
 }
 export declare const getNetworkConfig: (hass: HomeAssistant) => Promise<NetworkConfig>;
-export declare const setNetworkConfig: (hass: HomeAssistant, configured_adapters: string[]) => Promise<string[]>;
+export declare const setNetworkConfig: (hass: HomeAssistant, configured_adapters: string[]) => Promise<{
+    configured_adapters: string[];
+}>;
 export declare const getNetworkUrls: (hass: HomeAssistant) => Promise<NetworkUrls>;

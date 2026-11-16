@@ -1,0 +1,12 @@
+import type { NetworkData } from "../../../../../components/chart/ha-network-graph";
+import type { DeviceRegistryEntry } from "../../../../../data/device/device_registry";
+import type { MatterNetworkTopology, MatterNetworkTopologyNode, MatterTopologyStrength } from "../../../../../data/matter";
+import type { HomeAssistant } from "../../../../../types";
+export declare const HOME_ASSISTANT_NODE_ID = "ha";
+export declare const getBridgedDeviceId: (nodeId: string) => string | undefined;
+export declare const getBridgedDevices: (bridgeDeviceId: string, devices: HomeAssistant["devices"]) => DeviceRegistryEntry[];
+export declare const strengthToScale: (strength?: MatterTopologyStrength | null) => number;
+export declare const networkToColorVar: (network?: string | null) => string;
+export declare const getTopologyNodeCategory: (node: MatterNetworkTopologyNode) => number;
+export declare const getTopologyNodeName: (node: MatterNetworkTopologyNode, hass: HomeAssistant) => string;
+export declare function createMatterNetworkChartData(topology: MatterNetworkTopology, hass: HomeAssistant, element: Element, expandedBridges?: ReadonlySet<string>): NetworkData;

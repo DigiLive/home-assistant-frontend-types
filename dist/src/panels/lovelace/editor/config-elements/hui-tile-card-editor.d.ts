@@ -5,10 +5,12 @@ import "../../../../components/ha-svg-icon";
 import type { HomeAssistant } from "../../../../types";
 import type { TileCardConfig } from "../../cards/types";
 import type { LovelaceCardEditor } from "../../types";
+export declare const fieldOrder: string[];
 export declare class HuiTileCardEditor extends LitElement implements LovelaceCardEditor {
     hass?: HomeAssistant;
     private _config?;
     setConfig(config: TileCardConfig): void;
+    private _featureContext;
     private _schema;
     private _featuresSchema;
     private _hasCompatibleFeatures;

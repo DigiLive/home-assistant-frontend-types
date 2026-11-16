@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { AreasDisplaySelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-areas-display-editor";
 export declare class HaAreasDisplaySelector extends LitElement {
-    hass: HomeAssistant;
     selector: AreasDisplaySelector;
     value?: any;
     label?: string;

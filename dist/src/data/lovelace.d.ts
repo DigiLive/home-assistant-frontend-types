@@ -2,6 +2,7 @@ import type { Connection } from "home-assistant-js-websocket";
 import type { HuiBadge } from "../panels/lovelace/badges/hui-badge";
 import type { HuiCard } from "../panels/lovelace/cards/hui-card";
 import type { HuiSection } from "../panels/lovelace/sections/hui-section";
+import type { LovelacePath } from "../panels/lovelace/editor/lovelace-path";
 import type { Lovelace } from "../panels/lovelace/types";
 import type { HomeAssistant } from "../types";
 import type { LovelaceSectionConfig } from "./lovelace/config/section";
@@ -15,19 +16,22 @@ export interface LovelaceViewElement extends HTMLElement {
     lovelace?: Lovelace;
     narrow?: boolean;
     index?: number;
+    path?: LovelacePath;
     cards?: HuiCard[];
     badges?: HuiBadge[];
     sections?: HuiSection[];
     isStrategy: boolean;
+    initialRenderComplete?: Promise<void>;
     setConfig(config: LovelaceViewConfig): void;
 }
 export interface LovelaceSectionElement extends HTMLElement {
     hass?: HomeAssistant;
     lovelace?: Lovelace;
     preview?: boolean;
-    viewIndex?: number;
-    index?: number;
+    path?: LovelacePath;
     cards?: HuiCard[];
+    badges?: HuiBadge[];
+    sections?: HuiSection[];
     isStrategy: boolean;
     importOnly?: boolean;
     setConfig(config: LovelaceSectionConfig): void;

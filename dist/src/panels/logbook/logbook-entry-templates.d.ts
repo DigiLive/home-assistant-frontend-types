@@ -1,0 +1,11 @@
+import "../../components/entity/state-badge";
+import "../../components/ha-domain-icon";
+import "../../components/ha-state-icon";
+import "../../components/ha-svg-icon";
+import "../../components/user/ha-user-badge";
+import type { LogbookEntry } from "../../data/logbook";
+import type { HomeAssistant } from "../../types";
+import type { LogbookCause, LogbookGlyph } from "./logbook-entry-model";
+export declare const renderLogbookCauseIcon: (cause: LogbookCause) => import("lit-html").TemplateResult<1>;
+export declare const transitionArrow: (hass: HomeAssistant) => "←" | "→";
+export declare const renderLogbookGlyph: (hass: HomeAssistant, entry: LogbookEntry, glyph: LogbookGlyph) => import("lit-html").TemplateResult<1>;

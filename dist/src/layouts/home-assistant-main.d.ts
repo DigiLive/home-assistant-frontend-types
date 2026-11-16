@@ -9,17 +9,11 @@ declare global {
         "hass-toggle-menu": undefined | {
             open?: boolean;
         };
-        "hass-edit-sidebar": EditSideBarEvent;
         "hass-show-notifications": undefined;
     }
     interface HTMLElementEventMap {
-        "hass-edit-sidebar": HASSDomEvent<EditSideBarEvent>;
         "hass-toggle-menu": HASSDomEvent<HASSDomEvents["hass-toggle-menu"]>;
     }
-}
-interface EditSideBarEvent {
-    order: string[];
-    hidden: string[];
 }
 export declare class HomeAssistantMain extends LitElement {
     hass: HomeAssistant;
@@ -28,13 +22,13 @@ export declare class HomeAssistantMain extends LitElement {
     private _sidebarEditMode;
     private _externalSidebar;
     private _drawerOpen;
-    private _panelOrder;
-    private _hiddenPanels;
+    private _debugSafeAreaTool;
+    private _narrowViewportProvider;
     constructor();
     protected render(): TemplateResult;
     protected firstUpdated(): void;
-    willUpdate(changedProps: PropertyValues): void;
-    protected updated(changedProps: PropertyValues): void;
+    willUpdate(changedProps: PropertyValues<this>): void;
+    protected updated(changedProps: PropertyValues<this>): void;
     private get _sidebarNarrow();
     private _drawerClosed;
     static styles: import("lit").CSSResult;
@@ -44,4 +38,3 @@ declare global {
         "home-assistant-main": HomeAssistantMain;
     }
 }
-export {};

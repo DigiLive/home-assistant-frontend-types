@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { ColorRGBSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
-import "../ha-textfield";
+import "../input/ha-input";
 export declare class HaColorRGBSelector extends LitElement {
-    hass: HomeAssistant;
     selector: ColorRGBSelector;
     value?: string;
     label?: string;

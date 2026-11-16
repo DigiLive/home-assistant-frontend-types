@@ -8,6 +8,7 @@ export interface InputNumber {
     mode: "box" | "slider";
     icon?: string;
     initial?: number;
+    device_class?: string;
     unit_of_measurement?: string;
 }
 export interface InputNumberMutableParams {
@@ -18,6 +19,7 @@ export interface InputNumberMutableParams {
     max: number;
     step: number;
     mode: "box" | "slider";
+    device_class?: string;
     unit_of_measurement?: string;
 }
 export declare const fetchInputNumber: (hass: HomeAssistant) => Promise<InputNumber[]>;

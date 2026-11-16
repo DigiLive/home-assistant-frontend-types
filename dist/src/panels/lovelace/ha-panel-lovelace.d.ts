@@ -1,6 +1,6 @@
-import "@material/mwc-button";
 import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
+import "../../components/ha-button";
 import "../../layouts/hass-error-screen";
 import "../../layouts/hass-loading-screen";
 import type { HomeAssistant, PanelInfo, Route } from "../../types";
@@ -8,13 +8,8 @@ import "./hui-root";
 interface LovelacePanelConfig {
     mode: "yaml" | "storage";
 }
-declare global {
-    interface HASSDomEvents {
-        "strategy-config-changed": undefined;
-    }
-}
 export declare class LovelacePanel extends LitElement {
-    panel?: PanelInfo<LovelacePanelConfig>;
+    panel?: PanelInfo<LovelacePanelConfig | undefined>;
     hass?: HomeAssistant;
     narrow: boolean;
     route?: Route;
@@ -28,24 +23,21 @@ export declare class LovelacePanel extends LitElement {
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected render(): TemplateResult | undefined;
-    protected willUpdate(changedProps: PropertyValues): void;
-    protected firstUpdated(changedProps: PropertyValues): void;
-    protected updated(changedProperties: PropertyValues): void;
-    private _debounceRegistriesChanged;
-    private _registriesChanged;
-    private _strategyConfigChanged;
-    private _askRegenerateStrategyConfig;
+    protected willUpdate(changedProps: PropertyValues<this>): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
+    private _debounceRegenerateStrategy;
     private _regenerateStrategyConfig;
     private _handleConnectionStatus;
-    private _regenerateConfig;
     private _subscribeUpdates;
     private _closeEditor;
     private _lovelaceChanged;
-    get urlPath(): string | null;
+    get urlPath(): string;
     private _forceFetchConfig;
     private _fetchConfig;
-    private _checkLovelaceConfig;
+    private _normalizeLovelaceConfig;
     private _setLovelaceConfig;
+    private _generateDefaultConfig;
     private _updateLovelace;
 }
 declare global {

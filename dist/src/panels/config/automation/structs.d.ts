@@ -1,20 +1,33 @@
 export declare const baseTriggerStruct: import("superstruct").Struct<{
     trigger: string;
-    enabled?: boolean | undefined;
-    id?: string | undefined;
+    id: string;
+    enabled: boolean;
+    note: string;
 }, {
     trigger: import("superstruct").Struct<string, null>;
-    id: import("superstruct").Struct<string | undefined, null>;
-    enabled: import("superstruct").Struct<boolean | undefined, null>;
+    id: import("superstruct").Struct<string, null>;
+    enabled: import("superstruct").Struct<boolean, null>;
+    note: import("superstruct").Struct<string, null>;
+}>;
+export declare const optionStruct: import("superstruct").Struct<{
+    alias: string;
+    note: string;
+    conditions: string | (string | Record<string, unknown>)[] | Record<string, unknown>;
+    sequence: Record<string, unknown>[] | Record<string, unknown>;
+}, {
+    alias: import("superstruct").Struct<string, null>;
+    note: import("superstruct").Struct<string, null>;
+    conditions: import("superstruct").Struct<string | (string | Record<string, unknown>)[] | Record<string, unknown>, null>;
+    sequence: import("superstruct").Struct<Record<string, unknown>[] | Record<string, unknown>, null>;
 }>;
 export declare const forDictStruct: import("superstruct").Struct<{
-    days?: number | undefined;
-    hours?: number | undefined;
-    minutes?: number | undefined;
-    seconds?: number | undefined;
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
 }, {
-    days: import("superstruct").Struct<number | undefined, null>;
-    hours: import("superstruct").Struct<number | undefined, null>;
-    minutes: import("superstruct").Struct<number | undefined, null>;
-    seconds: import("superstruct").Struct<number | undefined, null>;
+    days: import("superstruct").Struct<number, null>;
+    hours: import("superstruct").Struct<number, null>;
+    minutes: import("superstruct").Struct<number, null>;
+    seconds: import("superstruct").Struct<number, null>;
 }>;

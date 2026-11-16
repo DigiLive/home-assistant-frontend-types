@@ -1,16 +1,16 @@
-import "@material/mwc-button";
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../components/entity/state-info";
 import "../../components/ha-alert";
-import "../../components/ha-date-input";
-import "../../components/ha-time-input";
+import "../../components/ha-button";
+import "../../components/ha-dialog-footer";
+import "../../components/ha-dialog";
 import type { HomeAssistant } from "../../types";
-import "../lovelace/components/hui-generic-entity-row";
 import type { CalendarEventDetailDialogParams } from "./show-dialog-calendar-event-detail";
 declare class DialogCalendarEventDetail extends LitElement {
     hass: HomeAssistant;
     private _params?;
+    private _open;
     private _calendarId?;
     private _submitting;
     private _error?;
@@ -18,6 +18,7 @@ declare class DialogCalendarEventDetail extends LitElement {
     showDialog(params: CalendarEventDetailDialogParams): Promise<void>;
     closeDialog(): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _dialogClosed;
     private _renderRRuleAsText;
     private _formatDateRange;
     private _editEvent;

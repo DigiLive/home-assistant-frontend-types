@@ -9,12 +9,13 @@ export declare class HuiEntityFilterBadge extends ReactiveElement implements Lov
     hass: HomeAssistant;
     private _config?;
     private _elements?;
+    private _placeholderBadge?;
     private _configEntities?;
     private _oldEntities?;
     setConfig(config: EntityFilterBadgeConfig): void;
     protected createRenderRoot(): this;
     protected shouldUpdate(changedProperties: PropertyValues): boolean;
-    protected update(changedProperties: PropertyValues): void;
+    protected update(changedProperties: PropertyValues<this>): void;
     private _haveEntitiesChanged;
 }
 declare global {

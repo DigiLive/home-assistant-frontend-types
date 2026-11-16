@@ -1,13 +1,11 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-check-list-item";
 import "./ha-expansion-panel";
 import "./ha-icon";
 import "./ha-icon-button";
 import "./ha-list";
 export declare class HaFilterStates extends LitElement {
-    hass: HomeAssistant;
     label?: string;
     value?: string[];
     states?: {
@@ -17,12 +15,9 @@ export declare class HaFilterStates extends LitElement {
     }[];
     narrow: boolean;
     expanded: boolean;
-    private _shouldRender;
-    private _list;
+    private _content;
+    private _panel;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected willUpdate(changed: any): void;
-    protected updated(changed: any): void;
-    private _expandedWillChange;
     private _expandedChanged;
     private _statesSelected;
     private _clearFilter;

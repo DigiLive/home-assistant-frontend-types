@@ -1,4 +1,4 @@
-import type { AreaRegistryEntry, AreaRegistryEntryMutableParams } from "../../../data/area_registry";
+import type { AreaRegistryEntry, AreaRegistryEntryMutableParams } from "../../../data/area/area_registry";
 export interface AreaRegistryDetailDialogParams {
     entry?: AreaRegistryEntry;
     suggestedName?: string;

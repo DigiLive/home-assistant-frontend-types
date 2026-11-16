@@ -1,20 +1,28 @@
+import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
-import "./ha-combo-box";
 import "./ha-combo-box-item";
+import "./ha-generic-picker";
 import "./ha-service-icon";
 declare class HaServicePicker extends LitElement {
-    hass: HomeAssistant;
-    disabled: boolean;
-    value?: string;
-    private _filter?;
-    protected willUpdate(): void;
-    private _rowRenderer;
-    protected render(): import("lit-html").TemplateResult<1>;
+    private _i18n;
     private _services;
-    private _filteredServices;
-    private _filterChanged;
+    private _connection;
+    private _config;
+    disabled: boolean;
+    label?: string;
+    placeholder?: string;
+    value?: string;
+    showServiceId: boolean;
+    private _picker?;
+    open(): Promise<void>;
+    protected firstUpdated(props: PropertyValues<this>): void;
+    private _rowRenderer;
+    private _valueRenderer;
+    protected render(): TemplateResult;
+    private _getItems;
+    private _serviceItems;
     private _valueChanged;
+    private _setValue;
 }
 declare global {
     interface HTMLElementTagNameMap {

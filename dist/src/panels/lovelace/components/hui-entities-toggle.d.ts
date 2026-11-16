@@ -6,7 +6,7 @@ declare class HuiEntitiesToggle extends LitElement {
     entities?: string[];
     hass?: HomeAssistant;
     private _toggleEntities?;
-    willUpdate(changedProperties: PropertyValues): void;
+    willUpdate(changedProperties: PropertyValues<this>): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
     private _callService;

@@ -1,10 +1,10 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { MQTTMessage } from "../../../../../../data/mqtt";
+import type { MQTTLoggedMessage } from "../../../../../../data/mqtt";
 import type { HomeAssistant } from "../../../../../../types";
 declare class MQTTMessages extends LitElement {
     hass: HomeAssistant;
-    messages: MQTTMessage[];
+    messages: MQTTLoggedMessage[];
     direction: string;
     showAsYaml: boolean;
     showDeserialized: boolean;

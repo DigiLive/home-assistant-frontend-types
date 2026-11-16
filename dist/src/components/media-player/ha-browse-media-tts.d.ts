@@ -1,12 +1,11 @@
-import "@material/mwc-button/mwc-button";
 import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import type { MediaPlayerBrowseAction, MediaPlayerItem } from "../../data/media-player";
-import type { HomeAssistant } from "../../types";
-import "../ha-textarea";
-import "../ha-language-picker";
-import "../ha-tts-voice-picker";
+import "../ha-button";
 import "../ha-card";
+import "../ha-language-picker";
+import "../ha-textarea";
+import "../ha-tts-voice-picker";
 export interface TtsMediaPickedEvent {
     item: MediaPlayerItem;
 }
@@ -16,9 +15,11 @@ declare global {
     }
 }
 declare class BrowseMediaTTS extends LitElement {
-    hass: HomeAssistant;
     item: MediaPlayerItem;
     action: MediaPlayerBrowseAction;
+    private _localize;
+    private _hassConfig?;
+    private _api;
     private _language?;
     private _voice?;
     private _provider?;

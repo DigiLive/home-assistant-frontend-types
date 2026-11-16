@@ -25,7 +25,7 @@ export interface FlowConfig {
         [key: string]: any;
     }): TemplateResult | string;
     renderShowFormStepFieldError(hass: HomeAssistant, step: DataEntryFlowStepForm, error: string): string;
-    renderShowFormStepFieldLocalizeValue(hass: HomeAssistant, step: DataEntryFlowStepForm, key: string): string;
+    renderShowFormStepFieldLocalizeValue(hass: HomeAssistant, step: DataEntryFlowStepForm, key: string, values?: Record<string, string>): string;
     renderShowFormStepSubmitButton(hass: HomeAssistant, step: DataEntryFlowStepForm): string;
     renderExternalStepHeader(hass: HomeAssistant, step: DataEntryFlowStepExternal): string;
     renderExternalStepDescription(hass: HomeAssistant, step: DataEntryFlowStepExternal): TemplateResult | "";
@@ -37,9 +37,15 @@ export interface FlowConfig {
     renderMenuSubheader?(hass: HomeAssistant, step: DataEntryFlowStepMenu): string | TemplateResult;
     renderMenuDescription(hass: HomeAssistant, step: DataEntryFlowStepMenu): TemplateResult | "";
     renderMenuOption(hass: HomeAssistant, step: DataEntryFlowStepMenu, option: string): string;
+    renderMenuOptionDescription(hass: HomeAssistant, step: DataEntryFlowStepMenu, option: string): string;
     renderLoadingDescription(hass: HomeAssistant, loadingReason: LoadingReason, handler?: string, step?: DataEntryFlowStep | null): string;
 }
 export type LoadingReason = "loading_handlers" | "loading_flow" | "loading_step";
+/**
+ * Load the translations a step resolves against when it points at another
+ * integration, which owns strings shared between integrations.
+ */
+export declare const loadFlowStepTranslations: (hass: HomeAssistant, step: DataEntryFlowStep) => Promise<void>;
 export interface DataEntryFlowDialogParams {
     startFlowHandler?: string;
     searchQuery?: string;
@@ -51,9 +57,9 @@ export interface DataEntryFlowDialogParams {
         entryId?: string;
     }) => void;
     flowConfig: FlowConfig;
-    showAdvanced?: boolean;
     dialogParentElement?: HTMLElement;
     navigateToResult?: boolean;
+    carryOverDevices?: string[];
 }
 export declare const loadDataEntryFlowDialog: () => Promise<typeof import("./dialog-data-entry-flow")>;
 export declare const showFlowDialog: (element: HTMLElement, dialogParams: Omit<DataEntryFlowDialogParams, "flowConfig">, flowConfig: FlowConfig) => void;

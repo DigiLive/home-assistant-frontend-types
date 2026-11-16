@@ -1,7 +1,6 @@
 import type { HomeAssistant } from "../types";
-import type { CloudStatus } from "./cloud";
 export interface InstallationType {
-    installation_type: "Home Assistant Operating System" | "Home Assistant Container" | "Home Assistant Supervised" | "Home Assistant Core" | "Unknown";
+    installation_type: "Home Assistant OS" | "Home Assistant Container" | "Unsupported Third Party Container" | "Home Assistant Supervised" | "Home Assistant Core" | "Unknown";
 }
 export interface OnboardingCoreConfigStepResponse {
 }
@@ -33,6 +32,9 @@ export interface CloudLoginPassword extends CloudLoginBase {
 export interface CloudLoginMFA extends CloudLoginBase {
     code: string;
 }
+export interface OnboardingCloudStatus {
+    logged_in: boolean;
+}
 export declare const fetchOnboardingOverview: () => Promise<Response>;
 export declare const onboardUserStep: (params: {
     client_id: string;
@@ -49,7 +51,7 @@ export declare const onboardIntegrationStep: (hass: HomeAssistant, params: {
 }) => Promise<OnboardingIntegrationStepResponse>;
 export declare const fetchInstallationType: () => Promise<InstallationType>;
 export declare const loginHaCloud: (params: CloudLoginPassword | CloudLoginMFA) => Promise<unknown>;
-export declare const fetchHaCloudStatus: () => Promise<CloudStatus>;
+export declare const fetchHaCloudStatus: () => Promise<OnboardingCloudStatus>;
 export declare const signOutHaCloud: () => Promise<unknown>;
 export declare const forgotPasswordHaCloud: (email: string) => Promise<unknown>;
 export declare const waitForIntegration: (domain: string) => Promise<{

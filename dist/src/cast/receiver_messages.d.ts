@@ -27,4 +27,4 @@ export type HassMessage = ShowDemoMessage | GetStatusMessage | ConnectMessage | 
 export declare const castSendAuth: (cast: CastManager, auth: Auth) => void;
 export declare const castSendShowLovelaceView: (cast: CastManager, hassUrl: string, viewPath: ShowLovelaceViewMessage["viewPath"], urlPath?: string | null) => void;
 export declare const castSendShowDemo: (cast: CastManager) => void;
-export declare const ensureConnectedCastSession: (cast: CastManager, auth: Auth) => Promise<void> | undefined;
+export declare const ensureConnectedCastSession: (cast: CastManager, auth: Auth) => Promise<void>;

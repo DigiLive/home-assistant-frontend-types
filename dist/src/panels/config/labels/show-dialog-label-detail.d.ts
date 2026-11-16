@@ -1,4 +1,4 @@
-import type { LabelRegistryEntry, LabelRegistryEntryMutableParams } from "../../../data/label_registry";
+import type { LabelRegistryEntry, LabelRegistryEntryMutableParams } from "../../../data/label/label_registry";
 export interface LabelDetailDialogParams {
     entry?: LabelRegistryEntry;
     suggestedName?: string;

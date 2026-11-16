@@ -4,14 +4,17 @@ interface IpConfiguration {
     gateway: string | null;
     method: "disabled" | "static" | "auto";
     nameservers: string[];
+    ready: boolean | null;
+    route_metric: number | null;
 }
 export interface NetworkInterface {
+    connected: boolean;
+    mac: string;
     primary: boolean;
-    privacy: boolean;
     interface: string;
     enabled: boolean;
-    ipv4?: Partial<IpConfiguration>;
-    ipv6?: Partial<IpConfiguration>;
+    ipv4?: Partial<IpConfiguration> | null;
+    ipv6?: Partial<IpConfiguration> | null;
     type: "ethernet" | "wireless" | "vlan";
     wifi?: Partial<WifiConfiguration> | null;
 }
@@ -35,19 +38,21 @@ export interface WifiConfiguration {
     mode: "infrastructure" | "mesh" | "adhoc" | "ap";
     auth: "open" | "wep" | "wpa-psk";
     ssid: string;
-    signal: number;
+    signal: number | null;
     psk?: string;
 }
 export interface NetworkInfo {
     interfaces: NetworkInterface[];
     docker: DockerNetwork;
+    host_internet: boolean | null;
+    supervisor_internet: boolean;
 }
 export declare const fetchNetworkInfo: (hass: HomeAssistant) => Promise<NetworkInfo>;
 export declare const updateNetworkInterface: (hass: HomeAssistant, network_interface: string, options: Partial<NetworkInterface>) => Promise<void>;
 export declare const accesspointScan: (hass: HomeAssistant, network_interface: string) => Promise<AccessPoints>;
 export declare const parseAddress: (address: string) => {
     ip: string;
-    mask: string | null;
+    mask: string;
     prefix: string;
 };
 export declare const formatAddress: (ip: string, mask: string) => string;

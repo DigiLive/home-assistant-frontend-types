@@ -1,9 +1,9 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
-import "../../../../components/ha-alert";
 import "../../../../components/ha-button";
 import "../../../../components/ha-svg-icon";
-import "../../../../components/sl-tab-group";
+import "../../../../components/ha-tab-group";
+import "../../../../components/ha-tab-group-tab";
 import type { LovelaceCardConfig } from "../../../../data/lovelace/config/card";
 import type { LovelaceConfig } from "../../../../data/lovelace/config/types";
 import type { HomeAssistant } from "../../../../types";
@@ -12,6 +12,7 @@ import type { LovelaceCardEditor } from "../../types";
 import "../card-editor/hui-card-element-editor";
 import "../card-editor/hui-card-picker";
 import "../conditions/ha-card-conditions-editor";
+import "../conditions/ha-visibility-status";
 import "../hui-element-editor";
 export declare class HuiConditionalCardEditor extends LitElement implements LovelaceCardEditor {
     hass?: HomeAssistant;

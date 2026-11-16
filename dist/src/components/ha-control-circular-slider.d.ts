@@ -30,6 +30,7 @@ export declare class HaControlCircularSlider extends LitElement {
     label?: string;
     lowLabel?: string;
     highLabel?: string;
+    formatValue?: (value: number) => string;
     value?: number;
     low?: number;
     high?: number;
@@ -64,7 +65,7 @@ export declare class HaControlCircularSlider extends LitElement {
     private _destroyListeners;
     private _strokeCircleDashArc;
     private _strokeDashArc;
-    protected renderArc(id: string, value: number | undefined, mode: ControlCircularSliderMode): TemplateResult<2> | typeof nothing;
+    protected renderArc(id: string, value: number | undefined, mode: ControlCircularSliderMode): typeof nothing | TemplateResult<2>;
     protected render(): TemplateResult;
     static styles: import("lit").CSSResult;
 }

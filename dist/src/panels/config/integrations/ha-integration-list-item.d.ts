@@ -1,22 +1,15 @@
-import type { GraphicType } from "@material/mwc-list/mwc-list-item-base";
-import { ListItemBase } from "@material/mwc-list/mwc-list-item-base";
-import type { CSSResultGroup } from "lit";
-import { nothing } from "lit";
-import type { HomeAssistant } from "../../../types";
-import type { IntegrationListItem } from "./dialog-add-integration";
-import "../../../components/ha-svg-icon";
+import type { CSSResultGroup, TemplateResult } from "lit";
+import "../../../components/ha-domain-icon";
 import "../../../components/ha-icon-next";
+import "../../../components/ha-svg-icon";
 import "../../../components/ha-tooltip";
-export declare class HaIntegrationListItem extends ListItemBase {
-    hass: HomeAssistant;
-    integration?: IntegrationListItem;
-    graphic: GraphicType;
-    hasMeta: boolean;
-    brand: boolean;
-    protected renderSingleLine(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected renderGraphic(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected renderMeta(): typeof nothing | import("lit-html").TemplateResult<1>;
-    static get styles(): CSSResultGroup;
+import { HaListItemButton } from "../../../components/item/ha-list-item-button";
+import type { IntegrationListItem } from "./dialog-add-integration";
+export declare class HaIntegrationListItem extends HaListItemButton {
+    integration: IntegrationListItem;
+    private _localize;
+    protected _renderInner(): TemplateResult;
+    static styles: CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

@@ -1,10 +1,8 @@
 import { LitElement } from "lit";
 import type { IconSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-icon-picker";
 import "../ha-state-icon";
 export declare class HaIconSelector extends LitElement {
-    hass: HomeAssistant;
     selector: IconSelector;
     value?: string;
     label?: string;
@@ -14,6 +12,11 @@ export declare class HaIconSelector extends LitElement {
     context?: {
         icon_entity?: string;
     };
+    private _stateObj?;
+    private _entities?;
+    private _config?;
+    private _connection?;
+    private _placeholderTask;
     protected render(): import("lit-html").TemplateResult<1>;
     private _valueChanged;
 }

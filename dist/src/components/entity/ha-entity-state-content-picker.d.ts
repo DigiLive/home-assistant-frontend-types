@@ -1,38 +1,49 @@
-import type { PropertyValues } from "lit";
-import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../../types";
-import "../ha-combo-box";
-import "../ha-sortable";
-import "../chips/ha-input-chip";
+import { LitElement } from "lit";
+import "../chips/ha-assist-chip";
 import "../chips/ha-chip-set";
-declare class HaEntityStatePicker extends LitElement {
-    hass: HomeAssistant;
+import "../chips/ha-input-chip";
+import "../ha-combo-box-item";
+import "../ha-generic-picker";
+import "../ha-input-helper-text";
+import "../ha-sortable";
+export declare class HaStateContentPicker extends LitElement {
     entityId?: string;
     autofocus: boolean;
     disabled: boolean;
     required: boolean;
     allowName: boolean;
+    allowContext: boolean;
     label?: string;
     value?: string[] | string;
     helper?: string;
-    private _opened;
-    private _comboBox;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
-    private options;
-    private _filter;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _picker?;
+    private _stateObj?;
+    private _registries;
+    private _formatEntityAttributeName;
+    private _localize;
+    private _editIndex?;
+    private _getItems;
+    private _items;
+    protected render(): import("lit-html").TemplateResult<1>;
+    private _renderHelper;
+    private _addItem;
+    private _editItem;
     private get _value();
-    private _openedChanged;
-    private _filterChanged;
+    private _getItemLabel;
+    private _toValue;
+    private _getPickerValue;
+    private _customValueOption;
+    private _getFilteredItems;
+    private _getAdditionalItems;
+    private _searchFn;
     private _moveItem;
     private _removeItem;
-    private _comboBoxValueChanged;
+    private _pickerValueChanged;
     private _setValue;
     static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {
-        "ha-entity-state-content-picker": HaEntityStatePicker;
+        "ha-entity-state-content-picker": HaStateContentPicker;
     }
 }
-export {};

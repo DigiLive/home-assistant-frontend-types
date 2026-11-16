@@ -32,5 +32,9 @@ export interface IntegrationDescriptions {
         helper: Integrations;
     };
 }
+export interface IntegrationFilter {
+    domains: string[];
+}
 export declare const getIntegrationDescriptions: (hass: HomeAssistant) => Promise<IntegrationDescriptions>;
+export declare const filterIntegrationsByDomains: <T extends Brands>(integrations: T, domains: string[]) => T;
 export declare const findIntegration: (integrations: Brands | undefined, domain: string) => Integration | undefined;

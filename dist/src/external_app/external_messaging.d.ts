@@ -1,5 +1,6 @@
 import type { NavigateOptions } from "../common/navigate";
 import type { AutomationConfig } from "../data/automation";
+import type { MatterShareDeviceParams } from "../data/matter";
 interface CommandInFlight {
     resolve: (data: any) => void;
     reject: (err: EMError) => void;
@@ -8,7 +9,7 @@ export interface EMMessage {
     id?: number;
     type: string;
 }
-interface EMError {
+export interface EMError {
     code: string;
     message: string;
 }
@@ -26,6 +27,16 @@ interface EMMessageResultError {
 }
 interface EMOutgoingMessageConfigGet extends EMMessage {
     type: "config/get";
+}
+interface EMOutgoingMessageEntityAddToGetActions extends EMMessage {
+    type: "entity/add_to/get_actions";
+    payload: {
+        entity_id: string;
+    };
+}
+interface EMOutgoingMessageMatterShareDevice extends EMMessage {
+    type: "matter/share_device";
+    payload: MatterShareDeviceParams;
 }
 interface EMOutgoingMessageBarCodeScan extends EMMessage {
     type: "bar_code/scan";
@@ -56,10 +67,40 @@ interface EMOutgoingMessageMatterCommission extends EMMessage {
 interface EMOutgoingMessageImportThreadCredentials extends EMMessage {
     type: "thread/import_credentials";
 }
+export type WebRtcStreamType = "microphone";
+export declare const WEBRTC_STREAM_ERROR_CODES: readonly ["microphone_denied", "server_unavailable", "signaling_failed", "connection_failed", "timeout", "interrupted", "unsupported_stream_type", "unknown"];
+export type WebRtcStreamErrorCode = (typeof WEBRTC_STREAM_ERROR_CODES)[number];
+interface EMOutgoingMessageWebRtcStreamStart extends EMMessage {
+    type: "webrtc/stream/start";
+    payload: {
+        stream_type: WebRtcStreamType;
+        entity_id: string;
+    };
+}
+interface EMOutgoingMessageWebRtcStreamStop extends EMMessage {
+    type: "webrtc/stream/stop";
+    payload: {
+        session_id: string;
+    };
+}
 interface EMOutgoingMessageWithAnswer {
     "config/get": {
         request: EMOutgoingMessageConfigGet;
         response: ExternalConfig;
+    };
+    "entity/add_to/get_actions": {
+        request: EMOutgoingMessageEntityAddToGetActions;
+        response: ExternalEntityAddToActions;
+    };
+    "matter/share_device": {
+        request: EMOutgoingMessageMatterShareDevice;
+        response: Record<string, never>;
+    };
+    "webrtc/stream/start": {
+        request: EMOutgoingMessageWebRtcStreamStart;
+        response: {
+            session_id: string;
+        };
     };
 }
 interface EMOutgoingMessageExoplayerPlayHLS extends EMMessage {
@@ -96,6 +137,9 @@ interface EMOutgoingMessageConnectionStatus extends EMMessage {
         event: string;
     };
 }
+interface EMOutgoingMessageFrontendLoaded extends EMMessage {
+    type: "frontend/loaded";
+}
 interface EMOutgoingMessageAppConfiguration extends EMMessage {
     type: "config_screen/show";
 }
@@ -116,6 +160,9 @@ interface EMOutgoingMessageAssistShow extends EMMessage {
         start_listening: boolean;
     };
 }
+interface EMOutgoingMessageAssistSettings extends EMMessage {
+    type: "assist/settings";
+}
 interface EMOutgoingMessageImprovScan extends EMMessage {
     type: "improv/scan";
 }
@@ -134,7 +181,44 @@ interface EMOutgoingMessageThreadStoreInPlatformKeychain extends EMMessage {
         extended_pan_id: string;
     };
 }
-type EMOutgoingMessageWithoutAnswer = EMMessageResultError | EMMessageResultSuccess | EMOutgoingMessageAppConfiguration | EMOutgoingMessageAssistShow | EMOutgoingMessageBarCodeClose | EMOutgoingMessageBarCodeNotify | EMOutgoingMessageBarCodeScan | EMOutgoingMessageConnectionStatus | EMOutgoingMessageExoplayerPlayHLS | EMOutgoingMessageExoplayerResize | EMOutgoingMessageExoplayerStop | EMOutgoingMessageHaptic | EMOutgoingMessageImportThreadCredentials | EMOutgoingMessageMatterCommission | EMOutgoingMessageSidebarShow | EMOutgoingMessageTagWrite | EMOutgoingMessageThemeUpdate | EMOutgoingMessageThreadStoreInPlatformKeychain | EMOutgoingMessageImprovScan | EMOutgoingMessageImprovConfigureDevice;
+interface EMOutgoingMessageAddEntityTo extends EMMessage {
+    type: "entity/add_to";
+    payload: {
+        entity_id: string;
+        app_payload: string;
+    };
+}
+interface EMOutgoingMessageEntityControlled extends EMMessage {
+    type: "entity/controlled";
+    payload: {
+        entity_ids: string[];
+        domain: string;
+        service: string;
+    };
+}
+interface EMOutgoingMessageMoreInfoOpened extends EMMessage {
+    type: "more_info/opened";
+    payload: {
+        entity_id: string;
+    };
+}
+interface EMOutgoingMessageMoreInfoClosed extends EMMessage {
+    type: "more_info/closed";
+    payload: {
+        entity_id: string;
+    };
+}
+interface EMOutgoingMessageFocusElement extends EMMessage {
+    type: "focus_element";
+    payload: {
+        element_id: string;
+    };
+}
+interface EMOutgoingMessageReloadAndClearCache extends EMMessage {
+    type: "frontend/reload_and_clear_cache";
+}
+type RejectedEMMessageType = "onHomeAssistantSetTheme" | "handleBlob";
+type EMOutgoingMessageWithoutAnswer = EMMessageResultError | EMMessageResultSuccess | EMOutgoingMessageAppConfiguration | EMOutgoingMessageAssistShow | EMOutgoingMessageBarCodeClose | EMOutgoingMessageBarCodeNotify | EMOutgoingMessageBarCodeScan | EMOutgoingMessageConnectionStatus | EMOutgoingMessageFrontendLoaded | EMOutgoingMessageExoplayerPlayHLS | EMOutgoingMessageExoplayerResize | EMOutgoingMessageExoplayerStop | EMOutgoingMessageHaptic | EMOutgoingMessageImportThreadCredentials | EMOutgoingMessageMatterCommission | EMOutgoingMessageMoreInfoOpened | EMOutgoingMessageMoreInfoClosed | EMOutgoingMessageSidebarShow | EMOutgoingMessageTagWrite | EMOutgoingMessageThemeUpdate | EMOutgoingMessageThreadStoreInPlatformKeychain | EMOutgoingMessageImprovScan | EMOutgoingMessageImprovConfigureDevice | EMOutgoingMessageAddEntityTo | EMOutgoingMessageEntityControlled | EMOutgoingMessageFocusElement | EMOutgoingMessageReloadAndClearCache | EMOutgoingMessageAssistSettings | EMOutgoingMessageWebRtcStreamStop;
 export interface EMIncomingMessageRestart {
     id: number;
     type: "command";
@@ -203,21 +287,69 @@ export interface EMIncomingMessageImprovDeviceSetupDone extends EMMessage {
     type: "command";
     command: "improv/device_setup_done";
 }
-export type EMIncomingMessageCommands = EMIncomingMessageRestart | EMIncomingMessageNavigate | EMIncomingMessageShowNotifications | EMIncomingMessageToggleSidebar | EMIncomingMessageShowSidebar | EMIncomingMessageShowAutomationEditor | EMIncomingMessageBarCodeScanResult | EMIncomingMessageBarCodeScanAborted | EMIncomingMessageImprovDeviceDiscovered | EMIncomingMessageImprovDeviceSetupDone;
+export interface EMIncomingMessageKioskModeSet {
+    id: number;
+    type: "command";
+    command: "kiosk_mode/set";
+    payload: {
+        enable: boolean;
+    };
+}
+export interface MatterCommissionFinish {
+    name: string | null;
+    success: boolean;
+}
+export interface EMIncomingMessageMatterCommissionFinish extends EMMessage {
+    id: number;
+    type: "command";
+    command: "matter/commission/finish";
+    payload: MatterCommissionFinish;
+}
+export interface WebRtcStreamStopped {
+    session_id: string;
+    code: WebRtcStreamErrorCode;
+    message: string;
+}
+export interface EMIncomingMessageWebRtcStreamStopped extends EMMessage {
+    id: number;
+    type: "command";
+    command: "webrtc/stream/stopped";
+    payload: WebRtcStreamStopped;
+}
+export type EMIncomingMessageCommands = EMIncomingMessageRestart | EMIncomingMessageNavigate | EMIncomingMessageShowNotifications | EMIncomingMessageToggleSidebar | EMIncomingMessageShowSidebar | EMIncomingMessageShowAutomationEditor | EMIncomingMessageBarCodeScanResult | EMIncomingMessageBarCodeScanAborted | EMIncomingMessageImprovDeviceDiscovered | EMIncomingMessageImprovDeviceSetupDone | EMIncomingMessageMatterCommissionFinish | EMIncomingMessageKioskModeSet | EMIncomingMessageWebRtcStreamStopped;
 type EMIncomingMessage = EMMessageResultSuccess | EMMessageResultError | EMIncomingMessageCommands;
 type EMIncomingMessageHandler = (msg: EMIncomingMessageCommands) => boolean;
 export interface ExternalConfig {
-    hasSettingsScreen: boolean;
-    hasSidebar: boolean;
-    canWriteTag: boolean;
-    hasExoPlayer: boolean;
-    canCommissionMatter: boolean;
-    canImportThreadCredentials: boolean;
-    canTransferThreadCredentialsToKeychain: boolean;
-    hasAssist: boolean;
-    hasBarCodeScanner: number;
-    canSetupImprov: boolean;
-    downloadFileSupported: boolean;
+    hasSettingsScreen?: boolean;
+    hasSidebar?: boolean;
+    canWriteTag?: boolean;
+    hasExoPlayer?: boolean;
+    canCommissionMatter?: boolean;
+    hasMatterStatusReport?: boolean;
+    canShareMatterDeviceToAppleHome?: boolean;
+    canShareMatterDeviceToOtherApps?: boolean;
+    canImportThreadCredentials?: boolean;
+    canTransferThreadCredentialsToKeychain?: boolean;
+    hasAssist?: boolean;
+    hasBarCodeScanner?: number;
+    canSetupImprov?: boolean;
+    appVersion?: string;
+    hasEntityAddTo?: boolean;
+    hasAssistSettings?: boolean;
+    hasSplashscreen?: boolean;
+    webrtc?: {
+        hasCameraMicrophoneStream?: boolean;
+    };
+}
+export interface ExternalEntityAddToAction {
+    enabled: boolean;
+    name: string;
+    details?: string;
+    mdi_icon: string;
+    app_payload: string;
+}
+export interface ExternalEntityAddToActions {
+    actions: ExternalEntityAddToAction[];
 }
 export declare class ExternalMessaging {
     config: ExternalConfig;
@@ -230,13 +362,23 @@ export declare class ExternalMessaging {
      * Send message to external app that expects a response.
      * @param msg message to send
      */
-    sendMessage<T extends keyof EMOutgoingMessageWithAnswer>(msg: EMOutgoingMessageWithAnswer[T]["request"]): Promise<EMOutgoingMessageWithAnswer[T]["response"]>;
+    sendMessage<T extends keyof EMOutgoingMessageWithAnswer, TType extends string = EMOutgoingMessageWithAnswer[T]["request"]["type"]>(msg: EMOutgoingMessageWithAnswer[T]["request"] & {
+        type: TType & (TType extends RejectedEMMessageType ? "ERROR: message type is rejected" : {});
+    }): Promise<EMOutgoingMessageWithAnswer[T]["response"]>;
     /**
      * Send message to external app without expecting a response.
      * @param msg message to send
      */
-    fireMessage(msg: EMOutgoingMessageWithoutAnswer): void;
+    fireMessage<T extends string>(msg: EMOutgoingMessageWithoutAnswer & {
+        type: T & (T extends RejectedEMMessageType ? "ERROR: message type is rejected" : {});
+    }): void;
     receiveMessage(msg: EMIncomingMessage): void;
     protected _sendExternal(msg: EMMessage): void;
 }
+/**
+ * Post a message to the companion app's external bus without needing an
+ * `ExternalMessaging` instance (i.e. without `hass`). Returns `false` when no
+ * external bridge is present, so callers can fall back to browser behavior.
+ */
+export declare const fireExternalBusMessage: (msg: EMMessage) => boolean;
 export {};

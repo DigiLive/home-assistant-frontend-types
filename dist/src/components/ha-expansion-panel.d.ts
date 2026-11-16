@@ -11,7 +11,7 @@ export declare class HaExpansionPanel extends LitElement {
     _showContent: boolean;
     private _container;
     protected render(): TemplateResult;
-    protected willUpdate(changedProps: PropertyValues): void;
+    protected willUpdate(changedProps: PropertyValues<this>): void;
     private _handleTransitionEnd;
     private _toggleContainer;
     private _focusChanged;

@@ -3,10 +3,10 @@ import type { CSSResultGroup } from "lit";
 import { LitElement } from "lit";
 import "../components/entity/state-info";
 import "../components/ha-slider";
-import "../components/ha-textfield";
-import type { HomeAssistant } from "../types";
+import "../components/input/ha-input";
 declare class StateCardNumber extends LitElement {
-    hass: HomeAssistant;
+    private _formatEntityState?;
+    private _api;
     stateObj: HassEntity;
     inDialog: boolean;
     private _loaded?;

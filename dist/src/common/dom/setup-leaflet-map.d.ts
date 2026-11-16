@@ -1,5 +1,16 @@
-import type { Map, TileLayer } from "leaflet";
+import type { Map } from "leaflet";
+import type { MapBaseLayer } from "../map/base-layer";
+import type { ResolvedMapStyle } from "../map/map-styles";
 export type LeafletModuleType = typeof import("leaflet");
-export type LeafletDrawModuleType = typeof import("leaflet-draw");
-export declare const setupLeafletMap: (mapElement: HTMLElement) => Promise<[Map, LeafletModuleType, TileLayer]>;
-export declare const replaceTileLayer: (leaflet: LeafletModuleType, map: Map, tileLayer: TileLayer) => TileLayer;
+export interface LeafletMapSetup {
+    map: Map;
+    leaflet: LeafletModuleType;
+    baseLayer: MapBaseLayer;
+}
+export declare const setupLeafletMap: (mapElement: HTMLElement, initialView?: {
+    latitude: number;
+    longitude: number;
+    zoom?: number;
+    mapStyle?: ResolvedMapStyle;
+    token?: string;
+}) => Promise<LeafletMapSetup>;

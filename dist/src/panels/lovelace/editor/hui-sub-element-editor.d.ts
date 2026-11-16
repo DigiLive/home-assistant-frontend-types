@@ -7,8 +7,10 @@ import "./entity-row-editor/hui-row-element-editor";
 import "./feature-editor/hui-card-feature-element-editor";
 import "./header-footer-editor/hui-header-footer-element-editor";
 import "./heading-badge-editor/hui-heading-badge-element-editor";
+import "./hui-form-element-editor";
 import "./picture-element-editor/hui-picture-element-element-editor";
 import type { SubElementEditorConfig } from "./types";
+import type { LovelaceConfigForm } from "../types";
 declare global {
     interface HASSDomEvents {
         "go-back": undefined;
@@ -17,6 +19,7 @@ declare global {
 export declare class HuiSubElementEditor extends LitElement {
     hass: HomeAssistant;
     config: SubElementEditorConfig;
+    form?: LovelaceConfigForm;
     private _guiModeAvailable;
     private _guiMode;
     private _editorElement?;

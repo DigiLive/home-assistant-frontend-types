@@ -1,14 +1,12 @@
-import "@material/mwc-button/mwc-button";
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-alert";
 import "../../../components/ha-card";
-import "../../../components/ha-spinner";
+import "../../../components/ha-button";
 import "../../../components/ha-expansion-panel";
 import "../../../components/ha-icon-button";
-import "../../../components/ha-radio";
 import "../../../components/ha-settings-row";
-import "../../../components/ha-textfield";
+import "../../../components/input/ha-input";
 import type { HomeAssistant } from "../../../types";
 export declare class HassioHostname extends LitElement {
     hass: HomeAssistant;

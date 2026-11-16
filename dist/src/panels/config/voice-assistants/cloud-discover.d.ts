@@ -1,8 +1,9 @@
 import { LitElement } from "lit";
-import "../../../components/ha-card";
-import type { HomeAssistant } from "../../../types";
-import "../../../components/ha-svg-icon";
 import "../../../components/ha-button";
+import "../../../components/ha-card";
+import "../../../components/ha-svg-icon";
+import type { HomeAssistant } from "../../../types";
+import "../../../components/voice-assistant-brand-icon";
 export declare class CloudDiscover extends LitElement {
     hass: HomeAssistant;
     protected render(): import("lit-html").TemplateResult<1>;

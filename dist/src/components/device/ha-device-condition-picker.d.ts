@@ -1,4 +1,4 @@
-import type { DeviceCondition } from "../../data/device_automation";
+import type { DeviceCondition } from "../../data/device/device_automation";
 import { HaDeviceAutomationPicker } from "./ha-device-automation-picker";
 declare class HaDeviceConditionPicker extends HaDeviceAutomationPicker<DeviceCondition> {
     protected get NO_AUTOMATION_TEXT(): string;

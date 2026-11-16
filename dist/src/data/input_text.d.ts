@@ -8,6 +8,7 @@ export interface InputText {
     max?: number;
     pattern?: string;
     mode?: "text" | "password";
+    unit_of_measurement?: string;
 }
 export interface InputTextMutableParams {
     name: string;
@@ -18,7 +19,7 @@ export interface InputTextMutableParams {
     pattern: string;
     mode: "text" | "password";
 }
-export declare const setValue: (hass: HomeAssistant, entity: string, value: string) => Promise<import("../types").ServiceCallResponse>;
+export declare const setValue: (callService: HomeAssistant["callService"], entity: string, value: string) => Promise<import("../types").ServiceCallResponse<any>>;
 export declare const fetchInputText: (hass: HomeAssistant) => Promise<InputText[]>;
 export declare const createInputText: (hass: HomeAssistant, values: InputTextMutableParams) => Promise<InputText>;
 export declare const updateInputText: (hass: HomeAssistant, id: string, updates: Partial<InputTextMutableParams>) => Promise<InputText>;

@@ -3,12 +3,13 @@ import { LitElement, nothing } from "lit";
 import type { HomeAssistant } from "../../../types";
 import type { EntitiesCardEntityConfig } from "../cards/types";
 import "../components/hui-generic-entity-row";
+import "../components/hui-timestamp-display";
 import type { LovelaceRow } from "./types";
 declare class HuiSimpleEntityRow extends LitElement implements LovelaceRow {
     hass?: HomeAssistant;
     private _config?;
     setConfig(config: EntitiesCardEntityConfig): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

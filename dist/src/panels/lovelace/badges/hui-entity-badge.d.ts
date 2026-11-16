@@ -1,6 +1,5 @@
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-badge";
-import "../../../components/ha-ripple";
 import "../../../components/ha-state-icon";
 import "../../../components/ha-svg-icon";
 import type { HomeAssistant } from "../../../types";
@@ -14,12 +13,12 @@ export declare const migrateLegacyEntityBadgeConfig: (config: EntityBadgeConfig)
 export declare class HuiEntityBadge extends LitElement implements LovelaceBadge {
     static getConfigElement(): Promise<LovelaceBadgeEditor>;
     static getStubConfig(hass: HomeAssistant, entities: string[], entitiesFallback: string[]): EntityBadgeConfig;
+    static getDefaultConfig(): Partial<EntityBadgeConfig>;
     hass?: HomeAssistant;
     protected _config?: EntityBadgeConfig;
     setConfig(config: EntityBadgeConfig): void;
     get hasAction(): boolean;
     private _computeStateColor;
-    private _getImageUrl;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _handleAction;
     static styles: import("lit").CSSResult;

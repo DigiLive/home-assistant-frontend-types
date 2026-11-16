@@ -7,12 +7,12 @@ import type { LovelaceSectionConfig } from "../../../data/lovelace/config/sectio
 import type { HomeAssistant } from "../../../types";
 import type { HuiCard } from "../cards/hui-card";
 import "../components/hui-card-edit-mode";
+import type { LovelacePath } from "../editor/lovelace-path";
 import type { Lovelace } from "../types";
 export declare class GridSection extends LitElement implements LovelaceSectionElement {
     hass: HomeAssistant;
     lovelace?: Lovelace;
-    index?: number;
-    viewIndex?: number;
+    path?: LovelacePath;
     isStrategy: boolean;
     cards: HuiCard[];
     importOnly: boolean;
@@ -22,6 +22,7 @@ export declare class GridSection extends LitElement implements LovelaceSectionEl
     private _cardConfigKeys;
     private _getKey;
     render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    private _cardVisibilityChanged;
     private _cardMoved;
     private _cardAdded;
     private _cardRemoved;

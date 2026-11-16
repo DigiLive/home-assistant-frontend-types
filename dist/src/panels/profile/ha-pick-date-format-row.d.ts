@@ -1,7 +1,6 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../../components/ha-card";
-import "../../components/ha-list-item";
 import "../../components/ha-select";
 import "../../components/ha-settings-row";
 import type { HomeAssistant } from "../../types";
@@ -10,6 +9,7 @@ declare class DateFormatRow extends LitElement {
     narrow: boolean;
     protected render(): TemplateResult;
     private _handleFormatSelection;
+    static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

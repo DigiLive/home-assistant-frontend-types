@@ -8,5 +8,6 @@ export interface HaImageCropperDialogParams {
     file: File;
     options: CropOptions;
     croppedCallback: (file: File) => void;
+    cancelCallback?: () => void;
 }
 export declare const showImageCropperDialog: (element: HTMLElement, dialogParams: HaImageCropperDialogParams) => void;

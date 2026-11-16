@@ -1,32 +1,38 @@
-import type { CSSResultGroup, PropertyValues } from "lit";
+import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import type { RelatedResult } from "../data/search";
-import type { HomeAssistant } from "../types";
-import "./ha-check-list-item";
 import "./ha-expansion-panel";
-import "./ha-list";
-import "./search-input-outlined";
+import "./input/ha-input-search";
+import "./item/ha-list-item-option";
+import "./list/ha-list-selectable-virtualized";
 export declare class HaFilterDevices extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
+    private _devicesReg;
+    private _i18n;
+    private _api;
     value?: string[];
     type?: keyof RelatedResult;
+    includeDisabledEntities: boolean;
     expanded: boolean;
     narrow: boolean;
-    private _shouldRender;
     private _filter?;
-    willUpdate(properties: PropertyValues): void;
+    private _listElement?;
+    private _content;
+    private _panel;
+    private _relatedRequestId;
+    willUpdate(properties: PropertyValues<this>): void;
     protected render(): import("lit-html").TemplateResult<1>;
-    private _keyFunction;
     private _renderItem;
-    private _handleItemClick;
-    protected updated(changed: any): void;
-    private _expandedWillChange;
+    private _handleAdded;
+    private _handleRemoved;
     private _expandedChanged;
     private _handleSearchChange;
+    private _handleSearchKeydown;
     private _devices;
     private _findRelated;
+    private _handleClearFilterKeydown;
     private _clearFilter;
-    static get styles(): CSSResultGroup;
+    static styles: import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {

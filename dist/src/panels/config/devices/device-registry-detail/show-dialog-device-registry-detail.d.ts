@@ -1,4 +1,4 @@
-import type { DeviceRegistryEntry, DeviceRegistryEntryMutableParams } from "../../../../data/device_registry";
+import type { DeviceRegistryEntry, DeviceRegistryEntryMutableParams } from "../../../../data/device/device_registry";
 export interface DeviceRegistryDetailDialogParams {
     device: DeviceRegistryEntry;
     updateEntry: (updates: Partial<DeviceRegistryEntryMutableParams>) => Promise<unknown>;

@@ -1,15 +1,12 @@
 import { LitElement } from "lit";
-import "../../../../components/ha-card";
-import "../../../../components/ha-md-list";
-import "../../../../components/ha-md-list-item";
 import "../../../../components/ha-button";
-import "./ha-backup-data-picker";
-import type { HomeAssistant } from "../../../../types";
-import type { LocalizeFunc } from "../../../../common/translations/localize";
+import "../../../../components/ha-card";
 import type { BackupContentExtended, BackupData } from "../../../../data/backup";
+import type { HomeAssistant } from "../../../../types";
+import "./ha-backup-data-picker";
 declare class HaBackupDetailsRestore extends LitElement {
     hass?: HomeAssistant;
-    localize: LocalizeFunc;
+    private _localize;
     backup: BackupContentExtended;
     haRequired: boolean;
     translationKeyPanel: "page-onboarding.restore" | "config.backup";

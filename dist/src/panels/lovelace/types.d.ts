@@ -5,20 +5,20 @@ import type { LovelaceBadgeConfig } from "../../data/lovelace/config/badge";
 import type { LovelaceCardConfig } from "../../data/lovelace/config/card";
 import type { LovelaceConfig, LovelaceRawConfig } from "../../data/lovelace/config/types";
 import type { FrontendLocaleData } from "../../data/translation";
+import type { ShowToastParams } from "../../managers/notification-manager";
 import type { Constructor, HomeAssistant } from "../../types";
+import type { LovelaceCardFeatureConfig, LovelaceCardFeatureContext, LovelaceCardFeaturePosition } from "./card-features/types";
+import type { LovelaceElement, LovelaceElementConfig } from "./elements/types";
 import type { LovelaceRow, LovelaceRowConfig } from "./entity-rows/types";
 import type { LovelaceHeaderFooterConfig } from "./header-footer/types";
-import type { LovelaceCardFeatureConfig } from "./card-features/types";
-import type { LovelaceElement, LovelaceElementConfig } from "./elements/types";
 import type { LovelaceHeadingBadgeConfig } from "./heading-badges/types";
-import type { ShowToastParams } from "../../managers/notification-manager";
 declare global {
     interface HASSDomEvents {
         "ll-rebuild": Record<string, unknown>;
         "ll-upgrade": Record<string, unknown>;
-        "ll-badge-rebuild": Record<string, unknown>;
     }
 }
+export declare const LOVELACE_EDIT_TOAST_ID = "lovelace-edit";
 export interface Lovelace {
     config: LovelaceConfig;
     rawConfig: LovelaceRawConfig;
@@ -31,9 +31,16 @@ export interface Lovelace {
     saveConfig: (newConfig: LovelaceRawConfig) => Promise<void>;
     deleteConfig: () => Promise<void>;
     showToast: (params: ShowToastParams) => void;
+    /**
+     * Shown inside another page, such as the demo embed, which owns the
+     * window's history and scroll position.
+     */
+    embedded?: boolean;
 }
 export interface LovelaceBadge extends HTMLElement {
     hass?: HomeAssistant;
+    preview?: boolean;
+    connectedWhileHidden?: boolean;
     setConfig(config: LovelaceBadgeConfig): void;
 }
 export interface LovelaceLayoutOptions {
@@ -71,11 +78,13 @@ export interface LovelaceConfigForm {
 }
 export interface LovelaceCardConstructor extends Constructor<LovelaceCard> {
     getStubConfig?: (hass: HomeAssistant, entities: string[], entitiesFallback: string[]) => LovelaceCardConfig;
+    getDefaultConfig?: () => Partial<LovelaceCardConfig>;
     getConfigElement?: () => LovelaceCardEditor;
     getConfigForm?: () => LovelaceConfigForm;
 }
 export interface LovelaceBadgeConstructor extends Constructor<LovelaceBadge> {
     getStubConfig?: (hass: HomeAssistant, entities: string[], entitiesFallback: string[]) => LovelaceBadgeConfig;
+    getDefaultConfig?: () => Partial<LovelaceBadgeConfig>;
     getConfigElement?: () => LovelaceBadgeEditor;
     getConfigForm?: () => LovelaceConfigForm;
 }
@@ -115,17 +124,21 @@ export interface LovelaceGenericElementEditor<C = any> extends HTMLElement {
     hass?: HomeAssistant;
     lovelace?: LovelaceConfig;
     context?: C;
+    schema?: any;
     setConfig(config: any): void;
     focusYamlEditor?: () => void;
 }
 export interface LovelaceCardFeature extends HTMLElement {
     hass?: HomeAssistant;
+    /** @deprecated Use `context` instead */
     stateObj?: HassEntity;
+    context?: LovelaceCardFeatureContext;
     setConfig(config: LovelaceCardFeatureConfig): any;
     color?: string;
+    position?: LovelaceCardFeaturePosition;
 }
 export interface LovelaceCardFeatureConstructor extends Constructor<LovelaceCardFeature> {
-    getStubConfig?: (hass: HomeAssistant, stateObj?: HassEntity) => LovelaceCardFeatureConfig;
+    getStubConfig?: (hass: HomeAssistant, context?: LovelaceCardFeatureContext) => LovelaceCardFeatureConfig;
     getConfigElement?: () => LovelaceCardFeatureEditor;
     getConfigForm?: () => {
         schema: HaFormSchema[];

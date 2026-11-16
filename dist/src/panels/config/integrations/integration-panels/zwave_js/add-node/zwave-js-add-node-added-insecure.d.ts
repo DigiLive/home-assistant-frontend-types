@@ -1,8 +1,8 @@
-import "@shoelace-style/shoelace/dist/components/animation/animation";
+import "@home-assistant/webawesome/dist/components/animation/animation";
 import { LitElement } from "lit";
 import type { HomeAssistant } from "../../../../../../types";
-import "../../../../../../components/ha-svg-icon";
 import "../../../../../../components/ha-alert";
+import "../../../../../../components/ha-svg-icon";
 export declare class ZWaveJsAddNodeFinished extends LitElement {
     hass: HomeAssistant;
     deviceName?: string;

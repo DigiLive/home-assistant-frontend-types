@@ -1,12 +1,12 @@
-import "@material/mwc-button";
 import type { HassEntity } from "home-assistant-js-websocket";
 import { LitElement, nothing } from "lit";
-import "../../../components/ha-attributes";
+import "../../../components/ha-button";
 import "../../../components/map/ha-map";
-import type { HomeAssistant } from "../../../types";
 declare class MoreInfoPerson extends LitElement {
-    hass: HomeAssistant;
     stateObj?: HassEntity;
+    private _localize;
+    private _states;
+    private _user?;
     private _entityArray;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _handleAction;

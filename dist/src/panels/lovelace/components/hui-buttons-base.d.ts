@@ -8,6 +8,7 @@ import "../../../components/chips/ha-chip-set";
 export declare class HuiButtonsBase extends LitElement {
     hass: HomeAssistant;
     configEntities?: EntitiesCardEntityConfig[];
+    private _entityStates;
     protected render(): TemplateResult;
     private _handleAction;
     static get styles(): CSSResultGroup;

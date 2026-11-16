@@ -1,25 +1,29 @@
-import "@material/mwc-button";
-import type { TemplateResult } from "lit";
-import { LitElement } from "lit";
-import "../../../../../components/ha-alert";
+import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
+import { LitElement, nothing } from "lit";
+import "../../../../../components/ha-button";
 import "../../../../../components/ha-card";
+import "../../../../../components/ha-icon-next";
+import "../../../../../components/ha-svg-icon";
+import "../../../../../components/item/ha-list-item-button";
+import "../../../../../components/list/ha-list-nav";
 import "../../../../../layouts/hass-subpage";
 import type { HomeAssistant } from "../../../../../types";
 export declare class MatterConfigDashboard extends LitElement {
     hass: HomeAssistant;
     narrow: boolean;
-    private _error?;
-    private _unsub?;
-    disconnectedCallback(): void;
-    protected render(): TemplateResult;
-    private _redirectOnNewMatterDevice;
-    private _stopRedirect;
-    private _startMobileCommissioning;
-    private _setWifi;
-    private _commission;
-    private _acceptSharedDevice;
-    private _setThread;
-    static styles: import("lit").CSSResult[];
+    private _configEntry?;
+    private _offlineDevices;
+    private _asyncDataLoaded;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
+    private _matterDeviceIds;
+    private _entityCount;
+    protected render(): TemplateResult | typeof nothing;
+    private _addDevice;
+    private _renderNetworkStatus;
+    private _renderMyNetworkCard;
+    private _renderNavigationCard;
+    private _fetchConfigEntry;
+    static get styles(): CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

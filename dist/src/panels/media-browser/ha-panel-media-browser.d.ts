@@ -1,10 +1,9 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
+import "../../components/ha-dropdown";
+import "../../components/ha-dropdown-item";
 import "../../components/ha-icon-button";
 import "../../components/ha-icon-button-arrow-prev";
-import "../../components/ha-list-item";
-import "../../components/ha-menu-button";
 import "../../components/ha-top-app-bar-fixed";
 import "../../components/media-player/ha-media-manage-button";
 import "../../components/media-player/ha-media-player-browse";
@@ -23,7 +22,7 @@ declare class PanelMediaBrowser extends LitElement {
     private _player;
     protected render(): TemplateResult;
     private _handleMenuAction;
-    willUpdate(changedProps: PropertyValues): void;
+    willUpdate(changedProps: PropertyValues<this>): void;
     private _goBack;
     private _mediaBrowsed;
     private _mediaPicked;

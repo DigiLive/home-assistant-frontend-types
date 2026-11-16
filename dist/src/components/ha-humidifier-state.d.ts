@@ -1,9 +1,9 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { HumidifierEntity } from "../data/humidifier";
-import type { HomeAssistant } from "../types";
 declare class HaHumidifierState extends LitElement {
-    hass: HomeAssistant;
+    private _formatters?;
+    private _localize;
     stateObj: HumidifierEntity;
     protected render(): TemplateResult;
     private _computeCurrentStatus;

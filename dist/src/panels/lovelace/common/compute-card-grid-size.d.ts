@@ -7,4 +7,5 @@ export interface CardGridSize {
     columns: number | "full";
 }
 export declare const isPreciseMode: (options: LovelaceGridOptions) => boolean;
+export declare const cardSizeToGridRows: (cardSize: number) => number;
 export declare const computeCardGridSize: (options: LovelaceGridOptions) => CardGridSize;

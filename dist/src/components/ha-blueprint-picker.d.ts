@@ -1,19 +1,20 @@
-import { LitElement, nothing } from "lit";
+import type { PropertyValues } from "lit";
+import { LitElement } from "lit";
 import type { BlueprintDomain, Blueprints } from "../data/blueprint";
-import type { HomeAssistant } from "../types";
-import "./ha-list-item";
 import "./ha-select";
 declare class HaBluePrintPicker extends LitElement {
-    hass?: HomeAssistant;
     label?: string;
     value: string;
     domain: BlueprintDomain;
     blueprints?: Blueprints;
     disabled: boolean;
+    private _select?;
+    private _i18n;
+    private _api;
     open(): void;
     private _processedBlueprints;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected firstUpdated(changedProps: any): void;
+    protected render(): import("lit-html").TemplateResult<1>;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     private _blueprintChanged;
     static styles: import("lit").CSSResult;
 }

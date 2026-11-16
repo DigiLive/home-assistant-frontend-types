@@ -1,13 +1,13 @@
 import type { HassEntity } from "home-assistant-js-websocket";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-control-button";
-import "../../../components/ha-svg-icon";
 import "../../../components/ha-control-button-group";
+import "../../../components/ha-svg-icon";
 import type { VacuumEntity } from "../../../data/vacuum";
 import { VacuumEntityFeature } from "../../../data/vacuum";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardFeature, LovelaceCardFeatureEditor } from "../types";
-import type { VacuumCommand, VacuumCommandsCardFeatureConfig } from "./types";
+import type { LovelaceCardFeatureContext, VacuumCommand, VacuumCommandsCardFeatureConfig } from "./types";
 interface VacuumButton {
     translationKey: string;
     icon: string;
@@ -15,14 +15,17 @@ interface VacuumButton {
     disabled?: boolean;
 }
 export declare const VACUUM_COMMANDS_FEATURES: Record<VacuumCommand, VacuumEntityFeature[]>;
+export declare const VACUUM_DEFAULT_COMMANDS: VacuumCommand[];
 export declare const supportsVacuumCommand: (stateObj: HassEntity, command: VacuumCommand) => boolean;
 export declare const VACUUM_COMMANDS_BUTTONS: Record<VacuumCommand, (stateObj: VacuumEntity) => VacuumButton>;
-export declare const supportsVacuumCommandsCardFeature: (stateObj: HassEntity) => boolean;
+export declare const supportsVacuumCommandsCardFeature: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
 declare class HuiVacuumCommandCardFeature extends LitElement implements LovelaceCardFeature {
-    hass?: HomeAssistant;
-    stateObj?: HassEntity;
+    context?: LovelaceCardFeatureContext;
+    private _stateObj?;
+    private _localize;
+    private _api;
     private _config?;
-    static getStubConfig(_: any, stateObj?: HassEntity): VacuumCommandsCardFeatureConfig;
+    static getStubConfig(): VacuumCommandsCardFeatureConfig;
     static getConfigElement(): Promise<LovelaceCardFeatureEditor>;
     setConfig(config: VacuumCommandsCardFeatureConfig): void;
     private _onCommandTap;

@@ -8,8 +8,9 @@ import type { ErrorCardConfig } from "../cards/types";
 import type { LovelaceElement, LovelaceElementConfig } from "../elements/types";
 import type { LovelaceRow, LovelaceRowConfig } from "../entity-rows/types";
 import type { LovelaceHeaderFooterConfig } from "../header-footer/types";
-import type { LovelaceHeadingBadgeConfig } from "../heading-badges/types";
+import type { ErrorBadgeConfig as ErrorHeadingBadgeConfig, LovelaceHeadingBadgeConfig } from "../heading-badges/types";
 import type { LovelaceBadge, LovelaceBadgeConstructor, LovelaceCard, LovelaceCardConstructor, LovelaceCardFeature, LovelaceCardFeatureConstructor, LovelaceElementConstructor, LovelaceHeaderFooter, LovelaceHeaderFooterConstructor, LovelaceHeadingBadge, LovelaceHeadingBadgeConstructor, LovelaceRowConstructor } from "../types";
+import type { ErrorBadgeConfig } from "../badges/types";
 interface CreateElementConfigTypes {
     card: {
         config: LovelaceCardConfig;
@@ -58,13 +59,8 @@ interface CreateElementConfigTypes {
     };
 }
 export declare const createErrorCardElement: (config: ErrorCardConfig) => import("../cards/hui-error-card").HuiErrorCard;
-export declare const createErrorBadgeElement: (config: ErrorCardConfig) => import("../badges/hui-error-badge").HuiErrorBadge;
-export declare const createErrorHeadingBadgeElement: (config: ErrorCardConfig) => import("../heading-badges/hui-error-heading-badge").HuiErrorHeadingBadge;
-export declare const createErrorCardConfig: (error: any, origConfig: any) => {
-    type: string;
-    error: any;
-    origConfig: any;
-};
+export declare const createErrorBadgeElement: (config: ErrorBadgeConfig) => import("../badges/hui-error-badge").HuiErrorBadge;
+export declare const createErrorHeadingBadgeElement: (config: ErrorHeadingBadgeConfig) => import("../heading-badges/hui-error-heading-badge").HuiErrorHeadingBadge;
 export declare const createErrorBadgeConfig: (error: any, origConfig: any) => {
     type: string;
     error: any;

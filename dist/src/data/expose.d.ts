@@ -1,4 +1,5 @@
 import type { HomeAssistant } from "../types";
+import type { EntityRegistryEntry } from "./entity/entity_registry";
 export declare const voiceAssistants: {
     readonly conversation: {
         readonly domain: "assist_pipeline";
@@ -22,7 +23,10 @@ export declare const setExposeNewEntities: (hass: HomeAssistant, assistant: stri
 export declare const getExposeNewEntities: (hass: HomeAssistant, assistant: string) => Promise<{
     expose_new: boolean;
 }>;
-export declare const exposeEntities: (hass: HomeAssistant, assistants: string[], entity_ids: string[], should_expose: boolean) => Promise<unknown>;
+export declare const exposeEntities: (hass: HomeAssistant, assistants: string[], entity_ids: string[], should_expose: boolean) => Promise<{
+    changed_entity_ids: string[];
+}>;
 export declare const listExposedEntities: (hass: HomeAssistant) => Promise<{
     exposed_entities: Record<string, ExposeEntitySettings>;
 }>;
+export declare const getEntityVoiceAssistantsIds: (entityRegistry: EntityRegistryEntry[], entityId: string) => string[];

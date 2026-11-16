@@ -1,9 +1,8 @@
 import { LitElement } from "lit";
-import "../../../../../components/ha-md-list";
-import "../../../../../components/ha-md-list-item";
-import "../../../../../components/ha-md-select";
-import "../../../../../components/ha-md-select-option";
-import "../../../../../components/ha-md-textfield";
+import "../../../../../components/ha-select";
+import "../../../../../components/input/ha-input";
+import "../../../../../components/item/ha-list-item-base";
+import "../../../../../components/list/ha-list-base";
 import type { SupervisorUpdateConfig } from "../../../../../data/supervisor/update";
 import type { HomeAssistant } from "../../../../../types";
 declare class HaBackupConfigAddon extends LitElement {

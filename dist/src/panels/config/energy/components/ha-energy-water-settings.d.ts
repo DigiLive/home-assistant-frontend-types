@@ -1,7 +1,7 @@
-import "@material/mwc-button/mwc-button";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../../../../components/ha-card";
+import "../../../../components/ha-button";
 import "../../../../components/ha-icon-button";
 import type { EnergyPreferences, EnergyPreferencesValidation } from "../../../../data/energy";
 import type { StatisticsMetaData } from "../../../../data/recorder";

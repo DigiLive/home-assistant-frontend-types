@@ -1,2 +1,2 @@
-import type { HomeAssistant } from "../types";
-export declare const setDateTimeValue: (hass: HomeAssistant, entityId: string, datetime: Date) => void;
+import type { HomeAssistantApi } from "../types";
+export declare const setDateTimeValue: (callService: HomeAssistantApi["callService"], entityId: string, datetime: Date) => void;

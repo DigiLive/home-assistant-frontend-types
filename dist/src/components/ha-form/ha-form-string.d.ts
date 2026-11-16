@@ -1,9 +1,11 @@
 import type { PropertyValues, TemplateResult } from "lit";
-import { LitElement, nothing } from "lit";
-import "../ha-icon-button";
-import "../ha-textfield";
-import type { HaFormElement, HaFormStringData, HaFormStringSchema } from "./types";
+import { LitElement } from "lit";
+import type { HASSDomTargetEvent } from "../../common/dom/fire_event";
 import type { LocalizeFunc } from "../../common/translations/localize";
+import "../ha-icon-button";
+import "../input/ha-input";
+import type { HaInput } from "../input/ha-input";
+import type { HaFormElement, HaFormStringData, HaFormStringSchema } from "./types";
 export declare class HaFormString extends LitElement implements HaFormElement {
     localize?: LocalizeFunc;
     localizeBaseKey: string;
@@ -12,15 +14,20 @@ export declare class HaFormString extends LitElement implements HaFormElement {
     label: string;
     helper?: string;
     disabled: boolean;
-    protected unmaskedPassword: boolean;
     private _input?;
-    focus(): void;
+    static shadowRootOptions: {
+        clonable?: boolean;
+        customElementRegistry?: CustomElementRegistry | null;
+        mode: ShadowRootMode;
+        serializable?: boolean;
+        slotAssignment?: SlotAssignmentMode;
+        delegatesFocus: boolean;
+    };
+    reportValidity(): boolean;
     protected render(): TemplateResult;
-    protected renderIcon(): typeof nothing | TemplateResult<1>;
-    protected updated(changedProps: PropertyValues): void;
-    protected toggleUnmaskedPassword(): void;
-    protected _valueChanged(ev: Event): void;
-    protected get stringType(): string;
+    protected updated(changedProps: PropertyValues<this>): void;
+    protected _valueChanged(ev: HASSDomTargetEvent<HaInput>): void;
+    protected get stringType(): "email" | "url" | "text";
     protected get isPassword(): boolean;
     static styles: import("lit").CSSResult;
 }

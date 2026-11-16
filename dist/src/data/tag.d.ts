@@ -13,6 +13,7 @@ export interface Tag {
     name?: string;
     description?: string;
     last_scanned?: string;
+    device_id?: string;
 }
 export interface UpdateTagParams {
     name?: Tag["name"];

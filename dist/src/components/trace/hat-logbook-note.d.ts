@@ -1,8 +1,7 @@
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../../types";
 declare class HatLogbookNote extends LitElement {
-    hass: HomeAssistant;
     domain: "automation" | "script";
+    private _localize;
     render(): string;
     static styles: import("lit").CSSResult;
 }

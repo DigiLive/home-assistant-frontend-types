@@ -1,22 +1,31 @@
-import type { CSSResultGroup } from "lit";
+import "../../../components/skeleton/ha-skeleton-text";
+import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-alert";
-import "../../../components/ha-dialog";
-import "../../../components/ha-dialog-header";
 import "../../../components/ha-icon-button";
 import "../../../components/ha-svg-icon";
-import type { HomeAssistant } from "../../../types";
+import "../../../components/ha-dialog";
 import type { SystemLogDetailDialogParams } from "./show-dialog-system-log-detail";
 declare class DialogSystemLogDetail extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _config;
+    private _connection;
+    private _i18n;
     private _params?;
     private _manifest?;
+    private _installationType?;
+    private _open;
+    private _contents?;
+    private _reportUrl;
+    private _fetchingInstallationType;
     showDialog(params: SystemLogDetailDialogParams): Promise<void>;
     closeDialog(): void;
-    protected updated(changedProps: any): void;
+    private _dialogClosed;
+    protected updated(changedProps: PropertyValues): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private get isCustomIntegration();
     private _fetchManifest;
+    private _fetchInstallationType;
     private _copyLog;
     static get styles(): CSSResultGroup;
 }

@@ -8,7 +8,7 @@ declare global {
         haptic: HapticType;
     }
     interface GlobalEventHandlersEventMap {
-        haptic: HASSDomEvent<HapticType>;
+        haptic: HASSDomEvent<HASSDomEvents["haptic"]>;
     }
 }
-export declare const forwardHaptic: (hapticType: HapticType) => void;
+export declare const forwardHaptic: (node: HTMLElement, hapticType: HapticType) => void;

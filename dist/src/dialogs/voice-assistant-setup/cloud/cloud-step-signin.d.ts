@@ -1,21 +1,13 @@
 import { LitElement } from "lit";
-import "../../../components/ha-alert";
-import "../../../components/ha-button";
-import "../../../components/ha-password-field";
-import "../../../components/ha-svg-icon";
-import "../../../components/ha-textfield";
+import "../../../panels/config/cloud/login/cloud-login";
 import type { HomeAssistant } from "../../../types";
 export declare class CloudStepSignin extends LitElement {
     hass: HomeAssistant;
-    private _requestInProgress;
-    private _error?;
-    private _checkConnection;
-    private _emailField;
-    private _passwordField;
+    email?: string;
     render(): import("lit-html").TemplateResult<1>;
-    private _keyDown;
-    private _handleLogin;
-    static styles: (import("lit").CSSResult | import("lit").CSSResult[])[];
+    private _loggedIn;
+    private _forgotPassword;
+    static styles: (import("lit").CSSResult[] | import("lit").CSSResult)[];
 }
 declare global {
     interface HTMLElementTagNameMap {

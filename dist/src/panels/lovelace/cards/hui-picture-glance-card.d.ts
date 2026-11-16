@@ -18,7 +18,7 @@ declare class HuiPictureGlanceCard extends LitElement implements LovelaceCard {
     private _entitiesToggle?;
     getCardSize(): number;
     setConfig(config: PictureGlanceCardConfig): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected updated(changedProps: PropertyValues): void;
     protected render(): typeof nothing | TemplateResult<1>;
     private _renderEntity;

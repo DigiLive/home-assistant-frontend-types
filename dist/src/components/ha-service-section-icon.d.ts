@@ -1,12 +1,13 @@
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-icon";
 import "./ha-svg-icon";
 export declare class HaServiceSectionIcon extends LitElement {
-    hass: HomeAssistant;
     service?: string;
     section?: string;
     icon?: string;
+    private _config?;
+    private _connection?;
+    private _iconTask;
     protected render(): symbol | import("lit-html").TemplateResult<1>;
     private _renderFallback;
 }

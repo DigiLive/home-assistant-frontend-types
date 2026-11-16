@@ -1,10 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { LocalizeFunc } from "../common/translations/localize";
 import type { Analytics, AnalyticsPreferences } from "../data/analytics";
-import "./ha-settings-row";
 import "./ha-switch";
 import "./ha-tooltip";
+import "./item/ha-row-item";
 declare global {
     interface HASSDomEvents {
         "analytics-preferences-changed": {
@@ -13,11 +12,10 @@ declare global {
     }
 }
 export declare class HaAnalytics extends LitElement {
-    localize: LocalizeFunc;
     analytics?: Analytics;
     translationKeyPanel: "page-onboarding" | "config";
+    private _localize;
     protected render(): TemplateResult;
-    protected updated(changedProps: any): void;
     private _handleRowClick;
     static get styles(): CSSResultGroup;
 }

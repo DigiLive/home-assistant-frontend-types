@@ -7,9 +7,8 @@ import type { HomeAssistant } from "../../../../types";
 export declare class HuiEntityPickerTable extends LitElement {
     hass: HomeAssistant;
     narrow: boolean;
-    noLabelFloat?: boolean | undefined;
     entities?: string[];
-    protected firstUpdated(_changedProperties: PropertyValues): void;
+    protected firstUpdated(_changedProperties: PropertyValues<this>): void;
     private _data;
     protected render(): TemplateResult;
     private _columns;
@@ -20,5 +19,10 @@ export declare class HuiEntityPickerTable extends LitElement {
 declare global {
     interface HTMLElementTagNameMap {
         "hui-entity-picker-table": HuiEntityPickerTable;
+    }
+    interface HASSDomEvents {
+        "selected-changed": {
+            selectedEntities: string[];
+        };
     }
 }

@@ -2,13 +2,18 @@ import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import type { HomeAssistant } from "../../../../types";
 import "../../cards/hui-card";
+import "../../../../components/ha-button";
+import "../../../../components/ha-dialog-footer";
+import "../../../../components/ha-dialog";
 import type { DeleteCardDialogParams } from "./show-delete-card-dialog";
 export declare class HuiDialogDeleteCard extends LitElement {
     hass: HomeAssistant;
     private _params?;
+    private _open;
     private _cardConfig?;
     showDialog(params: DeleteCardDialogParams): Promise<void>;
     closeDialog(): void;
+    private _dialogClosed;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static get styles(): CSSResultGroup;
     private _delete;

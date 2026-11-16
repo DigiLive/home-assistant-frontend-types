@@ -2,9 +2,9 @@ import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../components/entity/state-info";
 import type { UpdateEntity } from "../data/update";
-import type { HomeAssistant } from "../types";
 export declare class StateCardUpdate extends LitElement {
-    hass: HomeAssistant;
+    private _i18n?;
+    private _formatEntityState?;
     stateObj: UpdateEntity;
     inDialog: boolean;
     protected render(): TemplateResult;

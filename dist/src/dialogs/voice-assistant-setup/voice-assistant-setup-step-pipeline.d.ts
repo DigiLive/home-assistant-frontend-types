@@ -25,7 +25,7 @@ export declare class HaVoiceAssistantSetupStepPipeline extends LitElement {
     private _setupLocalFocused;
     private _setupLocalFull;
     private _languageChanged;
-    static styles: (import("lit").CSSResult | import("lit").CSSResult[])[];
+    static styles: (import("lit").CSSResult[] | import("lit").CSSResult)[];
 }
 declare global {
     interface HTMLElementTagNameMap {

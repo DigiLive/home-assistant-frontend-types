@@ -7,7 +7,7 @@ export declare class HaIcon extends LitElement {
     private _secondaryPath?;
     private _viewBox?;
     private _legacy;
-    willUpdate(changedProps: PropertyValues): void;
+    willUpdate(changedProps: PropertyValues<this>): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _loadIcon;
     private _setCustomPath;

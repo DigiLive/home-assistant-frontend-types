@@ -1,9 +1,8 @@
 import { LitElement } from "lit";
 import type { ButtonToggleSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-button-toggle-group";
 export declare class HaButtonToggleSelector extends LitElement {
-    hass: HomeAssistant;
+    private _locale;
     selector: ButtonToggleSelector;
     value?: string;
     label?: string;

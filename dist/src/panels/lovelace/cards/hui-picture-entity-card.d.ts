@@ -9,12 +9,13 @@ export declare const STUB_IMAGE = "https://demo.home-assistant.io/stub_config/be
 declare class HuiPictureEntityCard extends LitElement implements LovelaceCard {
     static getConfigElement(): Promise<LovelaceCardEditor>;
     static getStubConfig(hass: HomeAssistant, entities: string[], entitiesFallback: string[]): PictureEntityCardConfig;
+    static getDefaultConfig(): Partial<PictureEntityCardConfig>;
     hass?: HomeAssistant;
     layout?: string;
     private _config?;
     getCardSize(): number;
     setConfig(config: PictureEntityCardConfig): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected updated(changedProps: PropertyValues): void;
     protected render(): typeof nothing | TemplateResult<1>;
     static styles: import("lit").CSSResult;

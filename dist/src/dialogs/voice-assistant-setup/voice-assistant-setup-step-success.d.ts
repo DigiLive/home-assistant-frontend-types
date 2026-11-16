@@ -1,10 +1,9 @@
 import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
-import "../../components/ha-list-item";
 import "../../components/ha-select";
 import "../../components/ha-tts-voice-picker";
+import "../../components/input/ha-input";
 import type { AssistSatelliteConfiguration } from "../../data/assist_satellite";
-import "../../panels/lovelace/entity-rows/hui-select-entity-row";
 import type { HomeAssistant } from "../../types";
 export declare class HaVoiceAssistantSetupStepSuccess extends LitElement {
     hass: HomeAssistant;
@@ -14,7 +13,7 @@ export declare class HaVoiceAssistantSetupStepSuccess extends LitElement {
     private _ttsSettings?;
     private _error?;
     private _deviceName?;
-    protected willUpdate(changedProperties: PropertyValues): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
     protected render(): import("lit-html").TemplateResult<1>;
     private _getPipeline;
     private _deviceNameChanged;
@@ -27,7 +26,7 @@ export declare class HaVoiceAssistantSetupStepSuccess extends LitElement {
     private _testWakeWord;
     private _openPipeline;
     private _done;
-    static styles: (import("lit").CSSResult | import("lit").CSSResult[])[];
+    static styles: (import("lit").CSSResult[] | import("lit").CSSResult)[];
 }
 declare global {
     interface HTMLElementTagNameMap {

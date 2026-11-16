@@ -1,11 +1,12 @@
 import type { HassEntity } from "home-assistant-js-websocket";
 import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../../types";
 import "../ha-label-badge";
 import "../ha-state-icon";
 export declare class HaStateLabelBadge extends LitElement {
-    hass?: HomeAssistant;
+    private _formatters?;
+    private _localize;
+    private _entry?;
     state?: HassEntity;
     name?: string;
     icon?: string;
@@ -17,7 +18,7 @@ export declare class HaStateLabelBadge extends LitElement {
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected render(): TemplateResult;
-    protected updated(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
     private _computeValue;
     private _computeShowIcon;
     private _computeLabel;

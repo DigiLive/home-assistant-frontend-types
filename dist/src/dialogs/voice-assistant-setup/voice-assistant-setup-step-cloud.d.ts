@@ -6,6 +6,7 @@ import "./cloud/cloud-step-signup";
 export declare class HaVoiceAssistantSetupStepCloud extends LitElement {
     hass: HomeAssistant;
     private _state;
+    private _email?;
     protected render(): import("lit-html").TemplateResult<1>;
     private _cloudStep;
 }
@@ -16,6 +17,7 @@ declare global {
     interface HASSDomEvents {
         "cloud-step": {
             step: "SIGNUP" | "SIGNIN" | "DONE";
+            email?: string;
         };
     }
 }

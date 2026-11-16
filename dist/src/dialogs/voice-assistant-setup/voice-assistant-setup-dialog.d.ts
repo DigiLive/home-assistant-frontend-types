@@ -1,9 +1,10 @@
-import "@material/mwc-button/mwc-button";
-import type { CSSResultGroup } from "lit";
+import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../components/chips/ha-assist-chip";
 import "../../components/ha-dialog";
-import "../../components/ha-md-button-menu";
+import "../../components/ha-dropdown";
+import "../../components/ha-icon-button-prev";
+import "../../components/ha-dropdown-item";
 import type { HomeAssistant } from "../../types";
 import type { VoiceAssistantSetupDialogParams } from "./show-voice-assistant-setup-dialog";
 import "./voice-assistant-setup-step-area";
@@ -30,6 +31,7 @@ export declare const enum STEP {
 export declare class HaVoiceAssistantSetupDialog extends LitElement {
     hass: HomeAssistant;
     private _params?;
+    private _open;
     private _step;
     private _assistConfiguration?;
     private _error?;
@@ -39,8 +41,8 @@ export declare class HaVoiceAssistantSetupDialog extends LitElement {
     private _previousSteps;
     private _nextStep?;
     showDialog(params: VoiceAssistantSetupDialogParams): Promise<void>;
-    closeDialog(): Promise<void>;
-    protected willUpdate(changedProps: any): void;
+    closeDialog(): void;
+    protected willUpdate(changedProps: PropertyValues): void;
     private _dialogClosed;
     private _deviceEntities;
     private _findDomainEntityId;

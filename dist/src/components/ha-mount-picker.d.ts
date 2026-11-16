@@ -1,12 +1,9 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import { SupervisorMountUsage } from "../data/supervisor/mounts";
-import type { HomeAssistant } from "../types";
 import "./ha-alert";
-import "./ha-list-item";
 import "./ha-select";
 declare class HaMountPicker extends LitElement {
-    hass: HomeAssistant;
     label?: string;
     value?: string;
     helper?: string;
@@ -15,11 +12,13 @@ declare class HaMountPicker extends LitElement {
     usage?: SupervisorMountUsage;
     private _mounts?;
     private _error?;
+    private _i18n;
+    private _config;
+    private _api;
     protected firstUpdated(): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _filterMounts;
     private _getMounts;
-    private get _value();
     private _mountChanged;
     private _setValue;
     static get styles(): CSSResultGroup;

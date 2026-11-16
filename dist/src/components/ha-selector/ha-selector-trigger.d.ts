@@ -5,6 +5,7 @@ import "../../panels/config/automation/trigger/ha-automation-trigger";
 import type { HomeAssistant } from "../../types";
 export declare class HaTriggerSelector extends LitElement {
     hass: HomeAssistant;
+    narrow: boolean;
     selector: TriggerSelector;
     value?: Trigger;
     label?: string;

@@ -1,9 +1,8 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../components/entity/ha-entity-picker";
-import "../../../../components/ha-formfield";
 import "../../../../components/ha-switch";
-import "../../../../components/ha-textfield";
+import "../../../../components/input/ha-input";
 import type { HomeAssistant } from "../../../../types";
 import type { GraphHeaderFooterConfig } from "../../header-footer/types";
 import type { LovelaceCardEditor } from "../../types";

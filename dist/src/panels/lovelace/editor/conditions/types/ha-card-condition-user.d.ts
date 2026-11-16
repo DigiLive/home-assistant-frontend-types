@@ -1,8 +1,8 @@
 import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import "../../../../../components/ha-check-list-item";
-import "../../../../../components/ha-switch";
 import "../../../../../components/ha-list";
+import "../../../../../components/ha-switch";
 import "../../../../../components/user/ha-user-badge";
 import type { HomeAssistant } from "../../../../../types";
 import type { UserCondition } from "../../../common/validate-condition";
@@ -14,10 +14,10 @@ export declare class HaCardConditionUser extends LitElement {
     private _users;
     protected static validateUIConfig(condition: UserCondition): void;
     private _sortedUsers;
-    protected firstUpdated(changedProps: PropertyValues): Promise<void>;
+    protected firstUpdated(changedProps: PropertyValues<this>): Promise<void>;
     private _fetchUsers;
     protected render(): import("lit-html").TemplateResult<1>;
-    private _userChanged;
+    private _handleSelected;
     static styles: import("lit").CSSResult;
 }
 declare global {

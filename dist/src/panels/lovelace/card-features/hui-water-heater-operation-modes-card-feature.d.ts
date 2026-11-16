@@ -1,28 +1,27 @@
-import type { HassEntity } from "home-assistant-js-websocket";
-import type { PropertyValues, TemplateResult } from "lit";
-import { LitElement } from "lit";
-import "../../../components/ha-control-button";
-import "../../../components/ha-control-button-group";
-import "../../../components/ha-control-select";
-import "../../../components/ha-control-slider";
-import type { OperationMode, WaterHeaterEntity } from "../../../data/water_heater";
+import type { WaterHeaterEntity } from "../../../data/water_heater";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardFeature, LovelaceCardFeatureEditor } from "../types";
-import type { WaterHeaterOperationModesCardFeatureConfig } from "./types";
-export declare const supportsWaterHeaterOperationModesCardFeature: (stateObj: HassEntity) => boolean;
-declare class HuiWaterHeaterOperationModeCardFeature extends LitElement implements LovelaceCardFeature {
-    hass?: HomeAssistant;
-    stateObj?: WaterHeaterEntity;
-    private _config?;
-    _currentOperationMode?: OperationMode;
+import { HuiModeSelectCardFeatureBase } from "./hui-mode-select-card-feature-base";
+import type { LovelaceCardFeatureContext, WaterHeaterOperationModesCardFeatureConfig } from "./types";
+export declare const supportsWaterHeaterOperationModesCardFeature: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
+declare class HuiWaterHeaterOperationModeCardFeature extends HuiModeSelectCardFeatureBase<WaterHeaterEntity, WaterHeaterOperationModesCardFeatureConfig> implements LovelaceCardFeature {
+    protected readonly _attribute = "operation_mode";
+    protected readonly _modesAttribute = "operation_list";
+    protected get _configuredModes(): ("eco" | "electric" | "gas" | "heat_pump" | "high_demand" | "off" | "performance")[];
+    protected readonly _dropdownIconPath: string;
+    protected readonly _serviceDomain = "water_heater";
+    protected readonly _serviceAction = "set_operation_mode";
+    protected get _label(): string;
+    protected readonly _defaultStyle = "icons";
+    protected get _controlSelectStyle(): Record<string, string | undefined> | undefined;
     static getStubConfig(): WaterHeaterOperationModesCardFeatureConfig;
     static getConfigElement(): Promise<LovelaceCardFeatureEditor>;
-    setConfig(config: WaterHeaterOperationModesCardFeatureConfig): void;
-    protected willUpdate(changedProp: PropertyValues): void;
-    private _valueChanged;
-    private _setMode;
-    protected render(): TemplateResult | null;
-    static get styles(): import("lit").CSSResult;
+    protected _getValue(stateObj: WaterHeaterEntity): string | undefined;
+    protected _getOptions(): {
+        value: "eco" | "electric" | "gas" | "heat_pump" | "high_demand" | "off" | "performance";
+        label: string;
+    }[];
+    protected _isSupported(): boolean;
 }
 declare global {
     interface HTMLElementTagNameMap {

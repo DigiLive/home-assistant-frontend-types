@@ -1,8 +1,23 @@
 import type { HomeAssistant, TranslationDict } from "../../types";
+export interface ResolutionIssue {
+    type: string;
+    context: string;
+    reference: string | null;
+    reference_extra: Record<string, unknown> | null;
+    uuid: string;
+}
+export interface ResolutionSuggestion extends ResolutionIssue {
+    auto: boolean;
+}
+export interface ResolutionCheck {
+    enabled: boolean;
+    slug: string;
+}
 export interface HassioResolution {
-    unsupported: (keyof TranslationDict["supervisor"]["system"]["supervisor"]["unsupported_reason"])[];
-    unhealthy: (keyof TranslationDict["supervisor"]["system"]["supervisor"]["unhealthy_reason"])[];
-    issues: string[];
-    suggestions: string[];
+    unsupported: (keyof TranslationDict["ui"]["dialogs"]["unsupported"]["reasons"])[];
+    unhealthy: (keyof TranslationDict["ui"]["dialogs"]["unhealthy"]["reasons"])[];
+    issues: ResolutionIssue[];
+    suggestions: ResolutionSuggestion[];
+    checks: ResolutionCheck[];
 }
 export declare const fetchHassioResolution: (hass: HomeAssistant) => Promise<HassioResolution>;

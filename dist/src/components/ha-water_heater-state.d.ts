@@ -1,9 +1,10 @@
+import type { HassEntity } from "home-assistant-js-websocket";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HassEntity } from "home-assistant-js-websocket";
-import type { HomeAssistant } from "../types";
 export declare class HaWaterHeaterState extends LitElement {
-    hass: HomeAssistant;
+    private _formatters?;
+    private _locale?;
+    private _hassConfig?;
     stateObj: HassEntity;
     protected render(): TemplateResult;
     private _computeTarget;

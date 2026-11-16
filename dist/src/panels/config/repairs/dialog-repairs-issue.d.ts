@@ -1,18 +1,19 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-alert";
-import "../../../components/ha-md-dialog";
 import "../../../components/ha-button";
-import "../../../components/ha-dialog-header";
-import "./dialog-repairs-issue-subtitle";
+import "../../../components/ha-dialog";
+import "../../../components/ha-dialog-footer";
 import "../../../components/ha-markdown";
+import "../../../components/ha-svg-icon";
+import "../../../dialogs/repairs-flow/dialog-repairs-issue-subtitle";
 import type { HomeAssistant } from "../../../types";
 import type { RepairsIssueDialogParams } from "./show-repair-issue-dialog";
 declare class DialogRepairsIssue extends LitElement {
     hass: HomeAssistant;
     private _issue?;
     private _params?;
-    private _dialog?;
+    private _open;
     showDialog(params: RepairsIssueDialogParams): void;
     private _dialogClosed;
     closeDialog(): void;

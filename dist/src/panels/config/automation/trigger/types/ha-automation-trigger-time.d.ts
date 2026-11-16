@@ -1,5 +1,6 @@
 import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
+import type { LocalizeFunc } from "../../../../../common/translations/localize";
 import "../../../../../components/ha-form/ha-form";
 import type { TimeTrigger } from "../../../../../data/automation";
 import type { HomeAssistant } from "../../../../../types";
@@ -10,12 +11,14 @@ export declare class HaTimeTrigger extends LitElement implements TriggerElement 
     disabled: boolean;
     private _inputMode;
     static get defaultConfig(): TimeTrigger;
+    static checkUiSupport(localize: LocalizeFunc, trigger: TimeTrigger): Error | undefined;
     private _schema;
-    willUpdate(changedProperties: PropertyValues): void;
+    shouldUpdate(changedProperties: PropertyValues<this>): boolean;
     private _data;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _valueChanged;
     private _computeLabelCallback;
+    static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

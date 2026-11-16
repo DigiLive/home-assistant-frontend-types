@@ -3,9 +3,8 @@ import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../components/entity/ha-entity-toggle";
 import "../components/entity/state-info";
-import type { HomeAssistant } from "../types";
 declare class StateCardAlert extends LitElement {
-    hass: HomeAssistant;
+    private _formatEntityState?;
     stateObj: HassEntity;
     inDialog: boolean;
     protected render(): TemplateResult;

@@ -1,6 +1,6 @@
 import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
 import type { HomeAssistant } from "../types";
-export declare const enum FanEntityFeature {
+export declare enum FanEntityFeature {
     SET_SPEED = 1,
     OSCILLATE = 2,
     DIRECTION = 4,
@@ -19,12 +19,14 @@ interface FanEntityAttributes extends HassEntityAttributeBase {
 export interface FanEntity extends HassEntityBase {
     attributes: FanEntityAttributes;
 }
-export type FanSpeed = "off" | "low" | "medium" | "high" | "on";
-export declare const FAN_SPEEDS: Partial<Record<number, FanSpeed[]>>;
+export type FanDirection = "forward" | "reverse";
+export type FanSpeed = "off" | "low" | "medium" | "high" | "on" | `${number}`;
+export declare const FAN_SPEED_COUNT_MAX_FOR_BUTTONS = 6;
+export declare function computeFanSpeedCount(stateObj: FanEntity): number;
+export declare function computeFanSpeeds(stateObj: FanEntity): FanSpeed[] | undefined;
+export declare const isNumberedFanSpeed: (speed: FanSpeed) => speed is `${number}`;
 export declare function fanPercentageToSpeed(stateObj: FanEntity, value: number): FanSpeed;
 export declare function fanSpeedToPercentage(stateObj: FanEntity, speed: FanSpeed): number;
-export declare function computeFanSpeedCount(stateObj: FanEntity): number;
-export declare function computeFanSpeedIcon(stateObj: FanEntity, speed: FanSpeed): string;
-export declare const FAN_SPEED_COUNT_MAX_FOR_BUTTONS = 4;
-export declare function computeFanSpeedStateDisplay(stateObj: FanEntity, hass: HomeAssistant, speed?: number): string;
+export declare function computeFanSpeedIcon(stateObj: FanEntity, speed: FanSpeed): string | undefined;
+export declare function computeFanSpeedStateDisplay(stateObj: FanEntity, formatters: Pick<HomeAssistant, "formatEntityAttributeValue">, speed?: number): string;
 export {};

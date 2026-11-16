@@ -1,8 +1,6 @@
 import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
-import type { LocalizeFunc } from "../../../../common/translations/localize";
 import "../../../../components/ha-checkbox";
-import "../../../../components/ha-formfield";
 import type { BackupData } from "../../../../data/backup";
 import type { HomeAssistant } from "../../../../types";
 import "./ha-backup-addons-picker";
@@ -11,12 +9,12 @@ export declare class HaBackupDataPicker extends LitElement {
     hass?: HomeAssistant;
     data: BackupData;
     value?: BackupData;
-    localize?: LocalizeFunc;
     requiredItems: string[];
     translationKeyPanel: "page-onboarding.restore" | "config.backup";
     addonsDisabled: boolean;
+    private _localize;
     _addonIcons: Record<string, boolean>;
-    protected firstUpdated(changedProps: PropertyValues): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     private _fetchAddonInfo;
     private _homeAssistantItems;
     private _localizeFolder;

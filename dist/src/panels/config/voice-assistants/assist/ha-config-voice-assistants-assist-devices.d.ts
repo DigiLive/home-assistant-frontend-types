@@ -2,6 +2,7 @@ import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import "../../../../components/data-table/ha-data-table";
 import "../../../../layouts/hass-subpage";
+import "../../../../layouts/hass-loading-screen";
 import type { HomeAssistant } from "../../../../types";
 declare class AssistDevicesPage extends LitElement {
     hass: HomeAssistant;
@@ -11,7 +12,7 @@ declare class AssistDevicesPage extends LitElement {
     private _devices?;
     private _columns;
     private _data;
-    protected firstUpdated(changedProps: PropertyValues): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     render(): import("lit-html").TemplateResult<1>;
     private _handleRowClicked;
 }

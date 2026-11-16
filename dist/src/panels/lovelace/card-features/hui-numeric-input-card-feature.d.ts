@@ -1,18 +1,19 @@
-import type { HassEntity } from "home-assistant-js-websocket";
 import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-control-button";
-import "../../../components/ha-control-button-group";
 import "../../../components/ha-control-number-buttons";
 import "../../../components/ha-control-slider";
 import "../../../components/ha-icon";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardFeature, LovelaceCardFeatureEditor } from "../types";
-import type { NumericInputCardFeatureConfig } from "./types";
-export declare const supportsNumericInputCardFeature: (stateObj: HassEntity) => boolean;
+import type { LovelaceCardFeatureContext, NumericInputCardFeatureConfig } from "./types";
+export declare const supportsNumericInputCardFeature: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
 declare class HuiNumericInputCardFeature extends LitElement implements LovelaceCardFeature {
-    hass?: HomeAssistant;
-    stateObj?: HassEntity;
+    context?: LovelaceCardFeatureContext;
+    private _stateObj?;
+    private _api;
+    private _localize;
+    private _locale?;
     private _config?;
     _currentState?: string;
     static getStubConfig(): NumericInputCardFeatureConfig;

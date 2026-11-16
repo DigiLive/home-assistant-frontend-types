@@ -1,4 +1,3 @@
-import "../../../components/entity/ha-state-label-badge";
 import type { HuiStateLabelBadgeEditor } from "../editor/config-elements/hui-state-label-badge-editor";
 import { HuiEntityBadge } from "./hui-entity-badge";
 import type { StateLabelBadgeConfig } from "./types";

@@ -5,8 +5,8 @@ export interface Counter {
     icon?: string;
     initial?: number;
     restore?: boolean;
-    minimum?: number;
-    maximum?: number;
+    minimum?: number | null;
+    maximum?: number | null;
     step?: number;
 }
 export interface CounterMutableParams {

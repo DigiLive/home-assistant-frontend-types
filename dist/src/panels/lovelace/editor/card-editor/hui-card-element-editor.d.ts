@@ -1,5 +1,6 @@
 import type { TemplateResult } from "lit";
-import "../../../../components/sl-tab-group";
+import "../../../../components/ha-tab-group";
+import "../../../../components/ha-tab-group-tab";
 import type { LovelaceCardConfig } from "../../../../data/lovelace/config/card";
 import type { LovelaceSectionConfig } from "../../../../data/lovelace/config/section";
 import type { LovelaceCardEditor, LovelaceConfigForm } from "../../types";

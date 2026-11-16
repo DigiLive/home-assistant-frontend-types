@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { LanguageSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-language-picker";
 export declare class HaLanguageSelector extends LitElement {
-    hass: HomeAssistant;
     selector: LanguageSelector;
     value?: any;
     label?: string;

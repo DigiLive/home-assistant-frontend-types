@@ -19,6 +19,7 @@ export interface GUIModeChangedEvent {
 export interface ViewEditEvent extends Event {
     detail: {
         config: LovelaceViewConfig;
+        valid?: boolean;
     };
 }
 export interface ViewVisibilityChangeEvent {
@@ -32,9 +33,9 @@ export interface ConfigError {
     type: string;
     message: string;
 }
-export interface EntitiesEditorEvent extends CustomEvent {
+export interface EntitiesEditorEvent<T extends EntityConfig = EntityConfig> extends CustomEvent {
     detail: {
-        entities?: EntityConfig[];
+        entities?: T[];
         item?: any;
     };
     target: EventTarget | null;
@@ -54,6 +55,7 @@ export interface Card {
     showElement?: boolean;
     isCustom?: boolean;
     isSuggested?: boolean;
+    isEnergy?: boolean;
 }
 export interface Badge {
     type: string;

@@ -1,9 +1,7 @@
-import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../../types";
+import { LitElement } from "lit";
 import "./ha-device-picker";
 import type { HaDevicePickerDeviceFilterFunc, HaDevicePickerEntityFilterFunc } from "./ha-device-picker";
 declare class HaDevicesPicker extends LitElement {
-    hass?: HomeAssistant;
     value?: string[];
     helper?: string;
     disabled: boolean;
@@ -25,7 +23,7 @@ declare class HaDevicesPicker extends LitElement {
     pickDeviceLabel?: string;
     deviceFilter?: HaDevicePickerDeviceFilterFunc;
     entityFilter?: HaDevicePickerEntityFilterFunc;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    protected render(): import("lit-html").TemplateResult<1>;
     private get _currentDevices();
     private _updateDevices;
     private _deviceChanged;

@@ -21,7 +21,7 @@ export interface UpdateUserParams {
     group_ids?: User["group_ids"];
     local_only?: boolean;
 }
-export declare const fetchUsers: (hass: HomeAssistant) => Promise<User[]>;
+export declare const fetchUsers: (callWS: HomeAssistant["callWS"]) => Promise<User[]>;
 export declare const createUser: (hass: HomeAssistant, name: string, group_ids?: User["group_ids"], local_only?: boolean) => Promise<{
     user: User;
 }>;

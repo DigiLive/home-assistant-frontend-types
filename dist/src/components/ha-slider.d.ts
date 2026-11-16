@@ -1,7 +1,10 @@
-import { Slider } from "@material/web/slider/internal/slider";
+import Slider from "@home-assistant/webawesome/dist/components/slider/slider";
+import { type CSSResultGroup } from "lit";
 export declare class HaSlider extends Slider {
+    size: "s" | "m";
+    withTooltip: boolean;
     connectedCallback(): void;
-    static styles: import("lit").CSSResult[];
+    static get styles(): CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

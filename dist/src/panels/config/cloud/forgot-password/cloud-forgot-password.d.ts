@@ -1,8 +1,8 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import "./cloud-forgot-password-card";
 import "../../../../layouts/hass-subpage";
 import type { HomeAssistant } from "../../../../types";
+import "./cloud-forgot-password-card";
 export declare class CloudForgotPassword extends LitElement {
     hass: HomeAssistant;
     narrow: boolean;

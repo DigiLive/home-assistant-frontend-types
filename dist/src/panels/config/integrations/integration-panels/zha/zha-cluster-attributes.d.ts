@@ -2,10 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../../components/buttons/ha-call-service-button";
 import "../../../../../components/buttons/ha-progress-button";
-import "../../../../../components/ha-card";
-import "../../../../../components/ha-list-item";
 import "../../../../../components/ha-select";
-import "../../../../../components/ha-textfield";
+import "../../../../../components/input/ha-input";
 import type { Cluster, ZHADevice } from "../../../../../data/zha";
 import type { HomeAssistant } from "../../../../../types";
 export declare class ZHAClusterAttributes extends LitElement {
@@ -18,7 +16,7 @@ export declare class ZHAClusterAttributes extends LitElement {
     private _manufacturerCodeOverride?;
     private _readingAttribute;
     private _setAttributeServiceData?;
-    protected updated(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
     protected render(): typeof nothing | TemplateResult<1>;
     private _renderAttributeInteractions;
     private _fetchAttributesForCluster;

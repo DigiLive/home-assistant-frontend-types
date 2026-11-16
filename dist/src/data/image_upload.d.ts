@@ -1,3 +1,4 @@
+import type { LocalizeFunc } from "../common/translations/localize";
 import type { HomeAssistant } from "../types";
 interface Image {
     filesize: number;
@@ -14,8 +15,8 @@ export interface ImageMutableParams {
 export declare const getIdFromUrl: (url: string) => string | undefined;
 export declare const generateImageThumbnailUrl: (mediaId: string, size?: number, original?: boolean) => string;
 export declare const fetchImages: (hass: HomeAssistant) => Promise<Image[]>;
-export declare const createImage: (hass: HomeAssistant, file: File) => Promise<Image>;
+export declare const createImage: (fetchWithAuth: HomeAssistant["fetchWithAuth"], localize: LocalizeFunc, file: File) => Promise<Image>;
 export declare const updateImage: (hass: HomeAssistant, id: string, updates: Partial<ImageMutableParams>) => Promise<Image>;
-export declare const deleteImage: (hass: HomeAssistant, id: string) => Promise<unknown>;
-export declare const getImageData: (hass: HomeAssistant, url: string) => Promise<Blob>;
+export declare const deleteImage: (callWS: HomeAssistant["callWS"], id: string) => Promise<unknown>;
+export declare const getImageData: (hassUrl: HomeAssistant["hassUrl"], url: string) => Promise<Blob>;
 export {};

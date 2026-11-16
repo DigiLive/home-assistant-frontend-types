@@ -1,11 +1,9 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
-import "./ha-combo-box";
-import "./ha-icon";
 import "./ha-combo-box-item";
+import "./ha-generic-picker";
+import "./ha-icon";
 export declare class HaIconPicker extends LitElement {
-    hass?: HomeAssistant;
     value?: string;
     label?: string;
     helper?: string;
@@ -14,12 +12,13 @@ export declare class HaIconPicker extends LitElement {
     disabled: boolean;
     required: boolean;
     invalid: boolean;
+    private _getIconPickerItems;
     protected render(): TemplateResult;
     private _filterIcons;
-    private _iconProvider;
-    private _openedChanged;
+    protected firstUpdated(): void;
     private _valueChanged;
     private _setValue;
+    private get _icon();
     private get _value();
     static styles: import("lit").CSSResult;
 }

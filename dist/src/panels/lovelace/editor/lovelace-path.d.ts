@@ -1,31 +1,19 @@
-import type { LovelaceBadgeConfig } from "../../../data/lovelace/config/badge";
-import type { LovelaceCardConfig } from "../../../data/lovelace/config/card";
-import type { LovelaceSectionRawConfig } from "../../../data/lovelace/config/section";
 import type { LovelaceConfig } from "../../../data/lovelace/config/types";
-import type { LovelaceViewRawConfig } from "../../../data/lovelace/config/view";
-export type LovelaceCardPath = [number, number] | [number, number, number];
-export type LovelaceContainerPath = [number] | [number, number];
-export declare const parseLovelaceCardPath: (path: LovelaceCardPath) => {
-    viewIndex: number;
-    sectionIndex?: number;
-    cardIndex: number;
-};
-export declare const parseLovelaceContainerPath: (path: LovelaceContainerPath) => {
-    viewIndex: number;
-    sectionIndex?: number;
-};
-export declare const getLovelaceContainerPath: (path: LovelaceCardPath) => LovelaceContainerPath;
-interface FindLovelaceContainer {
-    (config: LovelaceConfig, path: [number]): LovelaceViewRawConfig;
-    (config: LovelaceConfig, path: [number, number]): LovelaceSectionRawConfig;
-    (config: LovelaceConfig, path: LovelaceContainerPath): LovelaceViewRawConfig | LovelaceSectionRawConfig;
-}
-export declare const findLovelaceContainer: FindLovelaceContainer;
-export declare const updateLovelaceContainer: (config: LovelaceConfig, path: LovelaceContainerPath, containerConfig: LovelaceViewRawConfig | LovelaceSectionRawConfig) => LovelaceConfig;
-interface LovelaceItemKeys {
-    cards: LovelaceCardConfig[];
-    badges: (Partial<LovelaceBadgeConfig> | string)[];
-}
-export declare const updateLovelaceItems: <T extends keyof LovelaceItemKeys>(key: T, config: LovelaceConfig, path: LovelaceContainerPath, items: LovelaceItemKeys[T]) => LovelaceConfig;
-export declare const findLovelaceItems: <T extends keyof LovelaceItemKeys>(key: T, config: LovelaceConfig, path: LovelaceContainerPath) => LovelaceItemKeys[T] | undefined;
-export {};
+export type LovelacePath = (string | number)[];
+export type LovelaceItemKind = "view" | "section" | "card" | "badge";
+export type LovelacePathTarget = "item" | "list" | "slot" | "node";
+export declare const stringifyPath: (path: LovelacePath) => string;
+export declare const parsePath: (path: string) => LovelacePath;
+export declare const pathEquals: (a: LovelacePath, b: LovelacePath) => boolean;
+export declare const isAncestorPath: (ancestor: LovelacePath, path: LovelacePath) => boolean;
+export declare const getParentPath: (path: LovelacePath) => LovelacePath;
+export declare const getViewPath: (path: LovelacePath) => LovelacePath;
+export declare const getPathTarget: (path: LovelacePath) => LovelacePathTarget;
+export declare const normalizeCardPath: (path: LovelacePath) => LovelacePath;
+export declare const getItemKind: (path: LovelacePath) => LovelaceItemKind | undefined;
+export declare const getAtPath: <T = unknown>(config: LovelaceConfig, path: LovelacePath) => T | undefined;
+export declare const setAtPath: (config: LovelaceConfig, path: LovelacePath, value: unknown) => LovelaceConfig;
+export declare const insertAtPath: (config: LovelaceConfig, path: LovelacePath, value: unknown) => LovelaceConfig;
+export declare const appendAtPath: (config: LovelaceConfig, collectionPath: LovelacePath, value: unknown) => LovelaceConfig;
+export declare const deleteAtPath: (config: LovelaceConfig, path: LovelacePath) => LovelaceConfig;
+export declare const moveAtPath: (config: LovelaceConfig, from: LovelacePath, to: LovelacePath) => LovelaceConfig;

@@ -2,7 +2,7 @@ import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-
 import type { HomeAssistant } from "../types";
 export declare const FORMAT_TEXT = "text";
 export declare const FORMAT_NUMBER = "number";
-export declare const enum AlarmControlPanelEntityFeature {
+export declare enum AlarmControlPanelEntityFeature {
     ARM_HOME = 1,
     ARM_AWAY = 2,
     ARM_NIGHT = 4,
@@ -18,7 +18,7 @@ interface AlarmControlPanelEntityAttributes extends HassEntityAttributeBase {
 export interface AlarmControlPanelEntity extends HassEntityBase {
     attributes: AlarmControlPanelEntityAttributes;
 }
-export declare const callAlarmAction: (hass: HomeAssistant, entity: string, action: "arm_away" | "arm_home" | "arm_night" | "arm_vacation" | "arm_custom_bypass" | "disarm", code?: string) => void;
+export declare const callAlarmAction: (hass: Pick<HomeAssistant, "callService">, entity: string, action: "arm_away" | "arm_home" | "arm_night" | "arm_vacation" | "arm_custom_bypass" | "disarm", code?: string) => void;
 export type AlarmMode = "armed_home" | "armed_away" | "armed_night" | "armed_vacation" | "armed_custom_bypass" | "disarmed";
 interface AlarmConfig {
     service: string;
@@ -27,5 +27,5 @@ interface AlarmConfig {
 }
 export declare const ALARM_MODES: Record<AlarmMode, AlarmConfig>;
 export declare const supportedAlarmModes: (stateObj: AlarmControlPanelEntity) => AlarmMode[];
-export declare const setProtectedAlarmControlPanelMode: (element: HTMLElement, hass: HomeAssistant, stateObj: AlarmControlPanelEntity, mode: AlarmMode) => Promise<void>;
+export declare const setProtectedAlarmControlPanelMode: (element: HTMLElement, hass: Pick<HomeAssistant, "callService" | "localize" | "callWS">, stateObj: AlarmControlPanelEntity, mode: AlarmMode) => Promise<void>;
 export {};

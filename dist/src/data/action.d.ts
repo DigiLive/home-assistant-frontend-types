@@ -1,4 +1,5 @@
-import type { AutomationElementGroup } from "./automation";
+import type { AutomationElementGroupCollection } from "./automation";
+import type { Action } from "./script";
 export declare const ACTION_ICONS: {
     readonly condition: string;
     readonly delay: string;
@@ -8,6 +9,10 @@ export declare const ACTION_ICONS: {
     readonly wait_template: string;
     readonly wait_for_trigger: string;
     readonly repeat: string;
+    readonly repeat_count: string;
+    readonly repeat_while: string;
+    readonly repeat_until: string;
+    readonly repeat_for_each: string;
     readonly choose: string;
     readonly if: string;
     readonly device_id: string;
@@ -17,8 +22,26 @@ export declare const ACTION_ICONS: {
     readonly variables: string;
     readonly set_conversation_response: string;
 };
-export declare const YAML_ONLY_ACTION_TYPES: Set<"event" | "parallel" | "stop" | "repeat" | "service" | "sequence" | "play_media" | "delay" | "wait_template" | "wait_for_trigger" | "condition" | "device_id" | "choose" | "if" | "variables" | "set_conversation_response">;
-export declare const ACTION_GROUPS: AutomationElementGroup;
-export declare const SERVICE_PREFIX = "__SERVICE__";
-export declare const isService: (key: string | undefined) => boolean | undefined;
-export declare const getService: (key: string) => string;
+export declare const getAutomationActionType: (action: Action | undefined) => "condition" | "device_id" | "event" | "play_media" | "repeat_count" | "repeat_for_each" | "repeat_until" | "repeat_while" | keyof import("./script").ActionTypes;
+export declare const YAML_ONLY_ACTION_TYPES: Set<"choose" | "condition" | "delay" | "device_id" | "event" | "if" | "parallel" | "play_media" | "repeat" | "repeat_count" | "repeat_for_each" | "repeat_until" | "repeat_while" | "sequence" | "service" | "set_conversation_response" | "stop" | "variables" | "wait_for_trigger" | "wait_template">;
+export declare const ACTION_COLLECTIONS: AutomationElementGroupCollection[];
+export declare const ACTION_BUILDING_BLOCKS_GROUP: {
+    condition: {};
+    delay: {};
+    wait_template: {};
+    wait_for_trigger: {};
+    repeat_count: {};
+    repeat_while: {};
+    repeat_until: {};
+    repeat_for_each: {};
+    choose: {};
+    if: {};
+    stop: {};
+    sequence: {};
+    parallel: {};
+    variables: {};
+};
+export declare const VIRTUAL_ACTIONS: Partial<Record<keyof typeof ACTION_BUILDING_BLOCKS_GROUP, Action>>;
+export declare const COLLAPSIBLE_ACTION_ELEMENTS: string[];
+export declare const ACTION_BUILDING_BLOCKS: string[];
+export declare const ACTION_COMBINED_BLOCKS: string[];

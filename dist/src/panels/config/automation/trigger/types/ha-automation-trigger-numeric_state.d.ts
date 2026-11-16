@@ -1,4 +1,3 @@
-import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import "../../../../../components/ha-form/ha-form";
 import type { NumericStateTrigger } from "../../../../../data/automation";
@@ -7,15 +6,14 @@ export declare class HaNumericStateTrigger extends LitElement {
     hass: HomeAssistant;
     trigger: NumericStateTrigger;
     disabled: boolean;
-    private _inputAboveIsEntity?;
-    private _inputBelowIsEntity?;
-    private _schema;
-    willUpdate(changedProperties: PropertyValues): void;
     static get defaultConfig(): NumericStateTrigger;
+    private _unwrapForValue;
+    private _unwrapThresholdValue;
     private _data;
     render(): import("lit-html").TemplateResult<1>;
     private _valueChanged;
     private _computeLabelCallback;
+    static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

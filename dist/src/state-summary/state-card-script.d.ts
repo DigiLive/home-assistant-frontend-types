@@ -1,14 +1,14 @@
-import "@material/mwc-button";
 import type { HassEntity } from "home-assistant-js-websocket";
 import type { CSSResultGroup } from "lit";
 import { LitElement } from "lit";
-import "../components/entity/ha-entity-toggle";
 import "../components/entity/state-info";
-import type { HomeAssistant } from "../types";
+import "../components/ha-button";
 declare class StateCardScript extends LitElement {
-    hass: HomeAssistant;
     stateObj: HassEntity;
     inDialog: boolean;
+    private _localize;
+    private _api;
+    private _services;
     protected render(): import("lit-html").TemplateResult<1>;
     private _cancelScript;
     private _runScript;

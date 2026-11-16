@@ -5,7 +5,7 @@ export interface CustomPanelConfig {
     trust_external: boolean;
     js_url?: string;
     module_url?: string;
-    html_url?: string;
+    handle_safe_area?: boolean;
 }
 export type CustomPanelInfo<T = Record<string, unknown>> = PanelInfo<T & {
     _panel_custom: CustomPanelConfig;

@@ -1,6 +1,7 @@
+import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
+import "../../../components/ha-button";
 import "../../../components/ha-card";
-import "../../../components/ha-fab";
 import "../../../components/ha-list";
 import "../../../components/ha-list-item";
 import "../../../components/ha-svg-icon";
@@ -12,13 +13,12 @@ import "../ha-config-section";
 export declare class HaConfigPerson extends LitElement {
     hass?: HomeAssistant;
     isWide: boolean;
-    narrow: boolean;
     route: Route;
     private _storageItems?;
     private _configItems?;
     private _usersLoad?;
     protected render(): import("lit-html").TemplateResult<1>;
-    protected firstUpdated(changedProps: any): void;
+    protected firstUpdated(changedProps: PropertyValues<this>): void;
     private _fetchData;
     private _openDialogIfPersonSpecifiedInRoute;
     private _createPerson;

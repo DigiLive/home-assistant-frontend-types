@@ -10,6 +10,7 @@ declare class HaAlert extends LitElement {
     title: string;
     alertType: "info" | "warning" | "error" | "success";
     dismissable: boolean;
+    private _localize?;
     narrow: boolean;
     render(): import("lit-html").TemplateResult<1>;
     private _dismissClicked;

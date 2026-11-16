@@ -1,4 +1,5 @@
 import type { PropertyValues } from "lit";
+import type { CloudStatus } from "../../../data/cloud";
 import type { SceneEntity } from "../../../data/scene";
 import type { RouterOptions } from "../../../layouts/hass-router-page";
 import { HassRouterPage } from "../../../layouts/hass-router-page";
@@ -9,6 +10,7 @@ declare class HaConfigScene extends HassRouterPage {
     hass: HomeAssistant;
     narrow: boolean;
     isWide: boolean;
+    cloudStatus?: CloudStatus;
     scenes: SceneEntity[];
     protected routerOptions: RouterOptions;
     private _debouncedUpdateScenes;

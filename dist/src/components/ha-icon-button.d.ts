@@ -1,19 +1,21 @@
-import "@material/mwc-icon-button";
-import type { IconButton } from "@material/mwc-icon-button";
-import type { TemplateResult } from "lit";
+import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
+import "./ha-button";
 import "./ha-svg-icon";
 export declare class HaIconButton extends LitElement {
     disabled: boolean;
     path?: string;
     label?: string;
-    ariaHasPopup: IconButton["ariaHasPopup"];
+    ariaHasPopup: "false" | "true" | "menu" | "listbox" | "tree" | "grid";
     hideTitle: boolean;
-    private _button?;
-    focus(): void;
+    selected: boolean;
+    href?: string;
+    target?: "_blank" | "_parent" | "_self" | "_top";
+    rel?: string;
+    download?: string;
     static shadowRootOptions: ShadowRootInit;
     protected render(): TemplateResult;
-    static styles: import("lit").CSSResult;
+    static styles: CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

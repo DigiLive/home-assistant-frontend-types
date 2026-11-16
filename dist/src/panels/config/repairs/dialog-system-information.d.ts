@@ -1,10 +1,11 @@
-import "@material/mwc-button/mwc-button";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-alert";
-import "../../../components/ha-card";
-import "../../../components/ha-spinner";
+import "../../../components/ha-button";
+import "../../../components/ha-dialog";
+import "../../../components/ha-dialog-footer";
 import "../../../components/ha-metric";
+import "../../../components/ha-spinner";
 import type { HomeAssistant } from "../../../types";
 export declare const UNSUPPORTED_REASON_URL: {};
 export declare const UNHEALTHY_REASON_URL: {
@@ -16,11 +17,12 @@ declare class DialogSystemInformation extends LitElement {
     private _resolutionInfo?;
     private _supervisorStats?;
     private _coreStats?;
-    private _opened;
+    private _open;
     private _systemHealthSubscription?;
     private _hassIOSubscription?;
     showDialog(): void;
     closeDialog(): void;
+    private _dialogClosed;
     private _subscribe;
     private _unsubscribe;
     protected render(): typeof nothing | TemplateResult<1>;

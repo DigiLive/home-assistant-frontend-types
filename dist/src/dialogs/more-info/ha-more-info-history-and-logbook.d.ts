@@ -5,9 +5,6 @@ import "./ha-more-info-logbook";
 export declare class MoreInfoHistoryAndLogbook extends LitElement {
     hass: HomeAssistant;
     entityId: string;
-    private _sensorNumericDeviceClasses?;
-    private _loadNumericDeviceClasses;
-    protected firstUpdated(changedProps: any): void;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

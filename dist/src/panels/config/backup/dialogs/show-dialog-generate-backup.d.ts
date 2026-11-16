@@ -6,4 +6,4 @@ export interface GenerateBackupDialogParams {
     cloudStatus?: CloudStatus;
 }
 export declare const loadGenerateBackupDialog: () => Promise<typeof import("./dialog-generate-backup")>;
-export declare const showGenerateBackupDialog: (element: HTMLElement, params: GenerateBackupDialogParams) => Promise<GenerateBackupParams | null>;
+export declare const showGenerateBackupDialog: (element: HTMLElement, params: GenerateBackupDialogParams) => Promise<GenerateBackupParams>;

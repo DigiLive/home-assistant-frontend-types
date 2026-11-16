@@ -1,10 +1,11 @@
-import "@material/mwc-button/mwc-button";
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../../../../components/ha-card";
+import "../../../../components/ha-button";
 import "../../../../components/ha-icon-button";
 import "../../../../components/ha-sortable";
 import "../../../../components/ha-svg-icon";
+import "../../../../components/ha-tooltip";
 import type { EnergyPreferences, EnergyPreferencesValidation } from "../../../../data/energy";
 import type { StatisticsMetaData } from "../../../../data/recorder";
 import type { HomeAssistant } from "../../../../types";
@@ -15,6 +16,8 @@ export declare class EnergyDeviceSettings extends LitElement {
     statsMetadata?: Record<string, StatisticsMetaData>;
     validationResult?: EnergyPreferencesValidation;
     protected render(): TemplateResult;
+    private _renderName;
+    private _renderIssueIndicator;
     private _itemMoved;
     private _editDevice;
     private _addDevice;

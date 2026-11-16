@@ -1,5 +1,5 @@
 import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
-export declare const enum LightEntityFeature {
+export declare enum LightEntityFeature {
     EFFECT = 4,
     FLASH = 8,
     TRANSITION = 32
@@ -17,20 +17,17 @@ export declare const enum LightColorMode {
     WHITE = "white"
 }
 export declare const lightSupportsColorMode: (entity: LightEntity, mode: LightColorMode) => boolean;
-export declare const lightIsInColorMode: (entity: LightEntity) => boolean;
 export declare const lightSupportsColor: (entity: LightEntity) => boolean;
+export declare const lightIsInColorMode: (entity: LightEntity) => boolean;
 export declare const lightSupportsBrightness: (entity: LightEntity) => boolean;
 export declare const lightSupportsFavoriteColors: (entity: LightEntity) => boolean;
 export declare const getLightCurrentModeRgbColor: (entity: LightEntity) => number[] | undefined;
 interface LightEntityAttributes extends HassEntityAttributeBase {
     min_color_temp_kelvin?: number;
     max_color_temp_kelvin?: number;
-    min_mireds?: number;
-    max_mireds?: number;
     brightness?: number;
     xy_color?: [number, number];
     hs_color?: [number, number];
-    color_temp?: number;
     color_temp_kelvin?: number;
     rgb_color?: [number, number, number];
     rgbw_color?: [number, number, number, number];
@@ -55,5 +52,4 @@ export type LightColor = {
     rgbww_color: [number, number, number, number, number];
 };
 export declare const computeDefaultFavoriteColors: (stateObj: LightEntity) => LightColor[];
-export declare const formatTempColor: (value: number) => string;
 export {};

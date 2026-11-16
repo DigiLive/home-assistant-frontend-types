@@ -1,5 +1,3 @@
-import "../../../../../components/ha-textarea";
-import type { PropertyValues } from "lit";
 import { LitElement } from "lit";
 import type { TemplateTrigger } from "../../../../../data/automation";
 import type { HomeAssistant } from "../../../../../types";
@@ -9,7 +7,7 @@ export declare class HaTemplateTrigger extends LitElement {
     trigger: TemplateTrigger;
     disabled: boolean;
     static get defaultConfig(): TemplateTrigger;
-    willUpdate(changedProperties: PropertyValues): void;
+    private _unwrapForValue;
     protected render(): import("lit-html").TemplateResult<1>;
     private _valueChanged;
     private _computeLabelCallback;

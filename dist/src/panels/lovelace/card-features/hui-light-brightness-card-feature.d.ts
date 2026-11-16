@@ -1,13 +1,15 @@
-import type { HassEntity } from "home-assistant-js-websocket";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-control-slider";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceCardFeature } from "../types";
-import type { LightBrightnessCardFeatureConfig } from "./types";
-export declare const supportsLightBrightnessCardFeature: (stateObj: HassEntity) => boolean;
+import type { LightBrightnessCardFeatureConfig, LovelaceCardFeatureContext } from "./types";
+export declare const supportsLightBrightnessCardFeature: (hass: HomeAssistant, context: LovelaceCardFeatureContext) => boolean;
 declare class HuiLightBrightnessCardFeature extends LitElement implements LovelaceCardFeature {
-    hass?: HomeAssistant;
-    stateObj?: HassEntity;
+    context?: LovelaceCardFeatureContext;
+    private _stateObj?;
+    private _localize;
+    private _api;
+    private _locale?;
     private _config?;
     static getStubConfig(): LightBrightnessCardFeatureConfig;
     setConfig(config: LightBrightnessCardFeatureConfig): void;

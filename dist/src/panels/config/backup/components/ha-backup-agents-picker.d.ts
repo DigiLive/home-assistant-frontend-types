@@ -1,6 +1,5 @@
 import { LitElement } from "lit";
 import "../../../../components/ha-checkbox";
-import "../../../../components/ha-formfield";
 import "../../../../components/ha-svg-icon";
 import type { BackupAgent } from "../../../../data/backup";
 import type { HomeAssistant } from "../../../../types";

@@ -20,7 +20,7 @@ export interface BackupConfig {
     last_attempted_automatic_backup: string | null;
     last_completed_automatic_backup: string | null;
     next_automatic_backup: string | null;
-    next_automatic_backup_additional?: boolean;
+    next_automatic_backup_additional: boolean;
     create_backup: {
         agent_ids: string[];
         include_addons: string[] | null;
@@ -33,7 +33,7 @@ export interface BackupConfig {
     retention: Retention;
     schedule: {
         recurrence: BackupScheduleRecurrence;
-        time?: string | null;
+        time: string | null;
         days: BackupDay[];
     };
     agents: BackupAgentsConfig;
@@ -51,9 +51,9 @@ export interface BackupMutableConfig {
     };
     retention?: Retention;
     schedule?: {
-        recurrence: BackupScheduleRecurrence;
+        recurrence?: BackupScheduleRecurrence;
         time?: string | null;
-        days?: BackupDay[] | null;
+        days?: BackupDay[];
     };
     agents?: BackupAgentsConfig;
 }
@@ -70,22 +70,31 @@ export interface BackupContentAgent {
     size: number;
     protected: boolean;
 }
+export interface AddonInfo {
+    name: string | null;
+    slug: string;
+    version: string | null;
+}
 export interface BackupContent {
     backup_id: string;
     date: string;
     name: string;
     agents: Record<string, BackupContentAgent>;
-    failed_agent_ids?: string[];
-    extra_metadata?: {
+    failed_agent_ids: string[];
+    failed_addons: AddonInfo[];
+    failed_folders: string[];
+    extra_metadata: {
         "supervisor.addon_update"?: string;
+        "supervisor.app_update"?: string;
+        [key: string]: string | boolean | undefined;
     };
-    with_automatic_settings: boolean;
+    with_automatic_settings: boolean | null;
 }
 export interface BackupData {
     addons: BackupAddon[];
     database_included: boolean;
     folders: string[];
-    homeassistant_version: string;
+    homeassistant_version: string | null;
     homeassistant_included: boolean;
 }
 export interface BackupAddon {
@@ -95,9 +104,17 @@ export interface BackupAddon {
 }
 export interface BackupContentExtended extends BackupContent, BackupData {
 }
-export interface BackupInfo {
-    backups: BackupContent[];
+export interface BackupAgentErrorTranslation {
+    translation_domain: string;
+    translation_key: string;
+    translation_placeholders: Record<string, string> | null;
+}
+export interface BackupAgentErrors {
     agent_errors: Record<string, string>;
+    agent_error_translations: Record<string, BackupAgentErrorTranslation>;
+}
+export interface BackupInfo extends BackupAgentErrors {
+    backups: BackupContentExtended[];
     last_attempted_automatic_backup: string | null;
     last_completed_automatic_backup: string | null;
     last_action_event: ManagerStateEvent | null;
@@ -105,7 +122,7 @@ export interface BackupInfo {
     next_automatic_backup_additional: boolean;
     state: BackupManagerState;
 }
-export interface BackupDetails {
+export interface BackupDetails extends BackupAgentErrors {
     backup: BackupContentExtended;
 }
 export interface BackupAgentsInfo {
@@ -130,22 +147,25 @@ export interface RestoreBackupParams {
     restore_folders?: string[];
     restore_homeassistant?: boolean;
 }
-export declare const fetchBackupConfig: (hass: HomeAssistant) => Promise<{
+export declare const localizeBackupAgentError: (localize: LocalizeFunc, errors: BackupAgentErrors, agentId: string) => string;
+export type CloudBackupHealth = "success" | "failed" | "old" | "none";
+export declare const fetchBackupConfig: (hass: Pick<HomeAssistant, "callWS">) => Promise<{
     config: BackupConfig;
 }>;
 export declare const updateBackupConfig: (hass: HomeAssistant, config: BackupMutableConfig) => Promise<unknown>;
+export declare const saveBackupConfig: (hass: HomeAssistant, config: BackupConfig) => Promise<unknown>;
 export declare const getBackupDownloadUrl: (id: string, agentId: string, password?: string | null) => string;
 export declare const fetchBackupInfo: (hass: HomeAssistant) => Promise<BackupInfo>;
 export declare const fetchBackupDetails: (hass: HomeAssistant, id: string) => Promise<BackupDetails>;
 export declare const fetchBackupAgentsInfo: (hass: HomeAssistant) => Promise<BackupAgentsInfo>;
-export declare const deleteBackup: (hass: HomeAssistant, id: string) => Promise<void>;
+export declare const deleteBackup: (hass: HomeAssistant, id: string) => Promise<BackupAgentErrors>;
 export declare const generateBackup: (hass: HomeAssistant, params: GenerateBackupParams) => Promise<{
-    backup_id: string;
+    backup_job_id: string;
 }>;
-export declare const generateBackupWithAutomaticSettings: (hass: HomeAssistant) => Promise<void>;
-export declare const restoreBackup: (hass: HomeAssistant, params: RestoreBackupParams) => Promise<{
-    backup_id: string;
+export declare const generateBackupWithAutomaticSettings: (hass: HomeAssistant) => Promise<{
+    backup_job_id: string;
 }>;
+export declare const restoreBackup: (hass: HomeAssistant, params: RestoreBackupParams) => Promise<void>;
 export declare const uploadBackup: (hass: HomeAssistant, file: File, agentIds: string[]) => Promise<{
     backup_id: string;
 }>;
@@ -154,12 +174,16 @@ export declare const canDecryptBackupOnDownload: (hass: HomeAssistant, backup_id
 export declare const CORE_LOCAL_AGENT = "backup.local";
 export declare const HASSIO_LOCAL_AGENT = "hassio.local";
 export declare const CLOUD_AGENT = "cloud.cloud";
+export declare const BACKUP_OVERDUE_MARGIN_HOURS = 3;
 export declare const isLocalAgent: (agentId: string) => boolean;
+export declare const getLastCloudBackup: (backups?: BackupContent[]) => BackupContent | undefined;
+export declare const cloudBackupEnabled: (backupConfig?: BackupConfig) => boolean;
+export declare const cloudBackupHealth: (backupConfig?: BackupConfig) => CloudBackupHealth;
 export declare const isNetworkMountAgent: (agentId: string) => boolean;
 export declare const computeBackupAgentName: (localize: LocalizeFunc, agentId: string, agents: BackupAgent[]) => string;
 export declare const computeBackupSize: (backup: BackupContent) => number;
-export type BackupType = "automatic" | "manual" | "addon_update";
-export declare const getBackupTypes: (isHassio: boolean) => BackupType[];
+export type BackupType = "automatic" | "manual" | "app_update";
+export declare const getBackupTypes: import("memoize-one").MemoizedFn<(isHassio: boolean) => BackupType[]>;
 export declare const computeBackupType: (backup: BackupContent, isHassio: boolean) => BackupType;
 export declare const compareAgents: (a: string, b: string) => number;
 export declare const generateEncryptionKey: () => string;
@@ -170,6 +194,7 @@ export declare const DEFAULT_OPTIMIZED_BACKUP_START_TIME: Date;
 export declare const DEFAULT_OPTIMIZED_BACKUP_END_TIME: Date;
 export declare const getFormattedBackupTime: import("memoize-one").MemoizedFn<(locale: FrontendLocaleData, config: HassConfig, backupTime?: Date | string | null) => string>;
 export declare const SUPPORTED_UPLOAD_FORMAT = "application/x-tar";
+export declare const isSupportedBackupFile: (file: File) => boolean;
 export interface BackupUploadFileFormData {
     file?: File;
 }

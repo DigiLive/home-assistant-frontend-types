@@ -10,4 +10,4 @@ import type { HomeAssistant } from "../../types";
  * @param args extra arguments to pass to the function to fetch the data
  * @returns
  */
-export declare const timeCachePromiseFunc: <T>(cacheKey: string, cacheTime: number, func: (hass: HomeAssistant, ...args: any[]) => Promise<T>, generateCacheKey: ((hass: HomeAssistant, lastResult: T) => unknown) | undefined, hass: HomeAssistant, ...args: any[]) => Promise<T>;
+export declare const timeCachePromiseFunc: <T, H = HomeAssistant>(cacheKey: string, cacheTime: number, func: (hass: H, ...args: any[]) => Promise<T>, generateCacheKey: ((hass: H, lastResult: T) => unknown) | undefined, hass: H, ...args: any[]) => Promise<T>;

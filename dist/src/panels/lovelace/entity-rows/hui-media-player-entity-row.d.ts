@@ -16,12 +16,13 @@ declare class HuiMediaPlayerEntityRow extends LitElement implements LovelaceRow 
     disconnectedCallback(): void;
     willUpdate(): void;
     protected firstUpdated(): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _attachObserver;
     private _measureCard;
     private _computeControlButton;
-    private _togglePower;
+    private _turnOn;
+    private _turnOff;
     private _playPauseStop;
     private _play;
     private _pause;

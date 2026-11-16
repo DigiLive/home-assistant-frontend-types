@@ -1,11 +1,12 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { CropOptions } from "../dialogs/image-cropper-dialog/show-image-cropper-dialog";
-import type { HomeAssistant } from "../types";
 import "./ha-button";
 import "./ha-file-upload";
 export declare class HaPictureUpload extends LitElement {
-    hass: HomeAssistant;
+    private _i18n;
+    private _api;
+    private _connection;
     value: string | null;
     label?: string;
     secondary?: string;
@@ -13,10 +14,13 @@ export declare class HaPictureUpload extends LitElement {
     currentImageAltText?: string;
     crop: boolean;
     selectMedia: boolean;
+    fullMedia: boolean;
+    contentIdHelper?: string;
     cropOptions?: CropOptions;
     original: boolean;
     size: number;
     private _uploading;
+    private _pickedFile?;
     render(): TemplateResult;
     private _handleChangeClick;
     private _handleFilePicked;
@@ -29,5 +33,10 @@ export declare class HaPictureUpload extends LitElement {
 declare global {
     interface HTMLElementTagNameMap {
         "ha-picture-upload": HaPictureUpload;
+    }
+    interface HASSDomEvents {
+        "uploading-changed": {
+            uploading: boolean;
+        };
     }
 }

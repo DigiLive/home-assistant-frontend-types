@@ -1,6 +1,6 @@
 import { LitElement } from "lit";
-import "../../../../../components/ha-md-list";
-import "../../../../../components/ha-md-list-item";
+import "../../../../../components/item/ha-list-item-base";
+import "../../../../../components/list/ha-list-base";
 import type { HomeAssistant } from "../../../../../types";
 declare class HaBackupConfigEncryptionKey extends LitElement {
     hass: HomeAssistant;

@@ -1,9 +1,9 @@
 import { LitElement, type TemplateResult } from "lit";
 import "../../../../../components/ha-icon-button";
-import "../../../../../components/ha-md-list";
-import "../../../../../components/ha-md-list-item";
 import "../../../../../components/ha-svg-icon";
 import "../../../../../components/ha-switch";
+import "../../../../../components/item/ha-list-item-base";
+import "../../../../../components/list/ha-list-base";
 import type { BackupAgent, BackupAgentsConfig } from "../../../../../data/backup";
 import type { CloudStatus } from "../../../../../data/cloud";
 import type { HomeAssistant } from "../../../../../types";

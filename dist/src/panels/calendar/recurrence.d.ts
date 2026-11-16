@@ -33,4 +33,4 @@ export declare function getMonthdayRepeatFromRule(rrule: Partial<Options>): numb
 /**
  * A wrapper around RRule.toText that assists with translation.
  */
-export declare function renderRRuleAsText(hass: HomeAssistant, value: string): string | undefined;
+export declare function renderRRuleAsText(hass: HomeAssistant, value: string): string;

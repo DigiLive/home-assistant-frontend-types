@@ -1,17 +1,10 @@
-import { AssistChip } from "@material/web/chips/internal/assist-chip";
-export declare class HaAssistChip extends AssistChip {
+import type { CSSResultGroup } from "lit";
+import { HaChipBase } from "./ha-chip-base";
+export declare class HaAssistChip extends HaChipBase {
     filled: boolean;
     active: boolean;
-    static styles: import("lit").CSSResult[];
-    protected renderOutline(): import("lit-html").TemplateResult<1>;
-    protected getContainerClasses(): {
-        active: boolean;
-        disabled: boolean;
-        elevated: boolean;
-        link: boolean;
-    };
-    protected renderPrimaryContent(): import("lit-html").TemplateResult<1>;
-    protected renderTrailingIcon(): import("lit-html").TemplateResult<1>;
+    elevated: boolean;
+    static get styles(): CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

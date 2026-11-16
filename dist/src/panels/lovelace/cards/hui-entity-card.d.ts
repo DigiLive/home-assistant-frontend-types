@@ -1,4 +1,5 @@
-import type { CSSResultGroup, PropertyValues } from "lit";
+import type { HassEntity } from "home-assistant-js-websocket";
+import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-attribute-value";
 import "../../../components/ha-card";
@@ -8,21 +9,22 @@ import type { LovelaceCard, LovelaceGridOptions } from "../types";
 import type { EntityCardConfig } from "./types";
 export declare class HuiEntityCard extends LitElement implements LovelaceCard {
     static getStubConfig(hass: HomeAssistant, entities: string[], entitiesFill: string[]): {
-        entity: any;
+        entity: string;
     };
     static getConfigForm(): Promise<import("../types").LovelaceConfigForm>;
     hass?: HomeAssistant;
     layout?: string;
     private _config?;
     private _footerElement?;
-    private _getStateColor;
+    protected _getStateColor(stateObj: HassEntity, config: EntityCardConfig): boolean;
     setConfig(config: EntityCardConfig): void;
     getCardSize(): Promise<number>;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    private _computeColor;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected render(): typeof nothing | TemplateResult<1>;
+    private _renderValueWithUnit;
+    protected _computeColor(stateObj: HassEntity, color?: string): string | undefined;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected updated(changedProps: PropertyValues): void;
-    private _handleClick;
+    private _handleAction;
     getGridOptions(): LovelaceGridOptions;
     static get styles(): CSSResultGroup;
 }

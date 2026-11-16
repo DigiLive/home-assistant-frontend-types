@@ -1,4 +1,4 @@
-import type { TemplateResult } from "lit";
+import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../../components/ha-icon-next";
 import "../../components/ha-list-item";
@@ -9,6 +9,7 @@ declare class StepFlowMenu extends LitElement {
     flowConfig: FlowConfig;
     hass: HomeAssistant;
     step: DataEntryFlowStepMenu;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected render(): TemplateResult;
     private _handleStep;
     static styles: import("lit").CSSResult[];

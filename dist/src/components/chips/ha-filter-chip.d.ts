@@ -1,8 +1,15 @@
-import { FilterChip } from "@material/web/chips/internal/filter-chip";
-export declare class HaFilterChip extends FilterChip {
+import type { CSSResultGroup } from "lit";
+import { nothing } from "lit";
+import "../ha-svg-icon";
+import { HaChipBase } from "./ha-chip-base";
+export declare class HaFilterChip extends HaChipBase {
+    selected: boolean;
+    elevated: boolean;
     noLeadingIcon: boolean;
-    static styles: import("lit").CSSResult[];
-    protected renderLeadingIcon(): import("lit-html").TemplateResult<1 | 2 | 3>;
+    protected get pressed(): boolean;
+    protected renderLeadingIcon(): typeof nothing | import("lit-html").TemplateResult;
+    protected handlePrimaryClick(event: MouseEvent): void;
+    static get styles(): CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

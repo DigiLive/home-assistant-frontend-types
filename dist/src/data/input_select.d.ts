@@ -19,7 +19,7 @@ export interface InputSelectMutableParams {
     initial: string;
     options: string[];
 }
-export declare const setInputSelectOption: (hass: HomeAssistant, entity: string, option: string) => Promise<import("../types").ServiceCallResponse>;
+export declare const setInputSelectOption: (callService: HomeAssistant["callService"], entity: string, option: string) => Promise<import("../types").ServiceCallResponse<any>>;
 export declare const fetchInputSelect: (hass: HomeAssistant) => Promise<InputSelect[]>;
 export declare const createInputSelect: (hass: HomeAssistant, values: InputSelectMutableParams) => Promise<InputSelect>;
 export declare const updateInputSelect: (hass: HomeAssistant, id: string, updates: Partial<InputSelectMutableParams>) => Promise<InputSelect>;

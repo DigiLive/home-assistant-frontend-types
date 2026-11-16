@@ -7,7 +7,7 @@ export declare class HaVoiceAssistantSetupStepCheck extends LitElement {
     assistEntityId?: string;
     private _status?;
     private _showLoader;
-    protected willUpdate(changedProperties: PropertyValues): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
     protected render(): import("lit-html").TemplateResult<1>;
     private _testConnection;
     private _nextStep;

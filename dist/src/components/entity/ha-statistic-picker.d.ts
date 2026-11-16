@@ -1,20 +1,33 @@
 import { LitElement, type PropertyValues } from "lit";
 import { type StatisticsMetaData } from "../../data/recorder";
-import type { HomeAssistant } from "../../types";
 import "../ha-combo-box-item";
 import "../ha-generic-picker";
 import "../ha-icon-button";
-import "../ha-input-helper-text";
 import "../ha-svg-icon";
 import "./state-badge";
+export interface StatisticElementChangedEvent {
+    statisticId: string;
+}
+declare global {
+    interface HASSDomEvents {
+        "edit-statistics-element": StatisticElementChangedEvent;
+    }
+}
 export declare class HaStatisticPicker extends LitElement {
-    hass: HomeAssistant;
+    private _states;
+    private _registries;
+    private _i18n;
+    private _formatEntityName;
+    private _config;
+    private _api;
     autofocus: boolean;
     disabled: boolean;
     required: boolean;
     label?: string;
     value?: string;
     helper?: string;
+    errorMessage?: string;
+    invalid: boolean;
     placeholder?: string;
     statisticTypes?: "mean" | "sum";
     allowCustomEntity: any;
@@ -50,18 +63,24 @@ export declare class HaStatisticPicker extends LitElement {
     excludeStatistics?: string[];
     hideClearIcon: boolean;
     private _picker?;
-    willUpdate(changedProps: PropertyValues): void;
+    canEdit?: boolean;
+    willUpdate(changedProps: PropertyValues<this>): void;
     private _getStatisticIds;
     private _getItems;
     private _getAdditionalItems;
     private _getStatisticsItems;
     private _statisticMetaData;
+    private _renderValue;
+    private _makeValueRenderer;
     private _valueRenderer;
+    private _editItem;
     private _computeItem;
     private _rowRenderer;
     protected render(): import("lit-html").TemplateResult<1>;
+    private _searchFn;
     private _valueChanged;
     open(): Promise<void>;
+    private _notFoundLabel;
 }
 declare global {
     interface HTMLElementTagNameMap {

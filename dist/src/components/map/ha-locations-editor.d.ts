@@ -1,7 +1,8 @@
-import type { LatLngExpression } from "leaflet";
 import type { PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant, ThemeMode } from "../../types";
+import type { MapLatLng, MapView } from "../../common/map/map-engine";
+import type { ThemeMode } from "../../types";
+import "../ha-alert";
 import "../ha-input-helper-text";
 import "./ha-map";
 declare global {
@@ -29,28 +30,36 @@ export interface MarkerLocation {
     icon?: string;
     iconPath?: string;
     radius_color?: string;
+    /** Draw as a zone marker, without a radius */
+    zone_marker?: boolean;
     location_editable?: boolean;
     radius_editable?: boolean;
+    /** Clicking or activating the marker fires marker-clicked */
+    clickable?: boolean;
+    /** Counts toward the map fit; defaults to true */
+    fit?: boolean;
 }
+/**
+ * A map with draggable markers and zone circles, drawn by ha-map. Without
+ * editing support (the Leaflet fallback) they are static, with a notice.
+ */
 export declare class HaLocationsEditor extends LitElement {
-    hass: HomeAssistant;
     locations?: MarkerLocation[];
     helper?: string;
     autoFit: boolean;
     zoom: number;
     themeMode: ThemeMode;
     pinOnClick: boolean;
-    private _locationMarkers?;
-    private _circles;
     private map;
-    private Leaflet?;
-    private _loadPromise;
-    constructor();
+    private _editingAvailable;
+    private _themes?;
+    private _i18n?;
     fitMap(options?: {
         zoom?: number;
         pad?: number;
     }): void;
-    fitBounds(boundingbox: LatLngExpression[], options?: {
+    getView(): MapView | undefined;
+    fitBounds(boundingbox: MapLatLng[], options?: {
         zoom?: number;
         pad?: number;
     }): void;
@@ -58,15 +67,19 @@ export declare class HaLocationsEditor extends LitElement {
         zoom?: number;
     }): Promise<void>;
     protected render(): TemplateResult;
-    private _getLayers;
-    willUpdate(changedProps: PropertyValues): void;
+    private _editableLocations;
+    private _elements;
+    private _elementsThemes?;
+    private _elementFor;
+    private _createZoneMarker;
+    private _createIcon;
     updated(changedProps: PropertyValues): void;
+    private _editingAvailableChanged;
     private _normalizeLongitude;
-    private _updateLocation;
-    private _updateRadius;
+    private _locationMoved;
+    private _radiusChanged;
     private _markerClicked;
     private _mapClicked;
-    private _updateMarkers;
     static styles: import("lit").CSSResult;
 }
 declare global {

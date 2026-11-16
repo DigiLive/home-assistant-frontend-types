@@ -5,7 +5,6 @@ import "../../components/ha-control-button-group";
 import "../../components/ha-control-slider";
 import "../../components/ha-svg-icon";
 import type { CoverEntity } from "../../data/cover";
-import type { HomeAssistant } from "../../types";
 type CoverButton = "open" | "close" | "stop" | "open-tilt" | "close-tilt" | "none";
 interface CoverLayout {
     type: "line" | "cross";
@@ -13,7 +12,8 @@ interface CoverLayout {
 }
 export declare const getCoverLayout: import("memoize-one").MemoizedFn<(stateObj: CoverEntity) => CoverLayout>;
 export declare class HaStateControlCoverButtons extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _localize;
     stateObj: CoverEntity;
     private _onOpenTap;
     private _onCloseTap;

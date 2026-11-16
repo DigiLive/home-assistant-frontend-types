@@ -1,13 +1,12 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement } from "lit";
-import "../../../../../components/ha-spinner";
+import "../../../../../components/ha-button";
+import "../../../../../components/ha-card";
+import "../../../../../components/input/ha-input";
 import type { ZHADeviceEndpoint } from "../../../../../data/zha";
 import "../../../../../layouts/hass-subpage";
 import type { HomeAssistant } from "../../../../../types";
-import "../../../ha-config-section";
-import "../../../../../components/ha-textfield";
-import "./zha-device-endpoint-data-table";
+import "./zha-device-endpoint-list";
 export declare class ZHAAddGroupPage extends LitElement {
     hass: HomeAssistant;
     narrow: boolean;
@@ -15,11 +14,11 @@ export declare class ZHAAddGroupPage extends LitElement {
     private _processingAdd;
     private _groupName;
     private _groupId?;
-    private _zhaDevicesDataTable;
+    private _zhaDeviceEndpointList;
     private _firstUpdatedCalled;
     private _selectedDevicesToAdd;
     connectedCallback(): void;
-    protected firstUpdated(changedProperties: PropertyValues): void;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
     protected render(): import("lit-html").TemplateResult<1>;
     private _fetchData;
     private _handleAddSelectionChanged;

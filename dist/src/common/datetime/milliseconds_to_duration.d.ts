@@ -1,1 +1,1 @@
-export default function millisecondsToDuration(d: number): string | null;
+export default function millisecondsToDuration(d: number): string;

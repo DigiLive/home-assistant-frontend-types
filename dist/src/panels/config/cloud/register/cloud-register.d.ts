@@ -1,37 +1,24 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import "../../../../components/buttons/ha-progress-button";
-import "../../../../components/ha-alert";
-import "../../../../components/ha-card";
-import "../../../../components/ha-textfield";
+import type { CloudStatus } from "../../../../data/cloud";
 import "../../../../layouts/hass-subpage";
 import type { HomeAssistant } from "../../../../types";
-import "../../ha-config-section";
-import "../../../../components/ha-password-field";
+import "../cloud-signed-out-menu";
+import "./cloud-register-card";
 export declare class CloudRegister extends LitElement {
     hass: HomeAssistant;
-    isWide: boolean;
     narrow: boolean;
     email?: string;
-    private _requestInProgress;
-    private _password;
-    private _error?;
-    private _emailField;
-    private _passwordField;
+    cloudStatus?: CloudStatus;
+    private _confirming;
     protected render(): TemplateResult;
-    private _keyDown;
-    private _handleRegister;
-    private _handleResendVerifyEmail;
-    private _verificationEmailSent;
+    private _viewChanged;
+    private _handleSignInInstead;
+    private _handleConfirmBack;
     static get styles(): import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {
         "cloud-register": CloudRegister;
-    }
-    interface HASSDomEvents {
-        "cloud-done": {
-            flashMessage: string;
-        };
     }
 }

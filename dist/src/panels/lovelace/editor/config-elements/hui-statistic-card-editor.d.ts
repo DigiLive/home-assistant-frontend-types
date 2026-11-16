@@ -9,11 +9,11 @@ export declare class HuiStatisticCardEditor extends LitElement implements Lovela
     private _metadata?;
     setConfig(config: StatisticCardConfig): void;
     firstUpdated(): void;
-    private _data;
     private _schema;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _fetchMetadata;
     private _valueChanged;
+    private _computeHelperCallback;
     private _computeLabelCallback;
 }
 declare global {

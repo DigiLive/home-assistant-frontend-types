@@ -3,13 +3,13 @@ import { LitElement } from "lit";
 import "../../components/ha-control-select";
 import "../../components/ha-control-slider";
 import type { AlarmControlPanelEntity, AlarmMode } from "../../data/alarm_control_panel";
-import type { HomeAssistant } from "../../types";
 export declare class HaStateControlAlarmControlPanelModes extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _localize;
     stateObj: AlarmControlPanelEntity;
     _currentMode?: AlarmMode;
     private _modes;
-    protected willUpdate(changedProp: PropertyValues): void;
+    protected willUpdate(changedProp: PropertyValues<this>): void;
     private _getCurrentMode;
     private _setMode;
     private _valueChanged;

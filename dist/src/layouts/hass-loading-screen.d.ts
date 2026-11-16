@@ -1,8 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from "lit";
 import { LitElement } from "lit";
+import "../components/animation/ha-fade-in";
+import "../components/ha-top-app-bar-fixed";
 import "../components/ha-spinner";
-import "../components/ha-icon-button-arrow-prev";
-import "../components/ha-menu-button";
 import type { HomeAssistant } from "../types";
 declare class HassLoadingScreen extends LitElement {
     hass?: HomeAssistant;
@@ -11,8 +11,8 @@ declare class HassLoadingScreen extends LitElement {
     narrow: boolean;
     message?: string;
     protected render(): TemplateResult;
-    private _handleBack;
-    static get styles(): CSSResultGroup;
+    private _renderContent;
+    static styles: CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

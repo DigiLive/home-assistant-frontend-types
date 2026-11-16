@@ -2,10 +2,9 @@ import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../components/ha-button";
 import "../../components/ha-spinner";
-import "../../components/ha-dialog-header";
 import type { AssistSatelliteConfiguration } from "../../data/assist_satellite";
+import type { EntityRegistryDisplayEntry } from "../../data/entity/entity_registry";
 import type { HomeAssistant } from "../../types";
-import type { EntityRegistryDisplayEntry } from "../../data/entity_registry";
 export declare class HaVoiceAssistantSetupStepWakeWord extends LitElement {
     hass: HomeAssistant;
     assistConfiguration?: AssistSatelliteConfiguration;
@@ -17,7 +16,7 @@ export declare class HaVoiceAssistantSetupStepWakeWord extends LitElement {
     private _sub?;
     private _timeout?;
     disconnectedCallback(): void;
-    protected willUpdate(changedProperties: PropertyValues): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
     private _startTimeOut;
     private _activeWakeWord;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;

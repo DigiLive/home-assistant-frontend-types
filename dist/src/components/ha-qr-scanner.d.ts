@@ -1,13 +1,14 @@
 import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-alert";
 import "./ha-button";
-import "./ha-button-menu";
-import "./ha-list-item";
+import "./ha-dropdown";
+import "./ha-dropdown-item";
+import "./ha-secure-connection-alert";
 import "./ha-spinner";
-import "./ha-textfield";
+import "./input/ha-input";
 declare class HaQrScanner extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
+    private _config;
     description?: string;
     alternativeOptionLabel?: string;
     validate?: (value: string) => string | undefined;
@@ -15,6 +16,7 @@ declare class HaQrScanner extends LitElement {
     private _loading;
     private _error?;
     private _warning?;
+    private _selectedCamera?;
     private _qrScanner?;
     private _qrNotFoundCount;
     private _removeListener?;
@@ -33,7 +35,7 @@ declare class HaQrScanner extends LitElement {
     private _manualKeyup;
     private _manualPaste;
     private _manualSubmit;
-    private _cameraChanged;
+    private _handleDropdownSelect;
     private _openExternalScanner;
     private _closeExternalScanner;
     private _notifyExternalScanner;

@@ -1,8 +1,6 @@
-import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../../types";
+import { LitElement } from "lit";
 import "./ha-statistic-picker";
 declare class HaStatisticsPicker extends LitElement {
-    hass?: HomeAssistant;
     value?: string[];
     statisticIds?: string[];
     statisticTypes?: "mean" | "sum";
@@ -30,7 +28,9 @@ declare class HaStatisticsPicker extends LitElement {
      * @attr ignore-restrictions-on-first-statistic
      */
     ignoreRestrictionsOnFirstStatistic: boolean;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    canEdit?: any;
+    protected render(): import("lit-html").TemplateResult<1>;
+    private _editItem;
     private get _currentStatistics();
     private _updateStatistics;
     private _statisticChanged;

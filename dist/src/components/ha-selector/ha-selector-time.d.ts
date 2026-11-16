@@ -1,15 +1,16 @@
 import { LitElement } from "lit";
 import type { TimeSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-time-input";
 export declare class HaTimeSelector extends LitElement {
-    hass: HomeAssistant;
+    private _locale;
     selector: TimeSelector;
     value?: string;
     label?: string;
     helper?: string;
     disabled: boolean;
     required: boolean;
+    private _input?;
+    reportValidity(): boolean;
     protected render(): import("lit-html").TemplateResult<1>;
 }
 declare global {

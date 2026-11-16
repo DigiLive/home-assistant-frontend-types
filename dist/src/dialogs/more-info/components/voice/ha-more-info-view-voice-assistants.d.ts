@@ -1,6 +1,6 @@
 import type { CSSResultGroup } from "lit";
 import { LitElement, nothing } from "lit";
-import type { ExtEntityRegistryEntry } from "../../../../data/entity_registry";
+import type { ExtEntityRegistryEntry } from "../../../../data/entity/entity_registry";
 import "../../../../panels/config/voice-assistants/entity-voice-settings";
 import type { HomeAssistant } from "../../../../types";
 declare class MoreInfoViewVoiceAssistants extends LitElement {

@@ -1,8 +1,11 @@
 import type { IntegrationManifest } from "../../../data/integration";
+import type { IntegrationFilter } from "../../../data/integrations";
 export interface AddIntegrationDialogParams {
     brand?: string;
     domain?: string;
     initialFilter?: string;
+    integrationFilter?: IntegrationFilter;
+    navigateToResult?: boolean;
 }
 export interface YamlIntegrationDialogParams {
     manifest: IntegrationManifest;

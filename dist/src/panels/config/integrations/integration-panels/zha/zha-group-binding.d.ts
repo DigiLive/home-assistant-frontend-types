@@ -1,24 +1,22 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement } from "lit";
 import "../../../../../components/buttons/ha-progress-button";
-import "../../../../../components/ha-card";
 import "../../../../../components/ha-select";
-import "../../../../../components/ha-list-item";
-import type { ZHADevice } from "../../../../../data/zha";
+import type { ZHADevice, ZHAGroup } from "../../../../../data/zha";
 import type { HomeAssistant } from "../../../../../types";
 import "./zha-clusters-data-table";
 export declare class ZHAGroupBindingControl extends LitElement {
     hass?: HomeAssistant;
     device?: ZHADevice;
+    groups: ZHAGroup[];
     private _bindTargetIndex;
-    private groups;
     private _selectedClusters;
     private _clusters;
     private _bindingOperationInProgress;
     private _groupToBind?;
     private _clustersToBind?;
     private _zhaClustersDataTable;
-    protected updated(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
     protected render(): TemplateResult;
     private _bindTargetIndexChanged;
     private _onBindGroupClick;

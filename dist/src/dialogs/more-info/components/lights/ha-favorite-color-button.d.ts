@@ -1,22 +1,19 @@
-import type { CSSResultGroup } from "lit";
 import { LitElement } from "lit";
-import "../../../../components/ha-outlined-icon-button";
-import "../../../../components/ha-svg-icon";
 import type { LightColor, LightEntity } from "../../../../data/light";
-declare class MoreInfoViewLightColorPicker extends LitElement {
-    focus(): void;
+declare class HaFavoriteColorButton extends LitElement {
     label?: string;
     disabled: boolean;
     stateObj?: LightEntity;
     color: LightColor;
-    private _button?;
+    private _button;
+    focus(): void;
     private get _rgbColor();
     protected render(): import("lit-html").TemplateResult<1>;
-    static get styles(): CSSResultGroup;
+    static readonly styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {
-        "ha-favorite-color-button": MoreInfoViewLightColorPicker;
+        "ha-favorite-color-button": HaFavoriteColorButton;
     }
 }
 export {};

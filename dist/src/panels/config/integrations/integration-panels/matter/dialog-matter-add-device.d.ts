@@ -1,6 +1,5 @@
 import { LitElement, nothing } from "lit";
-import "../../../../../components/ha-dialog-header";
-import "../../../../../components/ha-icon-button";
+import "../../../../../components/ha-dialog-footer";
 import "../../../../../components/ha-icon-button-arrow-prev";
 import "../../../../../components/ha-button";
 import "../../../../../components/ha-dialog";
@@ -13,7 +12,8 @@ import "./matter-add-device/matter-add-device-google-home-fallback";
 import "./matter-add-device/matter-add-device-main";
 import "./matter-add-device/matter-add-device-new";
 import "./matter-add-device/matter-add-device-commissioning";
-export type MatterAddDeviceStep = "main" | "new" | "existing" | "google_home" | "google_home_fallback" | "apple_home" | "generic" | "commissioning";
+import "./matter-add-device/matter-add-device-device-added";
+export type MatterAddDeviceStep = "main" | "new" | "existing" | "google_home" | "google_home_fallback" | "apple_home" | "generic" | "commissioning" | "device_added";
 declare global {
     interface HASSDomEvents {
         "step-selected": {
@@ -29,14 +29,28 @@ declare class DialogMatterAddDevice extends LitElement {
     private _open;
     _pairingCode: string;
     _step: MatterAddDeviceStep;
+    private _newDevice?;
+    private _mainEntity?;
+    private _proposedDeviceName?;
+    private _commissioningFinished;
+    private _deviceAddedState;
+    private _mainEntityFetched;
     private _unsub?;
     showDialog(): void;
     closeDialog(): void;
+    private get _waitForCommissioningFinish();
+    private _maybeShowDeviceAdded;
+    private _handleCommissionFinish;
+    protected updated(changedProps: Map<string, unknown>): void;
+    private _fetchMainEntity;
+    private _dialogClosed;
     private _handleStepSelected;
     private _handlePairingCodeChanged;
+    private _handleDeviceAddedChanged;
     private _back;
     private _renderStep;
     private _addDevice;
+    private _finishDeviceAdded;
     private _renderActions;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult[];

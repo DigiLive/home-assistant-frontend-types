@@ -1,11 +1,9 @@
 import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../../components/buttons/ha-call-service-button";
-import "../../../../../components/ha-card";
 import "../../../../../components/ha-form/ha-form";
-import "../../../../../components/ha-list-item";
 import "../../../../../components/ha-select";
-import "../../../../../components/ha-textfield";
+import "../../../../../components/input/ha-input";
 import type { Cluster, ZHADevice } from "../../../../../data/zha";
 import type { HomeAssistant } from "../../../../../types";
 export declare class ZHAClusterCommands extends LitElement {
@@ -19,7 +17,7 @@ export declare class ZHAClusterCommands extends LitElement {
     private _issueClusterCommandServiceData?;
     private _canIssueCommand;
     private _commandData;
-    protected updated(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _fetchCommandsForCluster;
     private _computeIssueClusterCommandServiceData;

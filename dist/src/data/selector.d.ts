@@ -1,16 +1,28 @@
-import type { HassEntity, HassServiceTarget } from "home-assistant-js-websocket";
-import type { CropOptions } from "../dialogs/image-cropper-dialog/show-image-cropper-dialog";
-import type { UiAction } from "../panels/lovelace/components/hui-action-editor";
+import type { HassEntity } from "home-assistant-js-websocket";
+import type { DurationUnits } from "../common/datetime/normalize_duration";
+import type { EntityNameItem } from "../common/entity/compute_entity_name_display";
+import type { ActionRelatedContext, UiAction } from "../panels/lovelace/components/hui-action-editor";
 import type { HomeAssistant } from "../types";
-import { type DeviceRegistryEntry } from "./device_registry";
-import type { EntityRegistryDisplayEntry, EntityRegistryEntry } from "./entity_registry";
-import type { EntitySources } from "./entity_sources";
-export type Selector = ActionSelector | AddonSelector | AreaSelector | AreasDisplaySelector | AttributeSelector | BooleanSelector | ButtonToggleSelector | ColorRGBSelector | ColorTempSelector | ConditionSelector | ConversationAgentSelector | ConfigEntrySelector | ConstantSelector | CountrySelector | DateSelector | DateTimeSelector | DeviceSelector | FloorSelector | LegacyDeviceSelector | DurationSelector | EntitySelector | LegacyEntitySelector | FileSelector | IconSelector | LabelSelector | ImageSelector | BackgroundSelector | LanguageSelector | LocationSelector | MediaSelector | NavigationSelector | NumberSelector | ObjectSelector | AssistPipelineSelector | QRCodeSelector | SelectSelector | SelectorSelector | StateSelector | StatisticSelector | StringSelector | STTSelector | TargetSelector | TemplateSelector | ThemeSelector | TimeSelector | TriggerSelector | TTSSelector | TTSVoiceSelector | UiActionSelector | UiColorSelector | UiStateContentSelector | BackupLocationSelector;
+import { type DeviceRegistryEntry } from "./device/device_registry";
+import type { EntityRegistryDisplayEntry, EntityRegistryEntry } from "./entity/entity_registry";
+import type { EntitySources } from "./entity/entity_sources";
+import type { HassServiceTargetWithExclude } from "./target";
+export type ThresholdMode = "crossed" | "changed" | "is";
+export type Selector = ActionSelector | AddonSelector | AppSelector | AreaSelector | AreasDisplaySelector | AttributeSelector | AutomationBehaviorSelector | BooleanSelector | ButtonToggleSelector | ChooseSelector | ColorRGBSelector | ColorTempSelector | ConditionSelector | ConversationAgentSelector | ConfigEntrySelector | ConstantSelector | CountrySelector | DateSelector | DateTimeSelector | DeviceSelector | FloorSelector | LegacyDeviceSelector | DeviceClassSelector | DurationSelector | EntitySelector | EntityNameSelector | LegacyEntitySelector | FileSelector | IconSelector | LabelSelector | LanguageSelector | LocationSelector | MediaSelector | NavigationSelector | NumberSelector | NumericThresholdSelector | ObjectSelector | PeriodSelector | AssistPipelineSelector | QRCodeSelector | SelectSelector | SelectorSelector | StateClassSelector | StateSelector | StatisticSelector | StringSelector | STTSelector | TargetSelector | TemplateSelector | ThemeSelector | TimeSelector | TimezoneSelector | TriggerSelector | TTSSelector | TTSVoiceSelector | SerialPortSelector | UiActionSelector | UiClockDateFormatSelector | UiColorSelector | UiStateContentSelector | UiTimeFormatSelector | UnitOfMeasurementSelector | BackupLocationSelector;
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type SelectorType = KeysOfUnion<Selector>;
+type UnionMemberWithKey<U, K extends PropertyKey> = U extends unknown ? K extends keyof U ? U : never : never;
+export type SelectorForType<T extends SelectorType> = UnionMemberWithKey<Selector, T>;
 export interface ActionSelector {
-    action: {} | null;
+    action: {
+        optionsInSidebar?: boolean;
+    } | null;
 }
 export interface AddonSelector {
-    addon: {
+    addon: AppSelector["app"];
+}
+export interface AppSelector {
+    app: {
         name?: string;
         slug?: string;
     } | null;
@@ -20,6 +32,7 @@ export interface AreaSelector {
         entity?: EntitySelectorFilter | readonly EntitySelectorFilter[];
         device?: DeviceSelectorFilter | readonly DeviceSelectorFilter[];
         multiple?: boolean;
+        reorder?: boolean;
     } | null;
 }
 export interface AreasDisplaySelector {
@@ -27,12 +40,21 @@ export interface AreasDisplaySelector {
 }
 export interface AttributeSelector {
     attribute: {
-        entity_id?: string;
+        entity_id?: string | string[];
         hide_attributes?: readonly string[];
     } | null;
 }
 export interface BooleanSelector {
     boolean: {} | null;
+}
+export type AutomationBehaviorTriggerMode = "first" | "all" | "each";
+export type AutomationBehaviorConditionMode = "all" | "any";
+export type AutomationBehavior = AutomationBehaviorTriggerMode | AutomationBehaviorConditionMode;
+export interface AutomationBehaviorSelector {
+    automation_behavior: {
+        mode: "trigger" | "condition";
+        translation_key?: string;
+    } | null;
 }
 export interface ButtonToggleSelector {
     button_toggle: {
@@ -40,6 +62,14 @@ export interface ButtonToggleSelector {
         translation_key?: string;
         sort?: boolean;
     } | null;
+}
+export interface ChooseSelector {
+    choose: {
+        choices: Record<string, {
+            selector: Selector;
+        }>;
+        translation_key?: string;
+    };
 }
 export interface ColorRGBSelector {
     color_rgb: {} | null;
@@ -54,7 +84,9 @@ export interface ColorTempSelector {
     } | null;
 }
 export interface ConditionSelector {
-    condition: {} | null;
+    condition: {
+        optionsInSidebar?: boolean;
+    } | null;
 }
 export interface ConversationAgentSelector {
     conversation_agent: {
@@ -121,24 +153,45 @@ export interface LegacyDeviceSelector {
         model?: DeviceSelectorFilter["model"];
     };
 }
+export type DurationSelectorMode = "positive" | "signed" | "offset";
 export interface DurationSelector {
     duration: {
         enable_day?: boolean;
         enable_millisecond?: boolean;
+        allow_negative?: boolean;
+        enable_second?: boolean;
+        mode?: DurationSelectorMode;
     } | null;
 }
-interface EntitySelectorFilter {
+export declare const getDurationSelectorMode: (config: DurationSelector["duration"]) => DurationSelectorMode;
+export declare const getDurationSelectorUnits: (config: DurationSelector["duration"]) => DurationUnits;
+export interface EntitySelectorFilter {
     integration?: string;
     domain?: string | readonly string[];
     device_class?: string | readonly string[];
     supported_features?: number | [number];
+    unit_of_measurement?: string | readonly string[];
+}
+interface EntitySelectorEntityFilter extends EntitySelectorFilter {
+    device?: DeviceSelectorFilter;
+}
+export interface EntitySelectorExtraOption {
+    id: string;
+    primary: string;
+    secondary?: string;
+    icon?: string;
+    icon_path?: string;
+    entity_id?: string;
+    hide_clear?: boolean;
 }
 export interface EntitySelector {
     entity: {
         multiple?: boolean;
         include_entities?: string[];
         exclude_entities?: string[];
-        filter?: EntitySelectorFilter | readonly EntitySelectorFilter[];
+        filter?: EntitySelectorEntityFilter | readonly EntitySelectorEntityFilter[];
+        reorder?: boolean;
+        extra_options?: EntitySelectorExtraOption[];
     } | null;
 }
 export interface LegacyEntitySelector {
@@ -174,18 +227,6 @@ export interface IconSelector {
         fallbackPath?: string;
     } | null;
 }
-export interface ImageSelector {
-    image: {
-        original?: boolean;
-        crop?: CropOptions;
-    } | null;
-}
-export interface BackgroundSelector {
-    background: {
-        original?: boolean;
-        crop?: CropOptions;
-    } | null;
-}
 export interface LabelSelector {
     label: {
         multiple?: boolean;
@@ -198,11 +239,18 @@ export interface LanguageSelector {
         no_sort?: boolean;
     } | null;
 }
+export interface TimezoneSelector {
+    timezone: {} | null;
+}
 export interface LocationSelector {
     location: {
         radius?: boolean;
         radius_readonly?: boolean;
         icon?: string;
+        /** Name whose initials the marker shows when there is no icon */
+        name?: string;
+        /** Marker and radius color; defaults to the theme's zone color */
+        color?: string;
     } | null;
 }
 export interface LocationSelectorValue {
@@ -211,7 +259,13 @@ export interface LocationSelectorValue {
     radius?: number;
 }
 export interface MediaSelector {
-    media: {} | null;
+    media: {
+        accept?: string[];
+        image_upload?: boolean;
+        hide_content_type?: boolean;
+        content_id_helper?: string;
+        multiple?: boolean;
+    } | null;
 }
 export interface MediaSelectorValue {
     entity_id?: string;
@@ -226,10 +280,11 @@ export interface MediaSelectorValue {
             media_content_type: string;
             media_content_id: string;
         }[];
+        browse_entity_id?: string;
     };
 }
 export interface NavigationSelector {
-    navigation: {} | null;
+    navigation: ActionRelatedContext | null;
 }
 export interface NumberSelector {
     number: {
@@ -239,10 +294,39 @@ export interface NumberSelector {
         mode?: "box" | "slider";
         unit_of_measurement?: string;
         slider_ticks?: boolean;
+        translation_key?: string;
+        validation_message?: string;
     } | null;
 }
+export interface NumericThresholdSelector {
+    numeric_threshold: {
+        mode?: ThresholdMode;
+        unit_of_measurement?: readonly string[];
+        number?: NumberSelector["number"];
+        entity?: EntitySelectorFilter | readonly EntitySelectorFilter[];
+    } | null;
+}
+interface ObjectSelectorField {
+    selector: Selector;
+    label?: string;
+    description?: string;
+    required?: boolean;
+    default?: unknown;
+}
 export interface ObjectSelector {
-    object: {} | null;
+    object?: {
+        label_field?: string;
+        description_field?: string;
+        translation_key?: string;
+        fields?: Record<string, ObjectSelectorField>;
+        multiple?: boolean;
+    } | null;
+}
+export type PeriodKey = "today" | "yesterday" | "tomorrow" | "this_week" | "last_week" | "next_week" | "this_month" | "last_month" | "next_month" | "this_year" | "last_year" | "next_7d" | "next_30d" | "none";
+export interface PeriodSelector {
+    period: {
+        options: readonly PeriodKey[];
+    } | null;
 }
 export interface AssistPipelineSelector {
     assist_pipeline: {
@@ -255,7 +339,7 @@ interface SelectBoxOptionImage {
     flip_rtl?: boolean;
 }
 export interface SelectOption {
-    value: any;
+    value: string;
     label: string;
     description?: string;
     image?: string | SelectBoxOptionImage;
@@ -273,8 +357,25 @@ export interface SelectSelector {
         box_max_columns?: number;
     } | null;
 }
+export interface DeviceClassSelector {
+    device_class: {
+        domain: string;
+        multiple?: boolean;
+    } | null;
+}
 export interface SelectorSelector {
     selector: {} | null;
+}
+export interface SerialPortSelector {
+    serial_port: {
+        extra_recommended_domains?: string[];
+    } | null;
+}
+export interface StateClassSelector {
+    state_class: {
+        multiple?: boolean;
+        state_classes?: string[];
+    } | null;
 }
 export interface StateSelector {
     state: {
@@ -282,8 +383,10 @@ export interface StateSelector {
             label: string;
             value: any;
         }[];
-        entity_id?: string;
+        entity_id?: string | string[];
         attribute?: string;
+        hide_states?: string[];
+        multiple?: boolean;
     } | null;
 }
 export interface BackupLocationSelector {
@@ -303,8 +406,11 @@ export interface StringSelector {
         type?: "number" | "text" | "search" | "tel" | "url" | "email" | "password" | "date" | "month" | "week" | "time" | "datetime-local" | "color";
         prefix?: string;
         suffix?: string;
+        placeholder?: string;
         autocomplete?: string;
         multiple?: true;
+        pattern?: string;
+        validation_message?: string;
     } | null;
 }
 export interface STTSelector {
@@ -316,10 +422,13 @@ export interface TargetSelector {
     target: {
         entity?: EntitySelectorFilter | readonly EntitySelectorFilter[];
         device?: DeviceSelectorFilter | readonly DeviceSelectorFilter[];
+        primary_entities_only?: boolean;
     } | null;
 }
 export interface TemplateSelector {
-    template: {} | null;
+    template: {
+        preview?: boolean;
+    } | null;
 }
 export interface ThemeSelector {
     theme: {
@@ -351,41 +460,90 @@ export interface UiActionSelector {
         default_action?: UiAction;
     } | null;
 }
+export interface UiClockDateFormatSelector {
+    ui_clock_date_format: {} | null;
+}
+export interface UiColorExtraOption {
+    value: string;
+    label: string;
+    icon?: string;
+    display_color?: string;
+}
 export interface UiColorSelector {
     ui_color: {
         default_color?: string;
         include_none?: boolean;
         include_state?: boolean;
+        extra_options?: UiColorExtraOption[];
     } | null;
 }
 export interface UiStateContentSelector {
     ui_state_content: {
         entity_id?: string;
         allow_name?: boolean;
+        allow_context?: boolean;
     } | null;
 }
-export declare const expandLabelTarget: (hass: HomeAssistant, labelId: string, areas: HomeAssistant["areas"], devices: HomeAssistant["devices"], entities: HomeAssistant["entities"], targetSelector: TargetSelector, entitySources?: EntitySources) => {
+export interface UiTimeFormatSelector {
+    ui_time_format: {} | null;
+}
+export interface UnitOfMeasurementSelectorContext {
+    filter_device_class?: string;
+    filter_state_class?: string;
+}
+export interface UnitOfMeasurementSelector {
+    unit_of_measurement: {
+        device_classes?: string | string[] | null;
+        state_classes?: string | string[] | null;
+        context?: UnitOfMeasurementSelectorContext;
+    } | null;
+}
+export interface EntityNameSelector {
+    entity_name: {
+        entity_id?: string;
+        default_name?: EntityNameItem | EntityNameItem[] | string;
+        allow_custom?: boolean;
+    } | null;
+}
+/**
+ * Resolve the context of a selector config, which maps a context key to the
+ * name of another field, to the current values of those fields.
+ */
+export declare const resolveSelectorContext: (selector: Selector, data: Record<string, unknown> | undefined) => Record<string, unknown> | undefined;
+export type TargetHass = Pick<HomeAssistant, "states" | "entities" | "devices">;
+export type TargetRegistries = Pick<HomeAssistant, "states" | "entities" | "devices" | "areas">;
+export declare const expandLabelTarget: (hass: TargetHass, labelId: string, areas: HomeAssistant["areas"], devices: HomeAssistant["devices"], entities: HomeAssistant["entities"], targetSelector: TargetSelector) => {
     areas: string[];
     devices: string[];
     entities: string[];
 };
-export declare const expandFloorTarget: (hass: HomeAssistant, floorId: string, areas: HomeAssistant["areas"], targetSelector: TargetSelector, entitySources?: EntitySources) => {
+export declare const expandFloorTarget: (hass: TargetHass, floorId: string, areas: HomeAssistant["areas"], targetSelector: TargetSelector) => {
     areas: string[];
 };
-export declare const expandAreaTarget: (hass: HomeAssistant, areaId: string, devices: HomeAssistant["devices"], entities: HomeAssistant["entities"], targetSelector: TargetSelector, entitySources?: EntitySources) => {
+export declare const expandAreaTarget: (hass: TargetHass, areaId: string, devices: HomeAssistant["devices"], entities: HomeAssistant["entities"], targetSelector: TargetSelector) => {
     devices: string[];
     entities: string[];
 };
-export declare const expandDeviceTarget: (hass: HomeAssistant, deviceId: string, entities: HomeAssistant["entities"], targetSelector: TargetSelector, entitySources?: EntitySources) => {
+export declare const expandDeviceTarget: (hass: TargetHass, deviceId: string, entities: HomeAssistant["entities"], targetSelector: TargetSelector) => {
     entities: string[];
 };
-export declare const areaMeetsTargetSelector: (hass: HomeAssistant, entities: HomeAssistant["entities"], devices: HomeAssistant["devices"], areaId: string, targetSelector: TargetSelector, entitySources?: EntitySources) => boolean;
-export declare const deviceMeetsTargetSelector: (hass: HomeAssistant, entityRegistry: EntityRegistryDisplayEntry[] | EntityRegistryEntry[], device: DeviceRegistryEntry, targetSelector: TargetSelector, entitySources?: EntitySources) => boolean;
-export declare const entityMeetsTargetSelector: (entity: HassEntity | undefined, targetSelector: TargetSelector, entitySources?: EntitySources) => boolean;
+export declare const areaMeetsTargetSelector: (hass: TargetHass, entities: HomeAssistant["entities"], devices: HomeAssistant["devices"], areaId: string, targetSelector: TargetSelector) => boolean;
+export declare const deviceMeetsTargetSelector: (states: HomeAssistant["states"], entityRegistry: EntityRegistryDisplayEntry[] | EntityRegistryEntry[], device: DeviceRegistryEntry, targetSelector: TargetSelector) => boolean;
+export declare const entityMeetsTargetSelector: (entity: HassEntity | undefined, targetSelector: TargetSelector, entitySources?: EntitySources, entities?: HomeAssistant["entities"], devices?: HomeAssistant["devices"]) => boolean;
+export declare const filterTargetForSelector: (target: HassServiceTargetWithExclude, targetSelector: TargetSelector, registries: TargetRegistries) => HassServiceTargetWithExclude;
+interface FieldWithDefault {
+    selector?: object;
+    required?: boolean;
+    default?: unknown;
+}
+export declare const fillFieldDefaults: (values: Record<string, unknown>, fields: [string, FieldWithDefault][], loadDefaults: boolean, skipDefault?: (field: FieldWithDefault) => boolean) => {
+    values: Record<string, unknown>;
+    changed: boolean;
+};
 export declare const filterSelectorDevices: (filterDevice: DeviceSelectorFilter, device: DeviceRegistryEntry, deviceIntegrationLookup?: Record<string, Set<string>> | undefined) => boolean;
-export declare const filterSelectorEntities: (filterEntity: EntitySelectorFilter, entity: HassEntity, entitySources?: EntitySources) => boolean;
+export declare const filterSelectorEntities: (filterEntity: EntitySelectorEntityFilter, entity: HassEntity, entitySources?: EntitySources, entityRegistry?: HomeAssistant["entities"], devices?: HomeAssistant["devices"], deviceIntegrationLookup?: Record<string, Set<string>>) => boolean;
 export declare const handleLegacyEntitySelector: (selector: LegacyEntitySelector | EntitySelector) => EntitySelector;
 export declare const handleLegacyDeviceSelector: (selector: LegacyDeviceSelector | DeviceSelector) => DeviceSelector;
 export declare const computeCreateDomains: (selector: EntitySelector | TargetSelector) => undefined | string[];
-export declare const resolveEntityIDs: (hass: HomeAssistant, targetPickerValue: HassServiceTarget, entities: HomeAssistant["entities"], devices: HomeAssistant["devices"], areas: HomeAssistant["areas"]) => string[];
+export declare const resolveEntityIDs: (hass: TargetHass, targetPickerValue: HassServiceTargetWithExclude, entities: HomeAssistant["entities"], devices: HomeAssistant["devices"], areas: HomeAssistant["areas"], targetSelector?: TargetSelector) => string[];
 export {};

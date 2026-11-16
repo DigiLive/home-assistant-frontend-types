@@ -4,9 +4,13 @@ export interface AnalyticsPreferences {
     diagnostics?: boolean;
     usage?: boolean;
     statistics?: boolean;
+    snapshots?: boolean;
 }
 export interface Analytics {
     preferences: AnalyticsPreferences;
+    onboarded: boolean;
 }
 export declare const getAnalyticsDetails: (hass: HomeAssistant) => Promise<Analytics>;
-export declare const setAnalyticsPreferences: (hass: HomeAssistant, preferences: AnalyticsPreferences) => Promise<AnalyticsPreferences>;
+export declare const setAnalyticsPreferences: (hass: HomeAssistant, preferences: AnalyticsPreferences) => Promise<{
+    preferences: AnalyticsPreferences;
+}>;

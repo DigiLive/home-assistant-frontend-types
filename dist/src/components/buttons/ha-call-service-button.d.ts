@@ -2,9 +2,9 @@ import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
 import type { HassServiceTarget } from "home-assistant-js-websocket";
 import "./ha-progress-button";
-import type { HomeAssistant } from "../../types";
+import type { Appearance } from "../ha-button";
 declare class HaCallServiceButton extends LitElement {
-    hass: HomeAssistant;
+    private _api;
     disabled: boolean;
     progress: boolean;
     domain: string;
@@ -12,6 +12,7 @@ declare class HaCallServiceButton extends LitElement {
     target: HassServiceTarget;
     data: {};
     confirmation?: any;
+    appearance: Appearance;
     render(): TemplateResult;
     private _callService;
     private _buttonTapped;

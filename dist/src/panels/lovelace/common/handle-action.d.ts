@@ -1,8 +1,16 @@
+import type { HASSDomEvent } from "../../../common/dom/fire_event";
 import type { ActionConfig } from "../../../data/lovelace/config/action";
 import type { HomeAssistant } from "../../../types";
 declare global {
     interface HASSDomEvents {
         "ll-custom": ActionConfig;
+        "hass-navigate": {
+            path: string;
+            replace?: boolean;
+        };
+    }
+    interface HTMLElementEventMap {
+        "hass-navigate": HASSDomEvent<HASSDomEvents["hass-navigate"]>;
     }
 }
 export interface ActionConfigParams {

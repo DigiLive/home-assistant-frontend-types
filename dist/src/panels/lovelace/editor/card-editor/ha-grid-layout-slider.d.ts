@@ -18,6 +18,7 @@ export declare class HaGridLayoutSlider extends LitElement {
     min: number;
     max: number;
     range?: number;
+    valueText?: string;
     pressed: boolean;
     tooltipVisible: boolean;
     private _mc?;
@@ -26,8 +27,8 @@ export declare class HaGridLayoutSlider extends LitElement {
     private _percentageToValue;
     private _steppedValue;
     private _boundedValue;
-    protected firstUpdated(changedProperties: PropertyValues): void;
-    protected updated(changedProps: PropertyValues): void;
+    protected firstUpdated(changedProperties: PropertyValues<this>): void;
+    protected updated(changedProps: PropertyValues<this>): void;
     connectedCallback(): void;
     disconnectedCallback(): void;
     private slider;

@@ -1,12 +1,11 @@
+import "@home-assistant/webawesome/dist/components/divider/divider";
 import type { TemplateResult } from "lit";
-import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
-import "./ha-md-button-menu";
+import { LitElement, nothing } from "lit";
+import "./ha-dropdown";
+import "./ha-dropdown-item";
 import "./ha-icon-button";
 import "./ha-svg-icon";
 import "./ha-tooltip";
-import "./ha-md-menu-item";
-import "./ha-md-divider";
 export interface IconOverflowMenuItem {
     [key: string]: any;
     path: string;
@@ -19,10 +18,11 @@ export interface IconOverflowMenuItem {
     divider?: boolean;
 }
 export declare class HaIconOverflowMenu extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
     items: IconOverflowMenuItem[];
     narrow: boolean;
-    protected render(): TemplateResult;
+    label?: string;
+    protected render(): TemplateResult | typeof nothing;
     protected _handleIconOverflowMenuOpened(e: any): void;
     static get styles(): import("lit").CSSResult[];
 }

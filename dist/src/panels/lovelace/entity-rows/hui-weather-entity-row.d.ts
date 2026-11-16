@@ -1,9 +1,10 @@
 import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
+import "../../../components/ha-state-icon";
 import type { HomeAssistant } from "../../../types";
 import type { EntitiesCardEntityConfig } from "../cards/types";
-import "../components/hui-generic-entity-row";
 import type { LovelaceRow } from "./types";
+import "../../../state-display/state-display";
 declare class HuiWeatherEntityRow extends LitElement implements LovelaceRow {
     hass?: HomeAssistant;
     private _config?;
@@ -14,7 +15,7 @@ declare class HuiWeatherEntityRow extends LitElement implements LovelaceRow {
     connectedCallback(): void;
     disconnectedCallback(): void;
     setConfig(config: EntitiesCardEntityConfig): void;
-    protected shouldUpdate(changedProps: PropertyValues): boolean;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
     protected updated(changedProps: PropertyValues): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _handleAction;

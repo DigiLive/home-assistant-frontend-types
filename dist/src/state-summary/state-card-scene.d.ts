@@ -1,13 +1,13 @@
-import "@material/mwc-button";
 import type { HassEntity } from "home-assistant-js-websocket";
 import type { CSSResultGroup } from "lit";
 import { LitElement } from "lit";
 import "../components/entity/state-info";
-import type { HomeAssistant } from "../types";
+import "../components/ha-button";
 declare class StateCardScene extends LitElement {
-    hass: HomeAssistant;
     stateObj: HassEntity;
     inDialog: boolean;
+    private _localize;
+    private _api;
     protected render(): import("lit-html").TemplateResult<1>;
     private _activateScene;
     static get styles(): CSSResultGroup;

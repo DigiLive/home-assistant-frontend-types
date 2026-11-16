@@ -1,24 +1,21 @@
-import type { PropertyValues } from "lit";
-import { LitElement } from "lit";
+import { LitElement, type TemplateResult } from "lit";
 import type { MediaSelector, MediaSelectorValue } from "../../data/selector";
 import type { HomeAssistant } from "../../types";
-import "../ha-alert";
-import "../ha-form/ha-form";
+import "../ha-media-item-picker";
 export declare class HaMediaSelector extends LitElement {
     hass: HomeAssistant;
     selector: MediaSelector;
-    value?: MediaSelectorValue;
+    value?: MediaSelectorValue | MediaSelectorValue[];
     label?: string;
     helper?: string;
     disabled: boolean;
     required: boolean;
-    private _thumbnailUrl?;
-    willUpdate(changedProps: PropertyValues<this>): void;
-    protected render(): import("lit-html").TemplateResult<1>;
-    private _computeLabelCallback;
-    private _entityChanged;
-    private _pickMedia;
-    static styles: import("lit").CSSResult;
+    context?: {
+        filter_entity?: string | string[];
+    };
+    private _renderPicker;
+    private _multiValueChanged;
+    protected render(): TemplateResult[] | TemplateResult;
 }
 declare global {
     interface HTMLElementTagNameMap {

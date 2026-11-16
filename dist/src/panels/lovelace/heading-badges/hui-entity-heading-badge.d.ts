@@ -4,8 +4,10 @@ import "../../../components/ha-state-icon";
 import "../../../state-display/state-display";
 import type { HomeAssistant } from "../../../types";
 import type { LovelaceHeadingBadge, LovelaceHeadingBadgeEditor } from "../types";
+import type { EntityHeadingBadgeConfig } from "./types";
 export declare class HuiEntityHeadingBadge extends LitElement implements LovelaceHeadingBadge {
     static getConfigElement(): Promise<LovelaceHeadingBadgeEditor>;
+    static getStubConfig(hass: HomeAssistant): EntityHeadingBadgeConfig;
     hass?: HomeAssistant;
     private _config?;
     preview: boolean;

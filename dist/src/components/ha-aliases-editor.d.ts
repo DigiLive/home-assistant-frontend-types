@@ -1,10 +1,10 @@
 import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../types";
-import "./ha-multi-textfield";
+import "./input/ha-input-multi";
 declare class AliasesEditor extends LitElement {
-    hass: HomeAssistant;
+    private _localize;
     aliases: string[];
     disabled: boolean;
+    sortable: boolean;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _aliasesChanged;
 }

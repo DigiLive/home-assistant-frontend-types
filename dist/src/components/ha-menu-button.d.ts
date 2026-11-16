@@ -1,10 +1,12 @@
+import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-icon-button";
 declare class HaMenuButton extends LitElement {
-    hassio: boolean;
-    narrow: boolean;
-    hass: HomeAssistant;
+    private _connection?;
+    private _localize;
+    private _narrow;
+    private _ui?;
+    private _config?;
     private _hasNotifications;
     private _show;
     private _alwaysVisible;
@@ -13,8 +15,7 @@ declare class HaMenuButton extends LitElement {
     connectedCallback(): void;
     disconnectedCallback(): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
-    protected firstUpdated(changedProps: any): void;
-    protected willUpdate(changedProps: any): void;
+    protected willUpdate(changedProps: PropertyValues): void;
     private _subscribeNotifications;
     private _toggleMenu;
     static styles: import("lit").CSSResult;

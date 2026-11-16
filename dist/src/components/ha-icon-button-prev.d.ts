@@ -1,12 +1,15 @@
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
-import type { HomeAssistant } from "../types";
 import "./ha-icon-button";
 export declare class HaIconButtonPrev extends LitElement {
-    hass?: HomeAssistant;
     disabled: boolean;
     label?: string;
+    href?: string;
+    target?: "_blank" | "_parent" | "_self" | "_top";
+    rel?: string;
+    download?: string;
     private _icon;
+    private _localize;
     protected render(): TemplateResult;
 }
 declare global {

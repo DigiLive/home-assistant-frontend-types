@@ -5,8 +5,8 @@ export declare class HaTab extends LitElement {
     active: boolean;
     narrow: boolean;
     name?: string;
+    badge?: string;
     protected render(): TemplateResult;
-    private _handleKeyDown;
     static styles: import("lit").CSSResult;
 }
 declare global {

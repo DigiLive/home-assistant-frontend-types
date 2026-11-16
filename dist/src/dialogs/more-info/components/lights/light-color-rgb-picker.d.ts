@@ -1,19 +1,17 @@
-import "@material/mwc-button";
 import type { CSSResultGroup, PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../components/ha-hs-color-picker";
 import "../../../../components/ha-icon";
-import "../../../../components/ha-icon-button-prev";
 import "../../../../components/ha-labeled-slider";
 import type { LightColor, LightEntity } from "../../../../data/light";
-import type { HomeAssistant } from "../../../../types";
 declare global {
     interface HASSDomEvents {
         "color-changed": LightColor;
     }
 }
 declare class LightRgbColorPicker extends LitElement {
-    hass: HomeAssistant;
+    private _api;
+    private _localize;
     stateObj: LightEntity;
     private _cwSliderValue?;
     private _wwSliderValue?;

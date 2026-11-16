@@ -2,7 +2,7 @@ import type { BackupContentExtended } from "./backup";
 import type { BackupManagerState, RestoreBackupStage, RestoreBackupState } from "./backup_manager";
 export interface BackupOnboardingInfo {
     state: BackupManagerState;
-    last_action_event?: {
+    last_action_event: {
         manager_state: BackupManagerState;
         stage: RestoreBackupStage | null;
         state: RestoreBackupState;

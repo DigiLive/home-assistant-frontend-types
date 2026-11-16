@@ -1,6 +1,6 @@
 import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
-import "../../../../components/ha-fab";
+import "../../../../components/ha-button";
 import "../../../../components/ha-svg-icon";
 import type { HomeAssistant } from "../../../../types";
 import type { Lovelace } from "../../types";
@@ -12,10 +12,11 @@ export declare class HuiUnusedEntities extends LitElement {
     private _unusedEntities;
     private _selectedEntities;
     private get _config();
-    protected updated(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
     protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
     private _getUnusedEntities;
     private _handleSelectedChanged;
+    private _saveConfig;
     private _addToLovelaceView;
     static styles: import("lit").CSSResult;
 }

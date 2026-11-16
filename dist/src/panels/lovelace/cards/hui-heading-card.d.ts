@@ -1,3 +1,4 @@
+import type { PropertyValues } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../components/ha-card";
 import "../../../components/ha-icon";
@@ -15,7 +16,10 @@ export declare class HuiHeadingCard extends LitElement implements LovelaceCard {
     hass?: HomeAssistant;
     preview: boolean;
     private _config?;
+    private _dragScrollController;
+    private _badgesScrollFade;
     setConfig(config: HeadingCardConfig): void;
+    protected willUpdate(changedProperties: PropertyValues<this>): void;
     getCardSize(): number;
     getGridOptions(): LovelaceGridOptions;
     private _handleAction;

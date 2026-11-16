@@ -1,9 +1,9 @@
-import type { PropertyValues } from "lit";
+import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
 import { LitElement, nothing } from "lit";
 import "../../../../../components/data-table/ha-data-table";
 import type { DataTableRowData } from "../../../../../components/data-table/ha-data-table";
+import "../../../../../components/ha-card";
 import "../../../../../components/ha-spinner";
-import "../../../../../components/ha-code-editor";
 import type { ZHADevice } from "../../../../../data/zha";
 import type { HomeAssistant } from "../../../../../types";
 export interface DeviceRowData extends DataTableRowData {
@@ -15,14 +15,18 @@ export interface DeviceRowData extends DataTableRowData {
 }
 declare class ZHADeviceNeighbors extends LitElement {
     hass: HomeAssistant;
-    narrow: boolean;
     device?: ZHADevice;
+    private _narrow;
     private _devices;
-    protected updated(changedProperties: PropertyValues): void;
+    private _loaded;
+    private _error?;
+    protected updated(changedProperties: PropertyValues<this>): void;
     private _deviceNeighbors;
     private _columns;
-    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    protected render(): TemplateResult | typeof nothing;
+    private _renderCardHeader;
     private _fetchData;
+    static get styles(): CSSResultGroup;
 }
 declare global {
     interface HTMLElementTagNameMap {

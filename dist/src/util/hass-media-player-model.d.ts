@@ -1,10 +1,10 @@
 import type { HassEntity } from "home-assistant-js-websocket";
 import type { HomeAssistant } from "../types";
 export default class MediaPlayerEntity {
-    hass: HomeAssistant;
+    hass: Pick<HomeAssistant, "callService">;
     stateObj: HassEntity;
     private _attr;
-    constructor(hass: HomeAssistant, stateObj: HassEntity);
+    constructor(hass: Pick<HomeAssistant, "callService">, stateObj: HassEntity);
     get isOff(): boolean;
     get isIdle(): boolean;
     get isMuted(): any;
@@ -28,7 +28,7 @@ export default class MediaPlayerEntity {
     get supportsSelectSource(): boolean;
     get supportsSelectSoundMode(): boolean;
     get supportsPlay(): boolean;
-    get primaryTitle(): string | undefined;
+    get primaryTitle(): string;
     get secondaryTitle(): any;
     get source(): any;
     get sourceList(): any;

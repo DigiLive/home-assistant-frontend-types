@@ -7,7 +7,12 @@ export declare abstract class HaLogicalCondition extends LitElement implements C
     hass: HomeAssistant;
     condition: LogicalCondition;
     disabled: boolean;
+    narrow: boolean;
+    optionsInSidebar: boolean;
+    private _conditionElement?;
     protected render(): import("lit-html").TemplateResult<1>;
+    expandAll(): void;
+    collapseAll(): void;
     private _valueChanged;
 }
 declare global {

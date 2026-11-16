@@ -1,9 +1,7 @@
 import { LitElement } from "lit";
 import type { AssistPipelineSelector } from "../../data/selector";
-import type { HomeAssistant } from "../../types";
 import "../ha-assist-pipeline-picker";
 export declare class HaAssistPipelineSelector extends LitElement {
-    hass: HomeAssistant;
     selector: AssistPipelineSelector;
     value?: any;
     label?: string;

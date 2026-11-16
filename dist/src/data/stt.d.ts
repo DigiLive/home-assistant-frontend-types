@@ -9,10 +9,9 @@ export interface SpeechMetadata {
 }
 export interface STTEngine {
     engine_id: string;
-    supported_languages?: string[];
+    supported_languages: string[];
     name?: string;
-    deprecated: boolean;
 }
-export declare const listSTTEngines: (hass: HomeAssistant, language?: string, country?: string) => Promise<{
+export declare const listSTTEngines: (callWS: HomeAssistant["callWS"], language?: string, country?: string) => Promise<{
     providers: STTEngine[];
 }>;

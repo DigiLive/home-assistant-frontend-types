@@ -1,12 +1,12 @@
-import "@material/mwc-button";
 import type { TemplateResult } from "lit";
 import { LitElement } from "lit";
+import "../../../../../components/ha-button";
 import "../../../../../components/ha-card";
+import "../../../../../components/ha-icon-button";
+import "../../../../../components/ha-markdown";
 import "../../../../../components/ha-select";
-import "../../../../../components/ha-textfield";
+import "../../../../../components/input/ha-input";
 import type { HomeAssistant } from "../../../../../types";
-import "../../../../../components/ha-formfield";
-import "../../../../../components/ha-list-item";
 import "../../../../../components/ha-switch";
 declare class MqttSubscribeCard extends LitElement {
     hass: HomeAssistant;
@@ -21,6 +21,7 @@ declare class MqttSubscribeCard extends LitElement {
     private _handleTopic;
     private _handleQos;
     private _handleJSONFormat;
+    private _handleCopyClick;
     private _handleSubmit;
     private _handleMessage;
     static styles: import("lit").CSSResult;
