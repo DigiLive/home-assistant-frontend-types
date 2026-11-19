@@ -98,6 +98,7 @@ jobs:
               "moduleResolution": "bundler",
               "declaration": true,
               "emitDeclarationOnly": true,
+              "rootDir": "./src",
               "outDir": "../dist",
               "strict": false,
               "noEmitOnError": false,
