@@ -32,7 +32,11 @@ jobs:
         run: |
           set -e
           
-          RAW_TAG=$(curl -fsS https://api.github.com/repos/home-assistant/frontend/releases/latest | jq -r .tag_name)
+          RAW_TAG=$(curl -fsS \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/home-assistant/frontend/releases/latest \
+            | jq -r .tag_name)
           LATEST_TAG="${RAW_TAG}"
           echo "Latest upstream release tag: $RAW_TAG"
           
