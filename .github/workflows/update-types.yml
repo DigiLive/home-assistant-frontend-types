@@ -2,7 +2,7 @@ name: Update Frontend Types
 
 on:
   schedule:
-    - cron: '0 4 * * *' # Runs daily at 4:00 AM UTC
+    - cron: '0 4 * * 1' # Runs on Monday at 4:00 AM UTC
   workflow_dispatch:   # Allows manual trigger from the GitHub Actions tab
 
 jobs:
@@ -30,8 +30,10 @@ jobs:
       - name: 2. Check Upstream Release vs Local package.json
         id: check-release
         run: |
-          RAW_TAG=$(curl -s https://api.github.com/repos/home-assistant/frontend/releases/latest | jq -r .tag_name)
-          LATEST_TAG="${RAW_TAG#v}"
+          set -e
+          
+          RAW_TAG=$(curl -fsS https://api.github.com/repos/home-assistant/frontend/releases/latest | jq -r .tag_name)
+          LATEST_TAG="${RAW_TAG}"
           echo "Latest upstream release tag: $RAW_TAG"
           
           echo "raw_tag=$RAW_TAG" >> $GITHUB_OUTPUT
