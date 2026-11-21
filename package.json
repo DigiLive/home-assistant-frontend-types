@@ -25,9 +25,10 @@
     "dist/**/*.d.ts"
   ],
   "scripts": {
-    "generate:index-dts": "node generate-index-dts.js",
+    "generate:index-dts": "node scripts/generate-index-dts.js ./dist",
+    "patch:types": "node scripts/patch-types.js",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run generate:index-dts && npm run typecheck && echo 'Remember to update types from hass-frontend before publishing!'"
+    "prepublishOnly": "npm run generate:index-dts && npm run patch:types && npm run typecheck"
   },
   "devDependencies": {
     "typescript": "^6.0.3"

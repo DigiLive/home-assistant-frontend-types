@@ -1,0 +1,12 @@
+[
+  {
+    "name": "type.property",
+    "search": "current_property_name: current_property_value_type;",
+    "replace": "patched_property_name: patched_property_value_type;"
+  },
+  {
+    "name": "CoverCardConfig.show_buttons_control",
+    "search": "show_buttons_control?: false;",
+    "replace": "show_buttons_control?: boolean;"
+  }
+]
