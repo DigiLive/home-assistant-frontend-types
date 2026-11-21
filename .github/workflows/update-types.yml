@@ -13,8 +13,6 @@ jobs:
     env:
       CI_COMMIT_MESSAGE: |
         Continuous Integration - Update Frontend Types from Upstream Release
-
-        [skip codacy]
       CI_COMMIT_AUTHOR: Continuous Integration
 
     strategy:
@@ -30,35 +28,51 @@ jobs:
       - name: 2. Check Upstream Release vs Local package.json
         id: check-release
         run: |
+          # Enable strict error handling in the shell.
           set -e
-          
+
+          # Build an optional Authorization header array.
+          AUTH_HEADER=()
+          if [ -z "${{ env.ACT }}" ] && [ -n "${{ github.token }}" ]; then
+            AUTH_HEADER=(-H "Authorization: Bearer ${{ github.token }}")
+          fi
+
+          # Request the latest release JSON and parse `tag_name`.
           RAW_TAG=$(curl -fsS \
-            -H "Authorization: Bearer ${{ github.token }}" \
+            "${AUTH_HEADER[@]}" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/home-assistant/frontend/releases/latest \
-            | jq -r .tag_name)
-          LATEST_TAG="${RAW_TAG}"
-          echo "Latest upstream release tag: $RAW_TAG"
-          
-          echo "raw_tag=$RAW_TAG" >> $GITHUB_OUTPUT
-          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            | jq -r '.tag_name // empty')
 
+          # Exit with status 1 if `RAW_TAG` is empty.
+          if [ -z "$RAW_TAG" ]; then
+            echo "Error: failed to fetch release tag from GitHub."
+            exit 1
+          fi
+
+          echo "Latest upstream release tag: $RAW_TAG"
+
+          # Validate strict semver without coercion; fail immediately on malformed tags.
+          CLEAN_VERSION=$(npx --yes semver "${RAW_TAG}.0" 2>/dev/null) || {
+            echo "Error: release tag '$RAW_TAG' is not valid semver."
+            exit 1
+          }
+
+          # Write raw tag and normalized version to `$GITHUB_OUTPUT`.
+          echo "raw_tag=$RAW_TAG" >> $GITHUB_OUTPUT
+          echo "clean_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
+
+          # Read and print the `version` field from `package.json`.
           SAVED_TAG=$(node -p "require('./package.json').version")
           echo "Current local package.json version: $SAVED_TAG"
 
-          if [ "$LATEST_TAG" = "$SAVED_TAG" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+          # Set `new_release=false` or `new_release=true` based on version and event type.
+          if [ "$CLEAN_VERSION" = "$SAVED_TAG" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
             echo "No new release found. Skipping update."
             echo "new_release=false" >> $GITHUB_OUTPUT
           else
             echo "New release detected or manually triggered!"
             echo "new_release=true" >> $GITHUB_OUTPUT
-          
-            node -e "
-              const fs = require('fs');
-              const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-              pkg.version = '$LATEST_TAG';
-              fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-            "
           fi
 
       - name: 3. Setup Node.js (Version 22)
@@ -80,17 +94,18 @@ jobs:
         run: |
           TARGET_TAG="${{ steps.check-release.outputs.raw_tag }}"
           echo "Cloning tag: $TARGET_TAG"
-          git clone --depth 1 --branch "$TARGET_TAG" https://github.com/home-assistant/frontend.git temp-frontend
+          rm -rf /tmp/temp-frontend
+          git clone --depth 1 --branch "$TARGET_TAG" https://github.com/home-assistant/frontend.git /tmp/temp-frontend
 
       - name: 7. Install Temporary Frontend Dependencies via pnpm
         if: steps.check-release.outputs.new_release == 'true'
-        working-directory: ./temp-frontend
+        working-directory: /tmp/temp-frontend
         run: pnpm install
 
       - name: 8. Create Lenient TypeScript Extraction Config
         if: steps.check-release.outputs.new_release == 'true'
         run: |
-          cat << 'EOF' > temp-frontend/tsconfig.extract.json
+          cat << 'EOF' > /tmp/temp-frontend/tsconfig.extract.json
           {
             "compilerOptions": {
               "target": "ESNext",
@@ -99,7 +114,7 @@ jobs:
               "declaration": true,
               "emitDeclarationOnly": true,
               "rootDir": "./src",
-              "outDir": "../dist",
+              "outDir": "${{ github.workspace }}/dist",
               "strict": false,
               "noEmitOnError": false,
               "skipLibCheck": true,
@@ -113,37 +128,92 @@ jobs:
           }
           EOF
 
-      - name: 9. Compile TypeScript Types into dist Folder
+      - name: 9a. Compile TypeScript Types into dist Folder
         if: steps.check-release.outputs.new_release == 'true'
-        working-directory: ./temp-frontend
+        working-directory: /tmp/temp-frontend
         run: npx tsc -p tsconfig.extract.json || true
 
-      - name: 10. Clean Up Temporary Frontend Source Files
+      - name: 9b. Patch Extracted TypeScript Declarations
         if: steps.check-release.outputs.new_release == 'true'
-        run: rm -rf temp-frontend
+        run: npm run patch:types
 
-      - name: 11. Generate Index Declaration File (generate-index-dts.js)
+      - name: 10a. Generate Index Declaration File
         if: steps.check-release.outputs.new_release == 'true'
-        run: node generate-index-dts.js
+        run: npm run generate:index-dts
+
+      - name: 10b. Typecheck Declarations
+        if: steps.check-release.outputs.new_release == 'true'
+        run: npm run typecheck
+
+      - name: 11. Update package.json and package-lock.json Version
+        if: steps.check-release.outputs.new_release == 'true'
+        run: |
+          # Write the validated semver version without leading `v` to package.json and package-lock.json.
+          CLEAN_VERSION="${{ steps.check-release.outputs.clean_version }}"
+          node -e "
+            const fs = require('fs');
+            const nextVersion = process.argv[1];
+
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            pkg.version = nextVersion;
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+
+            if (fs.existsSync('package-lock.json')) {
+              const lock = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'));
+              lock.version = nextVersion;
+              if (lock.packages && lock.packages['']) {
+                lock.packages[''].version = nextVersion;
+              }
+              fs.writeFileSync('package-lock.json', JSON.stringify(lock, null, 2) + '\n');
+            }
+          " "$CLEAN_VERSION"
 
       - name: 12. Check If Files Have Changed
         id: checkDiff
         if: steps.check-release.outputs.new_release == 'true'
         run: |
-          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+          set -e
+          git config --global --add safe.directory '*'
 
-      - name: 13. Commit and Push Only dist, package.json and package-lock.json
+          # Detect modified or untracked files in dist, package.json, and package-lock.json.
+          if [ -n "$(git status --porcelain -- dist package.json package-lock.json)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 13a. Clean Up Temporary Frontend Source Files
+        if: steps.check-release.outputs.new_release == 'true'
+        run: rm -rf /tmp/temp-frontend || true
+
+      - name: 13b. Clean Up node_modules on Local Run (act)
+        if: always() && steps.check-release.outputs.new_release == 'true' && env.ACT == 'true'
+        run: rm -rf node_modules || true
+
+      - name: 14. Commit and Tag (and Push on GitHub)
         if: steps.check-release.outputs.new_release == 'true' && steps.checkDiff.outputs.changed == 'true'
         run: |
+          set -e
+
+          # Trust mounted repository inside Docker/WSL containers.
+          git config --global --add safe.directory '*'
+
+          # Configure Git committer identity.
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config --global user.email "ci_activity@noreply.github.com"
-          
-          git add dist package.json package-lock.json
+
+          # Stage and commit only updated or new artifacts.
+          git add -- dist package.json package-lock.json
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push
-          
-          VERSION=$(node -p "require('./package.json').version")
-          
-          git tag "$VERSION"
-          git push origin "$VERSION"
-          
+
+          # Move tag to the new commit using upstream Frontend release tag format.
+          RELEASE_TAG="${{ steps.check-release.outputs.raw_tag }}"
+          git tag -f "$RELEASE_TAG"
+
+          # Push only when not running locally in act.
+          if [ "${{ env.ACT }}" = "true" ]; then
+            echo "Running in act: local commit and tag created, skipping git push."
+          else
+            git push
+            git push origin --force "$RELEASE_TAG"
+          fi
