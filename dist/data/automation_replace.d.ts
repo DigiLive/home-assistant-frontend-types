@@ -1,0 +1,11 @@
+import type { HomeAssistant } from "../types";
+import type { Condition, PlatformCondition, PlatformTrigger, Trigger } from "./automation";
+import type { ConditionDescriptions } from "./condition";
+import type { Action } from "./script";
+import { type TargetRegistries } from "./selector";
+import type { TriggerDescriptions } from "./trigger";
+export declare const isPlatformTrigger: (trigger: Trigger, descriptions: TriggerDescriptions) => trigger is PlatformTrigger;
+export declare const isPlatformCondition: (condition: Condition, descriptions: ConditionDescriptions) => condition is PlatformCondition;
+export declare const portTrigger: (oldTrigger: Trigger, newTrigger: Trigger, registries: TargetRegistries, descriptions: TriggerDescriptions) => Trigger;
+export declare const portCondition: (oldCondition: Condition, newCondition: Condition, registries: TargetRegistries, descriptions: ConditionDescriptions) => Condition;
+export declare const portAction: (oldAction: Action, newAction: Action, registries: TargetRegistries & Pick<HomeAssistant, "services">) => Action;

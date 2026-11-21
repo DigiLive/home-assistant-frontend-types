@@ -1,0 +1,18 @@
+import { LitElement, nothing } from "lit";
+import type { HomeAssistant } from "../../../../types";
+import "../../../../components/ha-svg-icon";
+import "../../../../components/ha-tooltip";
+import "../../../../components/voice-assistant-brand-icon";
+export declare class VoiceAssistantExposeAssistantIcon extends LitElement {
+    hass: HomeAssistant;
+    unsupported: boolean;
+    manual: boolean;
+    assistant?: "conversation" | "cloud.alexa" | "cloud.google_assistant";
+    render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    static styles: import("lit").CSSResult;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        "voice-assistants-expose-assistant-icon": VoiceAssistantExposeAssistantIcon;
+    }
+}

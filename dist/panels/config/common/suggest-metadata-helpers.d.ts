@@ -1,0 +1,15 @@
+import type { AreaRegistryEntry } from "../../../data/area/area_registry";
+import { type EntityRegistryEntry } from "../../../data/entity/entity_registry";
+import type { FloorRegistryEntry } from "../../../data/floor_registry";
+import type { HomeAssistant } from "../../../types";
+import type { MetadataSuggestionDomain } from "./suggest-metadata-ai";
+export type Categories = Record<string, string>;
+export type Entities = Record<string, EntityRegistryEntry>;
+export type Labels = Record<string, string>;
+export type Floors = Record<string, FloorRegistryEntry>;
+export type Areas = Record<string, AreaRegistryEntry>;
+export declare const fetchCategories: (connection: HomeAssistant["connection"], domain: MetadataSuggestionDomain) => Promise<Categories>;
+export declare const fetchLabels: (connection: HomeAssistant["connection"]) => Promise<Labels>;
+export declare const fetchFloors: (connection: HomeAssistant["connection"]) => Promise<Floors>;
+export declare const fetchAreas: (connection: HomeAssistant["connection"]) => Promise<Areas>;
+export declare const fetchEntities: (connection: HomeAssistant["connection"]) => Promise<Entities>;

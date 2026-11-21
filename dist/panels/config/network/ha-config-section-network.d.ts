@@ -1,0 +1,26 @@
+import type { TemplateResult } from "lit";
+import { LitElement } from "lit";
+import "../../../components/ha-card";
+import "../../../components/ha-icon-next";
+import "../../../components/item/ha-list-item-button";
+import "../../../components/list/ha-list-nav";
+import "../../../layouts/hass-subpage";
+import type { HomeAssistant, Route } from "../../../types";
+import "./ha-config-http-form";
+import "./ha-config-network";
+import "./ha-config-url-form";
+import "./supervisor-hostname";
+import "./supervisor-network";
+declare class HaConfigSectionNetwork extends LitElement {
+    hass: HomeAssistant;
+    route: Route;
+    narrow: boolean;
+    protected render(): TemplateResult;
+    static styles: import("lit").CSSResult;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        "ha-config-section-network": HaConfigSectionNetwork;
+    }
+}
+export {};

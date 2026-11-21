@@ -1,0 +1,36 @@
+import { closePercentBrace } from "@codemirror/lang-jinja";
+import { Compartment } from "@codemirror/state";
+import type { KeyBinding, DecorationSet, ViewUpdate } from "@codemirror/view";
+import { ViewPlugin } from "@codemirror/view";
+import type { LocalizeFunc } from "../common/translations/localize";
+export { autocompletion, closeBrackets, closeBracketsKeymap, selectedCompletion, } from "@codemirror/autocomplete";
+export { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
+export { foldGutter, highlightingFor, bracketMatching, syntaxTree, } from "@codemirror/language";
+export { closeSearchPanel, highlightSelectionMatches, openSearchPanel, search, searchKeymap, } from "@codemirror/search";
+export { lintGutter, lintKeymap, setDiagnostics } from "@codemirror/lint";
+export { EditorState } from "@codemirror/state";
+export { crosshairCursor, drawSelection, EditorView, highlightActiveLine, hoverTooltip, keymap, lineNumbers, rectangularSelection, dropCursor, tooltips, } from "@codemirror/view";
+export { indentationMarkers } from "@replit/codemirror-indentation-markers";
+export { tags } from "@lezer/highlight";
+export declare const langs: {
+    jinja2: import("@codemirror/state").Extension[];
+    yaml: import("@codemirror/language").LanguageSupport;
+};
+export declare const closeBracketsOverride: import("@codemirror/state").Extension;
+export { haJinjaCompletionSource, haJinjaHoverSource, JINJA_FUNCTION_ARG_TYPES, } from "./jinja_ha_completions";
+export type { HassArgHoverContext, JinjaArgType } from "./jinja_ha_completions";
+export { closePercentBrace };
+export declare const langCompartment: Compartment;
+export declare const readonlyCompartment: Compartment;
+export declare const linewrapCompartment: Compartment;
+export declare const yamlLintCompartment: Compartment;
+export declare const phrasesCompartment: Compartment;
+export declare const localizedPhrases: (localize: LocalizeFunc) => import("@codemirror/state").Extension;
+export declare const yamlScalarHighlighter: ViewPlugin<{
+    decorations: DecorationSet;
+    update(update: ViewUpdate): void;
+}, undefined>;
+export declare const yamlScalarHighlightStyle: import("@codemirror/state").Extension;
+export declare const tabKeyBindings: KeyBinding[];
+export declare const haTheme: import("@codemirror/state").Extension;
+export declare const haSyntaxHighlighting: import("@codemirror/state").Extension;

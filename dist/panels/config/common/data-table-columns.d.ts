@@ -1,0 +1,17 @@
+import type { HomeAssistant } from "../../../types";
+import type { LocalizeFunc } from "../../../common/translations/localize";
+import type { DataTableColumnData } from "../../../components/data-table/ha-data-table";
+import "../../../components/ha-tooltip";
+import "../../../components/ha-svg-icon";
+export declare function getEntityIdHiddenTableColumn<T>(): DataTableColumnData<T>;
+export declare function getEntityIdTableColumn<T>(localize: LocalizeFunc, defaultHidden?: boolean): DataTableColumnData<T>;
+export declare function getDomainTableColumn<T>(localize: LocalizeFunc): DataTableColumnData<T>;
+export declare function getAreaTableColumn<T>(localize: LocalizeFunc): DataTableColumnData<T>;
+export declare function getFloorTableColumn<T>(localize: LocalizeFunc): DataTableColumnData<T>;
+export declare function getCategoryTableColumn<T>(localize: LocalizeFunc): DataTableColumnData<T>;
+export declare function getEditableTableColumn<T>(localize: LocalizeFunc, tooltip: string): DataTableColumnData<T>;
+export declare function getLabelsTableColumn<T>(): DataTableColumnData<T>;
+export declare function getTriggeredAtTableColumn<T>(localize: LocalizeFunc, hass: HomeAssistant): DataTableColumnData<T>;
+export declare const renderRelativeTimeColumn: (valueRelativeTime: string, valueName: string, entity_id: string, localize: LocalizeFunc, hass: HomeAssistant) => string | import("lit-html").TemplateResult<1>;
+export declare function getCreatedAtTableColumn<T>(localize: LocalizeFunc, hass: HomeAssistant): DataTableColumnData<T>;
+export declare function getModifiedAtTableColumn<T>(localize: LocalizeFunc, hass: HomeAssistant): DataTableColumnData<T>;

@@ -1,0 +1,72 @@
+import type { CSSResultGroup } from "lit";
+import { LitElement } from "lit";
+import "../../../../components/entity/ha-entity-picker";
+import "../../../../components/ha-alert";
+import "../../../../components/ha-button";
+import "../../../../components/ha-checkbox";
+import "../../../../components/ha-expansion-panel";
+import "../../../../components/ha-icon-button";
+import "../../../../components/ha-input-helper-text";
+import "../../../../components/ha-svg-icon";
+import "../../../../components/ha-yaml-editor";
+import "../../../../components/input/ha-input";
+import "../../../../components/input/ha-input-search";
+import type { HomeAssistant } from "../../../../types";
+import "./tools-state-renderer";
+declare class HaPanelDevState extends LitElement {
+    hass: HomeAssistant;
+    private _error;
+    private _entityId;
+    private _entityFilter;
+    private _stateFilter;
+    private _attributeFilter;
+    private _deviceFilter;
+    private _areaFilter;
+    private _entity?;
+    private _state;
+    private _stateAttributes;
+    private _expanded;
+    private _validJSON;
+    private _showAttributes;
+    private _showDevice;
+    private _showArea;
+    narrow: boolean;
+    private _api;
+    private _config;
+    private _i18n;
+    private _registries;
+    private _states;
+    private _yamlEditor?;
+    private _filteredEntities;
+    protected render(): import("lit-html").TemplateResult<1>;
+    private _copyStateEntity;
+    private _entitySelected;
+    private _updateEditor;
+    private _entityIdChanged;
+    private _updateEntity;
+    private _stateChanged;
+    private _entityFilterChanged;
+    private _stateFilterChanged;
+    private _attributeFilterChanged;
+    private _deviceFilterChanged;
+    private _areaFilterChanged;
+    private _getHistoryURL;
+    private _historyFromLastChanged;
+    private _historyFromLastUpdated;
+    private _expandedChanged;
+    private _handleSetState;
+    private _applyFiltersOnEntities;
+    private _lastChangedString;
+    private _lastUpdatedString;
+    private _saveAttributeCheckboxState;
+    private _saveDeviceCheckboxState;
+    private _saveAreaCheckboxState;
+    private _yamlChanged;
+    static get styles(): CSSResultGroup;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        "tools-state": HaPanelDevState;
+    }
+}
+export {};

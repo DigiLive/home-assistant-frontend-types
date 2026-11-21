@@ -1,0 +1,77 @@
+import type { CSSResultGroup, PropertyValues, TemplateResult } from "lit";
+import { LitElement, nothing } from "lit";
+import type { LocalizeFunc } from "../../../../common/translations/localize";
+import "../../../../components/automation/ha-automation-row";
+import "../../../../components/ha-card";
+import "../../../../components/ha-dropdown";
+import "../../../../components/ha-dropdown-item";
+import "../../../../components/ha-expansion-panel";
+import "../../../../components/ha-icon-button";
+import "../../../../components/ha-svg-icon";
+import "../../../../components/ha-yaml-editor";
+import type { EntityRegistryEntry } from "../../../../data/entity/entity_registry";
+import type { Action, Option } from "../../../../data/script";
+import type { HomeAssistant } from "../../../../types";
+import "../action/ha-automation-action";
+import "../condition/ha-automation-condition";
+import "../ha-automation-editor-warning";
+import "../trigger/ha-automation-trigger-references";
+export default class HaAutomationOptionRow extends LitElement {
+    hass: HomeAssistant;
+    option?: Option;
+    defaultActions?: Action[];
+    narrow: boolean;
+    disabled: boolean;
+    index: number;
+    first: boolean;
+    last: boolean;
+    optionsInSidebar: boolean;
+    sortSelected: boolean;
+    private _expanded;
+    private _selected;
+    private _collapsed;
+    private _yamlMode;
+    private _warnings?;
+    private _yamlEditor?;
+    private _sidebarOption?;
+    _entityReg: EntityRegistryEntry[];
+    private _conditionElement?;
+    private _actionElement?;
+    private _automationRowElement?;
+    get selected(): boolean;
+    static checkUiSupport(_localize: LocalizeFunc, option: Option): Error | undefined;
+    protected willUpdate(changedProperties: PropertyValues): void;
+    protected updated(changedProperties: PropertyValues<this>): void;
+    private _expandedChanged;
+    private _getDescription;
+    private _renderOverflowLabel;
+    private _renderRow;
+    private _renderContent;
+    protected render(): typeof nothing | TemplateResult<1>;
+    private _duplicateOption;
+    private _toggleYamlMode;
+    private _onYamlChange;
+    private _saveYamlOption;
+    private _moveUp;
+    private _moveDown;
+    private _handleDropdownSelect;
+    private _removeOption;
+    private _renameOption;
+    private _editNoteOption;
+    private _conditionChanged;
+    private _actionChanged;
+    private _toggleSidebar;
+    openSidebar(option?: Option): void;
+    expand(): void;
+    collapse(): void;
+    expandAll(): void;
+    collapseAll(): void;
+    private _toggleCollapse;
+    focus(): void;
+    static get styles(): CSSResultGroup;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        "ha-automation-option-row": HaAutomationOptionRow;
+    }
+}

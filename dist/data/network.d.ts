@@ -1,0 +1,34 @@
+import type { HomeAssistant } from "../types";
+export interface IPv6ConfiguredAddress {
+    address: string;
+    flowinfo: number;
+    scope_id: number;
+    network_prefix: number;
+}
+export interface IPv4ConfiguredAddress {
+    address: string;
+    network_prefix: number;
+}
+export interface Adapter {
+    name: string;
+    index: number | null;
+    enabled: boolean;
+    auto: boolean;
+    default: boolean;
+    ipv6: IPv6ConfiguredAddress[];
+    ipv4: IPv4ConfiguredAddress[];
+}
+export interface NetworkConfig {
+    adapters: Adapter[];
+    configured_adapters: string[];
+}
+export interface NetworkUrls {
+    internal: string | null;
+    external: string | null;
+    cloud: string | null;
+}
+export declare const getNetworkConfig: (hass: HomeAssistant) => Promise<NetworkConfig>;
+export declare const setNetworkConfig: (hass: HomeAssistant, configured_adapters: string[]) => Promise<{
+    configured_adapters: string[];
+}>;
+export declare const getNetworkUrls: (hass: HomeAssistant) => Promise<NetworkUrls>;

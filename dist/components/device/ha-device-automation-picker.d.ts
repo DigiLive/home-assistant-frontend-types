@@ -1,0 +1,34 @@
+import type { ContextType } from "@lit/context";
+import type { PropertyValues } from "lit";
+import { LitElement, nothing } from "lit";
+import { internationalizationContext } from "../../data/context";
+import type { DeviceAutomation } from "../../data/device/device_automation";
+import type { EntityRegistryEntry } from "../../data/entity/entity_registry";
+import "../ha-combo-box-item";
+import "../ha-generic-picker";
+export declare abstract class HaDeviceAutomationPicker<T extends DeviceAutomation> extends LitElement {
+    label?: string;
+    deviceId?: string;
+    value?: T;
+    private _automations?;
+    private _renderEmpty;
+    _entityReg: EntityRegistryEntry[];
+    protected _i18n: ContextType<typeof internationalizationContext>;
+    private _states;
+    private _formatEntityName;
+    private _api;
+    protected get NO_AUTOMATION_TEXT(): string;
+    private _localizeDeviceAutomation;
+    private _fetchDeviceAutomations;
+    private _createNoAutomation;
+    constructor(localizeDeviceAutomation: HaDeviceAutomationPicker<T>["_localizeDeviceAutomation"], fetchDeviceAutomations: HaDeviceAutomationPicker<T>["_fetchDeviceAutomations"], createNoAutomation: HaDeviceAutomationPicker<T>["_createNoAutomation"]);
+    private get _value();
+    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+    protected updated(changedProps: PropertyValues<this>): void;
+    private _getItems;
+    private _rowRenderer;
+    private _valueRenderer;
+    private _updateDeviceInfo;
+    private _automationChanged;
+    private _setValue;
+}

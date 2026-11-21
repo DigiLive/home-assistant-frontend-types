@@ -1,0 +1,22 @@
+import type { PropertyValues } from "lit";
+import { LitElement, nothing } from "lit";
+import type { HomeAssistant } from "../../../types";
+import type { EntitiesCardEntityConfig } from "../cards/types";
+import "../components/hui-generic-entity-row";
+import "../components/hui-timestamp-display";
+import type { LovelaceRow } from "./types";
+interface SensorEntityConfig extends EntitiesCardEntityConfig {
+}
+declare class HuiSensorEntityRow extends LitElement implements LovelaceRow {
+    hass?: HomeAssistant;
+    private _config?;
+    setConfig(config: SensorEntityConfig): void;
+    protected shouldUpdate(changedProps: PropertyValues<this>): boolean;
+    protected render(): typeof nothing | import("lit-html").TemplateResult<1>;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        "hui-sensor-entity-row": HuiSensorEntityRow;
+    }
+}
+export {};
